@@ -1,0 +1,29 @@
+.character-sheet {
+    border: 2px solid green;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.character-sheet ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center the list items */
+}
+
+.character-sheet li {
+    text-align: center; /* Center the text within each list item */
+}
+
+.bot-container {
+    display: flex;
+    border: 2px solid red;
+    justify-content: space-around;
+}
+
+.bot-left-container {
+    border: 2px solid blue;
+}
+.bot-right-container {
+    border: 2px solid purple;
+}

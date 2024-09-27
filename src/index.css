@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+body {
+  font-family: 'Cinzel', serif;
+  background-color: black;
+  color: gold;
+  /* background: url('c:/users/mudfobby/workspace/capstone/assets/galvadia background.png'); */
+  background-repeat: no-repeat;
+  background-position: center 5px;
+}
+
+li {
+  list-style-type: none;
+}
+
+Link {
+  color: green;
+}
