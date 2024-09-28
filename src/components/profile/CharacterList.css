@@ -1,6 +1,7 @@
 .character-list {
     border: 2px solid green;
     height: 400px;
+    text-align: center;
 }
 .character-list ul {
     list-style-type: none; /* Remove bullet points */
@@ -11,4 +12,9 @@
 
 .character-list li {
     text-align: center; /* Center the text within each list item */
+}
+
+.characters {
+    border: 2px solid yellow;
+    margin: 30px 20px 20px 20px;
 }

@@ -1,6 +1,7 @@
 import { Route, Routes, Outlet } from "react-router-dom"
 import { Navbar } from "../components/navbar/Navbar"
 import { ProfileView } from "./ProfileView"
+import { CharacterBuilder } from "../components/characterBuilder/CharacterBuilder"
 import { useState, useEffect } from "react"
 
 
@@ -22,6 +23,7 @@ export const ApplicationViews = () => {
                 </>
                 }>
                 <Route path='profile' element={<ProfileView currentUser={currentUser} />} />
+                <Route path='characterbuilder' element={<CharacterBuilder currentUser={currentUser} />} />
             </Route>
         </Routes>
     )  

@@ -2,59 +2,65 @@ import './CharacterList.css'
 import { getAllUserCharacters } from '../../services/characterServices'
 import { useState, useEffect } from 'react'
 
-export const CharacterList = ({ currentUser, setSelectedCharacter }) => {
-    const [characters, setCharacters] = useState([])
+export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
+    const [characterList, setCharacterList] = useState([])
 
     useEffect(() => {
         getAllUserCharacters(currentUser).then(char => {
-            setCharacters(char)
-            console.log(char)
+            setCharacterList(char)
         })
-    }, [])
+    }, [currentUser, selectedCharacterId])
+
 
     const handleCreateCharacter = async () => {
-        console.log(characters)
-        if (characters.length === 5) {
+        console.log(characterList)
+        if (characterList.length >= 10) {
             window.alert("You cannot create any more characters!")
             return
-        }
+        } 
+        let name = prompt("Enter your character name")
+        console.log(selectedCharacterId)
         const blankCharacter = {
             userId: currentUser,
-            name: 'Filler',
+            name: name,
             race: '',
             class: '',
-            weaponSkill: '',
+            weaponTypeEquipped: '',
+            oneHanded: 0,
+            twoHanded: 0,
             baseStr: 0,
             baseDex: 0,
             baseAgi: 0,
             attackPower: 0,
-            weaponSlot1: null
+            weaponSlot1: null,
+            weaponSlot2: null
         }
-        return fetch("http://localhost:8088/characters", {
+        await fetch("http://localhost:8088/characters", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(blankCharacter),
-        }).then(res => res.json()).then(
+        })
             getAllUserCharacters(currentUser).then(char => {
-                setCharacters(char)
-                console.log(char)
+                setCharacterList(char)
+                setSelectedCharacterId(0)
             })
-        )
     }
 
     return (
-        <div className='character-list col-4 mx-2' key={currentUser}>
+        <div className='character-list col-4 mx-2'>
             <h2>Your Characters</h2>
             <button onClick={handleCreateCharacter}>Create New Character</button>
-            <ul>
-                {characters.map(character => {
-                    return <li onClick={() => {
-                        setSelectedCharacter(character.id)
-                    }}>{character.name}</li>
-                })}
-            </ul>
+            <div className='characters'>
+                <ul>
+                    {characterList.map(character => {
+                        return <li key={character.id} onClick={() => {
+                            setSelectedCharacterId(character.id)
+                        }}>{character.name}</li>
+                    })}
+                </ul>
+            </div>
         </div>
     )
 }
