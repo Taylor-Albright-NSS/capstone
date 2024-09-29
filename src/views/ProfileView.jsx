@@ -3,8 +3,9 @@ import { CharacterSheet } from "../components/profile/CharacterSheet"
 import { useEffect, useState } from "react"
 import './ProfileView.css'
 
-export const ProfileView = ({ currentUser }) => {
-    const [selectedCharacterId, setSelectedCharacterId] = useState(0)
+export const ProfileView = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
+    // const [selectedCharacterId, setSelectedCharacterId] = useState(0)
+
 
     return (
         <div className='profile-view'>

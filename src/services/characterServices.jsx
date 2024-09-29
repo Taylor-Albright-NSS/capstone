@@ -11,3 +11,4 @@ export const getEquippedWeapons = (characterId) => {
     return fetch(`http://localhost:8088/character_items?characterId=${characterId}&_expand=item`).then(res => res.json())
 
 }
+

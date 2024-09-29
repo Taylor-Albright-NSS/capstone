@@ -66,6 +66,23 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             return damageObject
         }
 
+        const totalDamages = () => {
+            return (
+                <div className='total-damages'>
+                    <h5>Damage Range</h5>
+                    <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 + ' - ' + calculateAttackPower()?.topDamage1}</span>
+                    <h5>Average Damage</h5>
+                    <span className='damage average-damage'>
+                        {Math.ceil((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)}
+                        {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER')}
+                        </span>
+                    <h5>DPS</h5>
+                    <span className='damage dps'>{(Math.ceil(((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
+                        {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER 2')}
+                </div>
+            )
+        }
+
         const handleCharacterDelete = async () => {
             if (selectedCharacterId === 0) {
                 window.alert("You need to select a character before you can delete!")
@@ -113,32 +130,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             )
         }
 
-        const totalDamages = () => {
-            return (
-                <>
-                    <div className='total-damages'>
-                        <h5>Damage Range</h5>
-                        <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 + ' - ' + calculateAttackPower()?.topDamage1}</span>
-                        <h5>Average Damage</h5>
-                        <span className='damage average-damage'>
-                            {Math.ceil((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)}
-                            {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER')}
-                            </span>
-                        <h5>DPS</h5>
-                        <span className='damage dps'>{(Math.ceil(((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
-                            {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER 2')}
-                    </div>
-                    {/* <div className='weapon-2-ranges'>
-                        <h6>Damage Range</h6>
-                        <span>{calculateAttackPower()?.botDamage2 + ' - ' + calculateAttackPower()?.topDamage2}</span>
-                        <h6>Average Damage</h6>
-                        <span>{Math.ceil((calculateAttackPower()?.botDamage2 + calculateAttackPower()?.topDamage2) * 0.5)}</span>
-                        <h6>DPS</h6>
-                        <span>{(Math.ceil(((calculateAttackPower()?.botDamage2 + calculateAttackPower()?.topDamage2) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
-                    </div> */}
-                </>
-            )
-        }
+
         
         return (
             <div className='character-sheet mx-2 d-flex flex-column col-5'>
@@ -194,3 +186,4 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             </div>
         )    
 }
+

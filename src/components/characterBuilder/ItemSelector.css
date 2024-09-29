@@ -1,0 +1,10 @@
+.item-selector {
+    display: flex;
+    border: 2px solid red;
+    width: 600px;
+    height: 600px;
+}
+
+.item-selector h4 {
+    text-align: center;
+}
