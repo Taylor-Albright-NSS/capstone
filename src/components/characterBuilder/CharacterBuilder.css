@@ -86,7 +86,7 @@
     font-family: sans-serif;
     z-index: 1000;
     opacity: 1;
-    transition: opacity 2.0s ease; /* Fade out over 0.5 seconds */
+    transition: opacity .5s ease; /* Fade out over 0.5 seconds */
 }
 .fade-out {
     opacity: 0;

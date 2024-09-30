@@ -4,21 +4,22 @@ import { getEquippedWeapons } from "../../services/characterServices"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
-    const [character, setCharacter] = useState({})
     const [equippedWeapons, setEquippedWeapons] = useState([])
-    const [characterCopy, setCharacterCopy] = useState({})
     const [showMessage, setShowMessage] = useState(false)
+    const [character, setCharacter] = useState({})
+    const [characterCopy, setCharacterCopy] = useState({})
+    const [classStats, setClassStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    const [raceStats, setRaceStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    const [incrementStats, setIncrementStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
 
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(character => {
             setCharacter(character[0])
-        })
-    }, [characterCopy])
+            setCharacterCopy({...character[0]})
+            })
+    }, [])
 
     useEffect(() => {
-        getCharacterById(selectedCharacterId).then(character => {
-            setCharacterCopy({...character[0]})
-        })
     }, [])
 
     useEffect(() => {
@@ -27,37 +28,62 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         })
     }, [selectedCharacterId])
 
+    //update the character with new base values
+    useEffect(() => {
+        let combinedBaseStats = {}
+        let combinedAllStats = {}
+
+        for (const stat in classStats) {
+            let classStat = classStats[stat] ? classStats[stat] : 0
+            let raceStat = raceStats[stat] ? raceStats[stat] : 0
+            combinedBaseStats[stat] = classStat + raceStat
+        }
+        for (const stat in classStats) {
+            let classStat = classStats[stat] ? classStats[stat] : 0
+            let raceStat = raceStats[stat] ? raceStats[stat] : 0
+            let incrementStat = incrementStats[stat] ? incrementStats[stat] : 0
+            combinedAllStats[stat] = classStat + raceStat + incrementStat
+        }
+        setCharacter({...character, ...combinedBaseStats})
+        setCharacterCopy({...characterCopy, ...combinedAllStats})
+    }, [classStats, raceStats])
+
+    useEffect(() => {
+        // console.log(character, ' CHARACTER')
+        // console.log(characterCopy, ' CHARACTER COPY')
+    }, [characterCopy])
+
+
     const calculateAttackPower = () => {
-        if (!character) {
+        if (!characterCopy) {
             return
         }
         let damageObject = {}
-        let str = character.baseStr
-        let dex = character.baseDex
-        let agi = character.baseAgi
+        let str = characterCopy.baseStr
+        let dex = characterCopy.baseDex
+        let agi = characterCopy.baseAgi
         equippedWeapons.forEach(item => {
             if (item.item.str != null) {str += item.item.str}
             if (item.item.dex != null) {dex += item.item.dex}
             if (item.item.agi != null) {agi += item.item.agi}
         })
-        if (character.weaponTypeEquipped === 'Onehanded') {
-            let topMultiplier = 0.15 + character.oneHanded / 20
-            let botMultiplier = 0.15 + character.oneHanded / 20
+        if (characterCopy.weaponTypeEquipped === 'Onehanded') {
+            let topMultiplier = 0.15 + characterCopy.oneHanded / 20
+            let botMultiplier = 0.15 + characterCopy.oneHanded / 20
             damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[0]?.item.topDamage))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[0]?.item.botDamage))
             damageObject.topDamage2 = equippedWeapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[1].item.topDamage))
             damageObject.botDamage2 = equippedWeapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[1].item.botDamage))
         }
-        if (character.weaponTypeEquipped === 'Twohanded') {
-            let topMultiplier = 0.15 + character.twoHanded / 20
-            let botMultiplier = 0.15 + character.twoHanded / 20
+        if (characterCopy.weaponTypeEquipped === 'Twohanded') {
+            let topMultiplier = 0.15 + characterCopy.twoHanded / 20
+            let botMultiplier = 0.15 + characterCopy.twoHanded / 20
             damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.twoHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[0]?.item.topDamage))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[0]?.item.botDamage))
-            console.log(damageObject, ' DAMAGE OBJECT')
         }
         return damageObject
     }
@@ -90,7 +116,7 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         setTimeout(() => {
             setShowMessage(false)
             document.body.removeChild(warningMessage);
-        }, 3000);
+        }, 1700);
     }
 
     const handleDecrement = (e, stat) => {
@@ -104,11 +130,54 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             return
         }
         setCharacterCopy({...characterCopy, [stat]: characterCopy[stat] - 1})
-        console.log(characterCopy)
+        setIncrementStats({...incrementStats, [stat]: incrementStats[stat] - 1})
     }
     const handleIncrement = (stat) => {
         setCharacterCopy({...characterCopy, [stat]: characterCopy[stat] + 1})
-        console.log(characterCopy[stat])
+        setIncrementStats({...incrementStats, [stat]: incrementStats[stat] + 1})
+    }
+
+    const handleClassSelect = (e) => {
+        const characterClass = e?.target.value ? e.target.value : character.class
+        if (characterClass === 'None' || characterClass === undefined) {
+            setClassStats({baseStr: 0, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, class: 'None'})
+        }
+        if (characterClass === 'Berserker') {
+            setClassStats({baseStr: 10, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, class: 'Berserker'})
+        }
+        if (characterClass === 'Fighter') {
+            setClassStats({baseStr: 5, baseDex: 5, baseAgi: 0})
+            setCharacterCopy({...characterCopy, class: 'Fighter'})
+        }
+        if (characterClass === 'Assassin') {
+            setClassStats({baseStr: 0, baseDex: 5, baseAgi: 5})
+            setCharacterCopy({...characterCopy, class: 'Assassin'})
+        }
+    }
+    const handleRaceSelect = (e) => {
+        const characterRace = e?.target.value ? e.target.value : character.race
+        if (characterRace === 'None' || characterRace === undefined) {
+            setRaceStats({baseStr: 0, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, race: 'None'})
+        }
+        if (characterRace === 'Human') {
+            setRaceStats({baseStr: 1, baseDex: 1, baseAgi: 0})
+            setCharacterCopy({...characterCopy, race: 'Human'})
+        }
+        if (characterRace === 'Elf') {
+            setRaceStats({baseStr: 0, baseDex: 1, baseAgi: 1})
+            setCharacterCopy({...characterCopy, race: 'Elf'})
+        }
+        if (characterRace === 'Half-Elf') {
+            setRaceStats({baseStr: 1, baseDex: 0, baseAgi: 1})
+            setCharacterCopy({...characterCopy, race: 'Half-Elf'})
+        }
+        if (characterRace === 'Half-Minotaur') {
+            setRaceStats({baseStr: 2, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, race: 'Half-Minotaur'})
+        }
     }
 
     return (
@@ -116,16 +185,18 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             <h2>{character && character.name}</h2>
             <div className='builders'>
                 <div className='left-builder col-6'>
-                    <select>
-                        <option>Berserker</option>
-                        <option>Fighter</option>
-                        <option>Assassin</option>
+                    <select className='class-select' value={characterCopy.class} onChange={handleClassSelect}>
+                        <option value='None'>None</option>
+                        <option value='Berserker'>Berserker</option>
+                        <option value='Fighter'>Fighter</option>
+                        <option value='Assassin'>Assassin</option>
                     </select>
-                    <select>
-                        <option>Human</option>
-                        <option>Elf</option>
-                        <option>Half-Elf</option>
-                        <option>Half-Minotaur</option>
+                    <select className='race-select' value={characterCopy.race} onChange={handleRaceSelect}>
+                        <option value='None'>None</option>
+                        <option value='Human'>Human</option>
+                        <option value='Elf'>Elf</option>
+                        <option value='Half-Elf'>Half-Elf</option>
+                        <option value='Half-Minotaur'>Half-Minotaur</option>
                     </select>
                     <ul className='attributes'>
                         <li className='d-flex'>
@@ -146,7 +217,7 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
                             <span className='attribute-number'>{characterCopy?.baseAgi}</span>
                             <button onClick={() => {handleIncrement('baseAgi')}}>+</button>
                         </li>
-                        <li className='d-flex'>
+                        {/* <li className='d-flex'>
                             <span className='attribute-string'>AGI:</span>
                             <button className='decrement-button' onClick={handleDecrement}>-</button>
                             <span className='attribute-number'>{characterCopy?.baseStr}</span>
@@ -169,9 +240,9 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
                             <button className='decrement-button'>-</button>
                             <span className='attribute-number'>{characterCopy?.baseStr}</span>
                             <button>+</button>
-                        </li>
+                        </li> */}
                     </ul>
-                    <p className=''>Attackpower: 3</p>
+                    <p className=''>Attackpower: {calculateAttackPower().attackPower}</p>
                 </div>
                 <div className='right-builder col-6'>
                     <h4>Weapon Skills</h4>
