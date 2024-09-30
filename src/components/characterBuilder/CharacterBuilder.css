@@ -56,12 +56,7 @@
     text-align: center;
 }
 
-.item {
-    border: 2px solid green;
-    flex: 0 0 20%;
-    max-width: 20%;
-    height: 100px;
-}
+
 
 .character-builder-damage {
     border: 2px solid brown;
@@ -91,3 +86,34 @@
 .fade-out {
     opacity: 0;
 }
+
+.equipment {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid purple;
+    /* width: 100px; */
+    height: 150px;
+}
+
+.equipment h6 {
+    font-size: 14px;
+    text-align: center;
+}
+.equipment p {
+    font-size: 12px;
+    text-align: center;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    align-content: flex-start; /* Align wrapped lines to the top */
+    border: 2px solid green;
+    width: 100%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    word-wrap: break-word;
+    white-space: normal;
+}
+

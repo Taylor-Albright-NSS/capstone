@@ -24,6 +24,9 @@
 }
 
 .equipment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 2px solid purple;
     /* width: 100px; */
     height: 150px;
@@ -36,4 +39,15 @@
 .equipment p {
     font-size: 12px;
     text-align: center;
+}
+
+.equip-buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.equip-buttons-container button {
+    font-size: 8px;
+    font-weight: 900;
+    margin-bottom: 0.3rem;
 }

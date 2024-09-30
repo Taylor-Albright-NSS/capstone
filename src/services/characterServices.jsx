@@ -9,6 +9,7 @@ export const getCharacterById = (characterId) => {
 export const getEquippedWeapons = (characterId) => {
     console.log(characterId, ' CHARACTER ID')
     return fetch(`http://localhost:8088/character_items?characterId=${characterId}&_expand=item`).then(res => res.json())
-
 }
+
+
 
