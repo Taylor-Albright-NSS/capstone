@@ -39,6 +39,12 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             baseStr: 0,
             baseDex: 0,
             baseAgi: 0,
+            // classStr: 0,
+            // classDex: 0,
+            // classAgi: 0,
+            // raceStr: 0,
+            // raceDex: 0,
+            // raceAgi: 0,
             attackPower: 0,
             weaponSlot1: null,
             weaponSlot2: null
