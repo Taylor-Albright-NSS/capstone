@@ -2,7 +2,10 @@ import './CharacterList.css'
 import { getAllUserCharacters } from '../../services/characterServices'
 import { useState, useEffect } from 'react'
 
-export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
+export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
+    setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+ }) => {
     const [characterList, setCharacterList] = useState([])
 
     useEffect(() => {
@@ -11,7 +14,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         })
     }, [currentUser, selectedCharacterId])
 
-
     const handleCreateCharacter = async () => {
         console.log(characterList)
         if (characterList.length >= 10) {
@@ -19,15 +21,21 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             return
         } 
         let name = prompt("Enter your character name")
-        console.log(selectedCharacterId)
+        if (!name) {
+            window.alert('character not created')
+            return
+        }
         const blankCharacter = {
             userId: currentUser,
             name: name,
             race: '',
             class: '',
             weaponTypeEquipped: '',
-            oneHanded: 0,
-            twoHanded: 0,
+            oneHanded: 1,
+            twoHanded: 1,
+            unarmed: 1,
+            daggers: 1,
+            bows: 1,
             baseStr: 0,
             baseDex: 0,
             baseAgi: 0,
@@ -42,10 +50,10 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             },
             body: JSON.stringify(blankCharacter),
         })
-            getAllUserCharacters(currentUser).then(char => {
-                setCharacterList(char)
-                setSelectedCharacterId(0)
-            })
+        getAllUserCharacters(currentUser).then(char => {
+            setCharacterList(char)
+        })
+        console.log(blankCharacter)
     }
 
     return (

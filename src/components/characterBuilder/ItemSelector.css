@@ -43,7 +43,8 @@
 
 .equip-buttons-container {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .equip-buttons-container button {

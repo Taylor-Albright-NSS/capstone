@@ -4,11 +4,14 @@ import { getCharacterById } from "../services/characterServices"
 import { getEquippedWeapons } from "../services/characterServices"
 import { useState, useEffect } from "react"
 
-export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
-    const [character, setCharacter] = useState({})
-    const [characterCopy, setCharacterCopy] = useState({})
-    const [equippedItems, setEquippedItems] = useState([])
-    const [equippedItemsCopy, setEquippedItemsCopy] = useState({})
+export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
+    setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+ }) => {
+    // const [character, setCharacter] = useState({})
+    // const [characterCopy, setCharacterCopy] = useState({})
+    // const [equippedItems, setEquippedItems] = useState([])
+    // const [equippedItemsCopy, setEquippedItemsCopy] = useState({})
 
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(character => {
@@ -40,6 +43,10 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
             setEquippedItems={setEquippedItems}
             equippedItemsCopy={equippedItemsCopy}
             setEquippedItemsCopy={setEquippedItemsCopy}
+            classStats={classStats}
+            setClassStats={setClassStats}
+            raceStats={raceStats}
+            setRaceStats={setRaceStats}
              />
             <CharacterBuilder 
             currentUser={currentUser} 
@@ -53,6 +60,10 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
             setEquippedItems={setEquippedItems}
             equippedItemsCopy={equippedItemsCopy}
             setEquippedItemsCopy={setEquippedItemsCopy}
+            classStats={classStats}
+            setClassStats={setClassStats}
+            raceStats={raceStats}
+            setRaceStats={setRaceStats}
             />
         </div>
     )

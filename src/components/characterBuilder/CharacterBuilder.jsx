@@ -2,36 +2,62 @@ import { useState, useEffect } from "react"
 import { getCharacterById } from "../../services/characterServices"
 import { getEquippedWeapons } from "../../services/characterServices"
 import { getSelectedWeapons } from "../../services/itemServices"
+import { CharacterSheet } from "character-sheet"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId, character, 
     characterCopy, setCharacter, setCharacterCopy, equippedItems, setEquippedItems, equippedItemsCopy,
-    setEquippedItemsCopy }) => {
+    setEquippedItemsCopy, classStats, setClassStats, raceStats, setRaceStats }) => {
     const [equippedWeapons, setEquippedWeapons] = useState([])
     const [showMessage, setShowMessage] = useState(false)
-    const [classStats, setClassStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
-    const [raceStats, setRaceStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    // const [classStats, setClassStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    // const [raceStats, setRaceStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
     const [incrementStats, setIncrementStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    const [statsFromGear, setStatsFromGear] = useState({str: 0, dex: 0, agi: 0})
 
-    //update the character with new base values
+
+    useEffect(() => {
+        console.log(characterCopy)
+    }, [classStats, raceStats, equippedItemsCopy, incrementStats])
+
     useEffect(() => {
         let combinedBaseStats = {}
         let combinedAllStats = {}
+        let statsFromGear = totalStatsFromGear()
 
         for (const stat in classStats) {
             let classStat = classStats[stat] ? classStats[stat] : 0
             let raceStat = raceStats[stat] ? raceStats[stat] : 0
-            combinedBaseStats[stat] = classStat + raceStat
+            let gearStat = statsFromGear[stat] ? statsFromGear[stat] : 0
+            combinedBaseStats[stat] = classStat + raceStat + gearStat
         }
         for (const stat in classStats) {
             let classStat = classStats[stat] ? classStats[stat] : 0
             let raceStat = raceStats[stat] ? raceStats[stat] : 0
             let incrementStat = incrementStats[stat] ? incrementStats[stat] : 0
-            combinedAllStats[stat] = classStat + raceStat + incrementStat
+            let gearStat = statsFromGear[stat] ? statsFromGear[stat] : 0
+            combinedAllStats[stat] = classStat + raceStat + incrementStat + gearStat
         }
         setCharacter({...character, ...combinedBaseStats})
         setCharacterCopy({...characterCopy, ...combinedAllStats})
-    }, [classStats, raceStats])
+    }, [classStats, raceStats, equippedItemsCopy])
+
+    const totalStatsFromGear = () => {
+        let statsObject = {
+            baseStr: 0,
+            baseDex: 0,
+            baseAgi: 0
+        }
+        for (const itemSlot in equippedItemsCopy) {
+            let checkedEquipment = equippedItemsCopy[itemSlot]
+            for (const stat in checkedEquipment) {
+                if (stat === 'str') {statsObject.baseStr += checkedEquipment[stat]}
+                if (stat === 'dex') {statsObject.baseDex += checkedEquipment[stat]}
+                if (stat === 'agi') {statsObject.baseAgi += checkedEquipment[stat]}
+            }
+        }
+        return statsObject
+    }
 
     const calculateDamageObject = () => {
         if (!characterCopy) {
@@ -42,83 +68,56 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         let dex = characterCopy.baseDex
         let agi = characterCopy.baseAgi
         let {weaponSlot1, weaponSlot2} = equippedItemsCopy
-        console.log(weaponSlot1)
-        if (weaponSlot1) {
-            str += weaponSlot1.str
-            dex += weaponSlot1.dex
-            agi += weaponSlot1.agi
-        }
-        if (weaponSlot2) {
-            str += weaponSlot2.str
-            dex += weaponSlot2.dex
-            agi += weaponSlot2.agi
-        }
 
         if (characterCopy.weaponTypeEquipped === 'Onehanded') {
             let topMultiplier = 0.15 + characterCopy.oneHanded / 20
             let botMultiplier = 0.15 + characterCopy.oneHanded / 20
             damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
             damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
-            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weaponSlot1?.topDamage))
-            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weaponSlot1?.botDamage))
-            damageObject.topDamage2 = weaponSlot2 && Math.ceil(damageObject.attackPower * (topMultiplier * weaponSlot2?.topDamage))
-            damageObject.botDamage2 = weaponSlot2 && Math.ceil(damageObject.attackPower * (botMultiplier * weaponSlot2?.botDamage))
-            console.log(weaponSlot1)
+
+            damageObject.botDamage1 = weaponSlot1 && damageObject.attackPower * (botMultiplier * weaponSlot1?.botDamage)
+            damageObject.topDamage1 = weaponSlot1 && damageObject.attackPower * (topMultiplier * weaponSlot1?.topDamage)
+
+            damageObject.botDamage2 = weaponSlot2 && damageObject.attackPower * (botMultiplier * weaponSlot2?.botDamage)
+            damageObject.topDamage2 = weaponSlot2 && damageObject.attackPower * (topMultiplier * weaponSlot2?.topDamage)
+
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0) + (damageObject.botDamage2 || 0)).toFixed(2))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
+
         }
         if (characterCopy.weaponTypeEquipped === 'Twohanded') {
             let topMultiplier = 0.15 + characterCopy.twoHanded / 20
             let botMultiplier = 0.15 + characterCopy.twoHanded / 20
+
             damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
             damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
-            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedItemsCopy[0]?.item.topDamage))
-            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedItemsCopy[0]?.item.botDamage))
+
+            damageObject.botDamage1 = damageObject.attackPower * (botMultiplier * weaponSlot1?.botDamage)
+            damageObject.topDamage1 = damageObject.attackPower * (topMultiplier * weaponSlot1?.topDamage)
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0)).toFixed(2))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0)).toFixed(2))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
         }
         return damageObject
-
-
-
-
-
-
-
-        // equippedItems.forEach(item => {
-        //     if (item.item.str != null) {str += item.item.str}
-        //     if (item.item.dex != null) {dex += item.item.dex}
-        //     if (item.item.agi != null) {agi += item.item.agi}
-        // })
-        // if (characterCopy.weaponTypeEquipped === 'Onehanded') {
-        //     let topMultiplier = 0.15 + characterCopy.oneHanded / 20
-        //     let botMultiplier = 0.15 + characterCopy.oneHanded / 20
-        //     damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
-        //     damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
-        //     damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedItemsCopy[0]?.item.topDamage))
-        //     damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedItemsCopy[0]?.item.botDamage))
-        //     damageObject.topDamage2 = equippedItemsCopy[1] && Math.ceil(damageObject.attackPower * (topMultiplier * equippedItemsCopy[1].item.topDamage))
-        //     damageObject.botDamage2 = equippedItemsCopy[1] && Math.ceil(damageObject.attackPower * (botMultiplier * equippedItemsCopy[1].item.botDamage))
-        // }
-        // if (characterCopy.weaponTypeEquipped === 'Twohanded') {
-        //     let topMultiplier = 0.15 + characterCopy.twoHanded / 20
-        //     let botMultiplier = 0.15 + characterCopy.twoHanded / 20
-        //     damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
-        //     damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
-        //     damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedItemsCopy[0]?.item.topDamage))
-        //     damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedItemsCopy[0]?.item.botDamage))
-        // }
-        // return damageObject
     }
 
     const totalDamages = () => {
-        console.log(calculateDamageObject())
+        let damageObject = calculateDamageObject()
         return (
             <div className='total-damages'>
                 <h5>Damage Range</h5>
-                <span className='damage damage-range'>{calculateDamageObject()?.botDamage1 + ' - ' + calculateDamageObject()?.topDamage1}</span>
+                <span className='damage damage-range'>{damageObject.totalDamageBot ? damageObject?.totalDamageBot + ' - ' + damageObject?.totalDamageTop : 0}</span>
                 <h5>Average Damage</h5>
                 <span className='damage average-damage'>
-                    {Math.ceil((calculateDamageObject()?.botDamage1 + calculateDamageObject()?.topDamage1) * 0.5)}
+                    {damageObject.totalAverageDamage ? damageObject.totalAverageDamage : 0}
                     </span>
                 <h5>DPS</h5>
-                <span className='damage dps'>{(Math.ceil(((calculateDamageObject()?.botDamage1 + calculateDamageObject()?.topDamage1) * 0.5)) / calculateDamageObject()?.speed).toFixed(1)}</span>
+                <span className='damage dps'>{damageObject.totalDps ? damageObject.totalDps : 0}</span>
             </div>
         )
     }
@@ -158,6 +157,7 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
     }
 
     const handleClassSelect = (e) => {
+        console.log(character)
         const characterClass = e?.target.value ? e.target.value : character.class
         if (characterClass === 'None' || characterClass === undefined) {
             setClassStats({baseStr: 0, baseDex: 0, baseAgi: 0})
@@ -176,6 +176,7 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             setCharacterCopy({...characterCopy, class: 'Assassin'})
         }
     }
+
     const handleRaceSelect = (e) => {
         const characterRace = e?.target.value ? e.target.value : character.race
         if (characterRace === 'None' || characterRace === undefined) {
@@ -200,12 +201,16 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         }
     }
 
-    const mapItemObject = () => {
-        for (const item of equippedItemsCopy) {
-
-        }
+    const handleSaveCharacter = () => {
+        window.alert('character saved!')
+        return fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(characterCopy)
+        }).then(res => res.json())
     }
-
 
     return (
         <div className='character-builder'>
@@ -274,26 +279,34 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
                 <div className='right-builder col-6'>
                     <h4>Weapon Skills</h4>
                     <div className='weapon-skills'>
-                        <p>Onehanded</p>
-                        <p>Twohanded</p>
+                        <p className={characterCopy.weaponTypeEquipped === 'Onehanded' ? 'selected-weapon-skill' : ''}>Onehanded</p>
+                        <p>{characterCopy.oneHanded}</p>
+                        <p className={characterCopy.weaponTypeEquipped === 'Twohanded' ? 'selected-weapon-skill' : ''}>Twohanded</p>
+                        <p>{characterCopy.oneHanded}</p>
                     </div>
                 </div>
             </div>
             <div>
             <h4>Equipment</h4>
             <div className='item-container'>
-                {equippedItemsCopy.weaponSlot1 && <p>STR: {equippedItemsCopy.weaponSlot1.str}</p>}
-                {equippedItems ? equippedItems.map(item => {
-                    return (
-                        <div className='equipment col-3'>
-                            <h6 style={{color: item.item.color}}>{item.item.name}</h6>
-                            <p>Damage: {item.item.botDamage + ' - ' + item.item.topDamage}</p>
-                            <p>Str: {item ? item.itemstr : ''}</p>
-                            <p>Dex: {item ? item.item.dex : ''}</p>
-                            <p>Agi: {item ? item.item.agi : ''}</p>
-                        </div>
-                    )
-                }) : ''}
+                {equippedItemsCopy.weaponSlot1 ?
+                <div className='equipment col-3'>
+                    <h6 style={{color: equippedItemsCopy.weaponSlot1.color}}>{equippedItemsCopy.weaponSlot1.name}</h6>
+                    <p>Damage: {equippedItemsCopy.weaponSlot1.botDamage + ' - ' + equippedItemsCopy.weaponSlot1.topDamage}</p>
+                    <p>Str: {equippedItemsCopy.weaponSlot1.str}</p>
+                    <p>Dex: {equippedItemsCopy.weaponSlot1.dex}</p>
+                    <p>Agi: {equippedItemsCopy.weaponSlot1.agi}</p>
+                 </div> : <div className='equipment col-3'></div>
+                 }
+                {equippedItemsCopy.weaponSlot2 ?
+                <div className='equipment col-3'>
+                    <h6 style={{color: equippedItemsCopy.weaponSlot2.color}}>{equippedItemsCopy.weaponSlot2.name}</h6>
+                    <p>Damage: {equippedItemsCopy.weaponSlot2.botDamage + ' - ' + equippedItemsCopy.weaponSlot2.topDamage}</p>
+                    <p>Str: {equippedItemsCopy.weaponSlot2.str}</p>
+                    <p>Dex: {equippedItemsCopy.weaponSlot2.dex}</p>
+                    <p>Agi: {equippedItemsCopy.weaponSlot2.agi}</p>
+                 </div> : <div className='equipment col-3'></div>
+                 }
                         {/* {itemSelectorWeapons[0] && 
                             <div className='equipment col-3'>
                                 <h6 style={{color: itemSelectorWeapons[0].color}}>{itemSelectorWeapons[0].name}</h6>
@@ -317,6 +330,9 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             </div>
             <div className='character-builder-damage'>
                 {totalDamages()}
+            </div>
+            <div>
+                <button onClick={handleSaveCharacter}>Save Character</button>
             </div>
         </div>
     )

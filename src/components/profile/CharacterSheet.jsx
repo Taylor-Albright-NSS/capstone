@@ -2,8 +2,11 @@ import './CharacterSheet.css'
 import { getCharacterById, getEquippedWeapons, getAllUserCharacters } from "../../services/characterServices"
 import { useState, useEffect } from "react"
 
-export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId }) => {
-        const [character, setCharacter] = useState({})
+export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
+    setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+ }) => {
+        // const [character, setCharacter] = useState({})
         const [equippedWeapons, setEquippedWeapons] = useState([])
 
         useEffect(() => {
@@ -14,20 +17,39 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             })
         }, [selectedCharacterId])
 
+        //Character setter
         useEffect(() => {
             getCharacterById(selectedCharacterId).then(userCharacter => {
                 setCharacter(userCharacter[0])
-                console.log(userCharacter[0])
-                console.log(selectedCharacterId)
+                setCharacterCopy({...userCharacter[0]})
             })
         }, [selectedCharacterId])
-    
+
+        //Class select handler
         useEffect(() => {
-                getAllUserCharacters(currentUser).then(char => {
-                console.log(char)
-                console.log(equippedWeapons, ' EQUIPPED WEAPONS')
-            })
-        }, [selectedCharacterId])
+            // handleClassSelect()
+        }, [character])
+
+        // const handleClassSelect = () => {
+        //     const characterClass = character.class
+        //     console.log(characterClass, ' CHARACTER CLASS')
+        //     if (characterClass === 'None' || characterClass === undefined) {
+        //         setClassStats({baseStr: 0, baseDex: 0, baseAgi: 0})
+        //         setCharacterCopy({...characterCopy, class: 'None'})
+        //     }
+        //     if (characterClass === 'Berserker') {
+        //         setClassStats({baseStr: 10, baseDex: 0, baseAgi: 0})
+        //         setCharacterCopy({...characterCopy, class: 'Berserker'})
+        //     }
+        //     if (characterClass === 'Fighter') {
+        //         setClassStats({baseStr: 5, baseDex: 5, baseAgi: 0})
+        //         setCharacterCopy({...characterCopy, class: 'Fighter'})
+        //     }
+        //     if (characterClass === 'Assassin') {
+        //         setClassStats({baseStr: 0, baseDex: 5, baseAgi: 5})
+        //         setCharacterCopy({...characterCopy, class: 'Assassin'})
+        //     }
+        // }
 
         const calculateAttackPower = () => {
             if (!character) {
