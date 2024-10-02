@@ -5,7 +5,8 @@ import './ItemSelector.css'
 export const ItemSelector = ({
     character, characterCopy, setCharacter, setCharacterCopy,equippedItems, 
     setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStats,
-    setClassStats, raceStats, setRaceStats
+    setClassStats, raceStats, setRaceStats, classStatsCopy, setClassStatsCopy,
+    raceStatsCopy, setRaceStatsCopy
     }) => {
     const [allItems, setAllItems] = useState([])
 

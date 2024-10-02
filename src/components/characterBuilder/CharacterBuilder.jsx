@@ -3,24 +3,20 @@ import { getCharacterById } from "../../services/characterServices"
 import { getEquippedWeapons } from "../../services/characterServices"
 import { getSelectedWeapons } from "../../services/itemServices"
 import { CharacterSheet } from "character-sheet"
+import { calculcateStatsFromEquipment } from "../../services/calculationServices"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId, character, 
     characterCopy, setCharacter, setCharacterCopy, equippedItems, setEquippedItems, equippedItemsCopy,
-    setEquippedItemsCopy, classStats, setClassStats, raceStats, setRaceStats }) => {
+    setEquippedItemsCopy, classStats, setClassStats, raceStats, setRaceStats, classStatsCopy, setClassStatsCopy,
+    raceStatsCopy, setRaceStatsCopy }) => {
     const [equippedWeapons, setEquippedWeapons] = useState([])
     const [showMessage, setShowMessage] = useState(false)
-    // const [classStats, setClassStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
-    // const [raceStats, setRaceStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
     const [incrementStats, setIncrementStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
     const [statsFromGear, setStatsFromGear] = useState({str: 0, dex: 0, agi: 0})
 
-
     useEffect(() => {
-        console.log(characterCopy)
-    }, [classStats, raceStats, equippedItemsCopy, incrementStats])
-
-    useEffect(() => {
+        // console.log(calculcateStatsFromEquipment(equippedItemsCopy))
         let combinedBaseStats = {}
         let combinedAllStats = {}
         let statsFromGear = totalStatsFromGear()
@@ -38,9 +34,57 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             let gearStat = statsFromGear[stat] ? statsFromGear[stat] : 0
             combinedAllStats[stat] = classStat + raceStat + incrementStat + gearStat
         }
-        setCharacter({...character, ...combinedBaseStats})
+        // setCharacter({...character, ...combinedBaseStats})
         setCharacterCopy({...characterCopy, ...combinedAllStats})
     }, [classStats, raceStats, equippedItemsCopy])
+
+    
+const calculcateStatsFromEquipment = () => {
+    let weapons = equippedItemsCopy.filter(item => item.item.slotId === 'weapon')
+    console.log(weapons)
+    let statsObject = {
+        str: 0,
+        dex: 0,
+        agi: 0
+    }
+    weapons.forEach(item => {
+        console.log(item, ' ITEM')
+        if (item.item.str != null) {statsObject.str += item.item.str}
+        if (item.item.dex != null) {statsObject.dex += item.item.dex}
+        if (item.item.agi != null) {statsObject.agi += item.item.agi}
+    })
+    console.log(statsObject, ' STATS OBJECT')
+    return statsObject
+}
+
+const calculateIncrementedStats = () => {
+    const incrementedStatsObject = {
+        str: characterCopy.incrementedStr,
+        dex: characterCopy.incrementedDex,
+        agi: characterCopy.incrementedAgi
+    }
+    return incrementedStatsObject
+}
+const calculateTotalStats = () => {
+    let equipmentStats = calculcateStatsFromEquipment()
+    let cStats = classStatsCopy
+    let rStats = raceStatsCopy
+    let incrementedStats = calculateIncrementedStats()
+    let totalStatsObject = {}
+    console.log(characterCopy, ' CHARACTER COPY')
+    console.log(equipmentStats, ' EQUIPMENTSTATS')
+    console.log(cStats, 'CLASS STATS COPY')
+    console.log(classStats, '+++++++++++++++++')
+    console.log(rStats, ' RACE STATS COPY')
+    console.log(incrementedStats, ' INCREMENTED CHARACTER COPY STATS')
+    let stats = ['str', 'dex', 'agi']
+    stats.forEach(stat => {
+        totalStatsObject[stat] = equipmentStats[stat] + cStats[stat] + rStats[stat] + incrementedStats[stat]
+    })
+    console.log(totalStatsObject)
+    return totalStatsObject
+}
+const totalStats = calculateTotalStats()
 
     const totalStatsFromGear = () => {
         let statsObject = {
@@ -159,45 +203,49 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
     const handleClassSelect = (e) => {
         console.log(character)
         const characterClass = e?.target.value ? e.target.value : character.class
-        if (characterClass === 'None' || characterClass === undefined) {
-            setClassStats({baseStr: 0, baseDex: 0, baseAgi: 0})
-            setCharacterCopy({...characterCopy, class: 'None'})
+        if (characterClass === 'none' || characterClass === undefined) {
+            setClassStatsCopy({str: 0, dex: 0, agi: 0, characterClass: 'none'})
+            setCharacterCopy({...characterCopy, classStatsId: 0})
+            // setCharacterCopy({...characterCopy, class: 'none', classStatsId: 0})
         }
-        if (characterClass === 'Berserker') {
-            setClassStats({baseStr: 10, baseDex: 0, baseAgi: 0})
-            setCharacterCopy({...characterCopy, class: 'Berserker'})
+        if (characterClass === 'berserker') {
+            setClassStatsCopy({str: 10, dex: 0, agi: 0, characterClass: 'berserker'})
+            setCharacterCopy({...characterCopy, classStatsId: 1})
+            // setCharacterCopy({...characterCopy, class: 'berserker', classStatsId: 1})
         }
-        if (characterClass === 'Fighter') {
-            setClassStats({baseStr: 5, baseDex: 5, baseAgi: 0})
-            setCharacterCopy({...characterCopy, class: 'Fighter'})
+        if (characterClass === 'fighter') {
+            setClassStatsCopy({str: 5, dex: 5, agi: 0, characterClass: 'fighter'})
+            setCharacterCopy({...characterCopy, classStatsId: 2})
+            // setCharacterCopy({...characterCopy, class: 'fighter', classStatsId: 2})
         }
-        if (characterClass === 'Assassin') {
-            setClassStats({baseStr: 0, baseDex: 5, baseAgi: 5})
-            setCharacterCopy({...characterCopy, class: 'Assassin'})
+        if (characterClass === 'assassin') {
+            setClassStatsCopy({str: 0, dex: 5, agi: 5, characterClass: 'assassin'})
+            setCharacterCopy({...characterCopy, classStatsId: 3})
+            // setCharacterCopy({...characterCopy, class: 'assassin', classStatsId: 3})
         }
     }
 
     const handleRaceSelect = (e) => {
         const characterRace = e?.target.value ? e.target.value : character.race
-        if (characterRace === 'None' || characterRace === undefined) {
-            setRaceStats({baseStr: 0, baseDex: 0, baseAgi: 0})
-            setCharacterCopy({...characterCopy, race: 'None'})
+        if (characterRace === 'none' || characterRace === undefined) {
+            setRaceStatsCopy({baseStr: 0, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, raceId: 1})
         }
-        if (characterRace === 'Human') {
-            setRaceStats({baseStr: 1, baseDex: 1, baseAgi: 0})
-            setCharacterCopy({...characterCopy, race: 'Human'})
+        if (characterRace === 'human') {
+            setRaceStatsCopy({baseStr: 1, baseDex: 1, baseAgi: 0})
+            setCharacterCopy({...characterCopy, raceId: 2})
         }
-        if (characterRace === 'Elf') {
-            setRaceStats({baseStr: 0, baseDex: 1, baseAgi: 1})
-            setCharacterCopy({...characterCopy, race: 'Elf'})
+        if (characterRace === 'elf') {
+            setRaceStatsCopy({baseStr: 0, baseDex: 1, baseAgi: 1})
+            setCharacterCopy({...characterCopy, raceId: 3})
         }
-        if (characterRace === 'Half-Elf') {
-            setRaceStats({baseStr: 1, baseDex: 0, baseAgi: 1})
-            setCharacterCopy({...characterCopy, race: 'Half-Elf'})
+        if (characterRace === 'half-elf') {
+            setRaceStatsCopy({baseStr: 1, baseDex: 0, baseAgi: 1})
+            setCharacterCopy({...characterCopy, raceId: 4})
         }
-        if (characterRace === 'Half-Minotaur') {
-            setRaceStats({baseStr: 2, baseDex: 0, baseAgi: 0})
-            setCharacterCopy({...characterCopy, race: 'Half-Minotaur'})
+        if (characterRace === 'half-minotaur') {
+            setRaceStatsCopy({baseStr: 2, baseDex: 0, baseAgi: 0})
+            setCharacterCopy({...characterCopy, raceId: 5})
         }
     }
 
@@ -218,35 +266,35 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
             <div className='builders'>
                 <div className='left-builder col-6'>
                     <select className='class-select' value={characterCopy.class} onChange={handleClassSelect}>
-                        <option value='None'>None</option>
-                        <option value='Berserker'>Berserker</option>
-                        <option value='Fighter'>Fighter</option>
-                        <option value='Assassin'>Assassin</option>
+                        <option value='none'>none</option>
+                        <option value='berserker'>berserker</option>
+                        <option value='fighter'>fighter</option>
+                        <option value='assassin'>assassin</option>
                     </select>
                     <select className='race-select' value={characterCopy.race} onChange={handleRaceSelect}>
-                        <option value='None'>None</option>
-                        <option value='Human'>Human</option>
-                        <option value='Elf'>Elf</option>
-                        <option value='Half-Elf'>Half-Elf</option>
-                        <option value='Half-Minotaur'>Half-Minotaur</option>
+                        <option value='none'>none</option>
+                        <option value='human'>human</option>
+                        <option value='elf'>elf</option>
+                        <option value='half-elf'>half-elf</option>
+                        <option value='half-minotaur'>half-minotaur</option>
                     </select>
                     <ul className='attributes'>
                         <li className='d-flex'>
                             <span className='attribute-string'>STR:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'baseStr')}}>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseStr}</span>
+                            <span className='attribute-number'>{totalStats.str}</span>
                             <button onClick={() => {handleIncrement('baseStr')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>DEX:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'baseDex')}}>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseDex}</span>
+                            <span className='attribute-number'>{totalStats.dex}</span>
                             <button onClick={() => {handleIncrement('baseDex')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>AGI:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'baseAgi')}}>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseAgi}</span>
+                            <span className='attribute-number'>{totalStats.agi}</span>
                             <button onClick={() => {handleIncrement('baseAgi')}}>+</button>
                         </li>
                         {/* <li className='d-flex'>

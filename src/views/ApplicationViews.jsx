@@ -12,8 +12,10 @@ export const ApplicationViews = () => {
     const [characterCopy, setCharacterCopy] = useState({})
     const [equippedItems, setEquippedItems] = useState([])
     const [equippedItemsCopy, setEquippedItemsCopy] = useState({})
-    const [classStats, setClassStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
-    const [raceStats, setRaceStats] = useState({baseStr: 0, baseDex: 0, baseAgi: 0})
+    const [classStats, setClassStats] = useState({str: 0, dex: 0, agi: 0})
+    const [classStatsCopy, setClassStatsCopy] = useState({str: 0, dex: 0, agi: 0})
+    const [raceStats, setRaceStats] = useState({str: 0, dex: 0, agi: 0})
+    const [raceStatsCopy, setRaceStatsCopy] = useState({str: 0, dex: 0, agi: 0})
 
     useEffect(() => {
         const currentUserObj = localStorage.getItem('capstone_user')
@@ -47,6 +49,10 @@ export const ApplicationViews = () => {
                                                 setEquippedItems={setEquippedItems}
                                                 equippedItemsCopy={equippedItemsCopy}
                                                 setEquippedItemsCopy={setEquippedItemsCopy}
+                                                classStatsCopy={classStatsCopy}
+                                                setClassStatsCopy={setClassStatsCopy}
+                                                raceStatsCopy={raceStatsCopy}
+                                                setRaceStatsCopy={setRaceStatsCopy}
                                                 />} 
                                                 />
                 <Route path='characterbuilder' element={<CharacterBuilderView 
@@ -65,6 +71,10 @@ export const ApplicationViews = () => {
                                                 setEquippedItems={setEquippedItems}
                                                 equippedItemsCopy={equippedItemsCopy}
                                                 setEquippedItemsCopy={setEquippedItemsCopy}
+                                                classStatsCopy={classStatsCopy}
+                                                setClassStatsCopy={setClassStatsCopy}
+                                                raceStatsCopy={raceStatsCopy}
+                                                setRaceStatsCopy={setRaceStatsCopy}
                                                 />} 
                                                 />
             </Route>

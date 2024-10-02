@@ -1,211 +1,247 @@
 import './CharacterSheet.css'
 import { getCharacterById, getEquippedWeapons, getAllUserCharacters } from "../../services/characterServices"
 import { useState, useEffect } from "react"
+import { getAllEquippedItems } from '../../services/itemServices'
+import { getCharacterClassAndRaceStats } from '../../services/statsServices'
 
 export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
-    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
+    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
-        // const [character, setCharacter] = useState({})
-        const [equippedWeapons, setEquippedWeapons] = useState([])
 
-        useEffect(() => {
-            getEquippedWeapons(selectedCharacterId).then(weapons => {
-                console.log(selectedCharacterId)
-                console.log(weapons)
-                setEquippedWeapons(weapons)
-            })
-        }, [selectedCharacterId])
+    useEffect(() => {
+        getCharacterById(selectedCharacterId).then(userCharacter => {
+            setCharacter(userCharacter[0])
+        })
+    }, [selectedCharacterId])
 
-        //Character setter
-        useEffect(() => {
-            getCharacterById(selectedCharacterId).then(userCharacter => {
-                setCharacter(userCharacter[0])
-                setCharacterCopy({...userCharacter[0]})
-            })
-        }, [selectedCharacterId])
+    useEffect(() => {
+        getAllEquippedItems(selectedCharacterId).then(equipmentArray => {
+            setEquippedItems(equipmentArray)
 
-        //Class select handler
-        useEffect(() => {
-            // handleClassSelect()
-        }, [character])
+        })
+    }, [selectedCharacterId])
 
-        // const handleClassSelect = () => {
-        //     const characterClass = character.class
-        //     console.log(characterClass, ' CHARACTER CLASS')
-        //     if (characterClass === 'None' || characterClass === undefined) {
-        //         setClassStats({baseStr: 0, baseDex: 0, baseAgi: 0})
-        //         setCharacterCopy({...characterCopy, class: 'None'})
-        //     }
-        //     if (characterClass === 'Berserker') {
-        //         setClassStats({baseStr: 10, baseDex: 0, baseAgi: 0})
-        //         setCharacterCopy({...characterCopy, class: 'Berserker'})
-        //     }
-        //     if (characterClass === 'Fighter') {
-        //         setClassStats({baseStr: 5, baseDex: 5, baseAgi: 0})
-        //         setCharacterCopy({...characterCopy, class: 'Fighter'})
-        //     }
-        //     if (characterClass === 'Assassin') {
-        //         setClassStats({baseStr: 0, baseDex: 5, baseAgi: 5})
-        //         setCharacterCopy({...characterCopy, class: 'Assassin'})
-        //     }
-        // }
+    useEffect(() => {
+        getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
+            setClassStats(stats[0].classStats)
+            setRaceStats(stats[0].raceStats)
+            console.log(stats, ' SHOULD BE STATS')
+        })
+    }, [selectedCharacterId])
 
-        const calculateAttackPower = () => {
-            if (!character) {
-                return
-            }
-            let damageObject = {}
-            let str = character.baseStr
-            let dex = character.baseDex
-            let agi = character.baseAgi
-            equippedWeapons.forEach(item => {
-                console.log(item, ' ITEM')
-                if (item.item.str != null) {str += item.item.str}
-                if (item.item.dex != null) {dex += item.item.dex}
-                if (item.item.agi != null) {agi += item.item.agi}
-            })
-            if (character.weaponTypeEquipped === 'Onehanded') {
-                let topMultiplier = 0.15 + character.oneHanded / 20
-                let botMultiplier = 0.15 + character.oneHanded / 20
-                damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
-                damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(1)))
-                damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[0]?.item.topDamage))
-                damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[0]?.item.botDamage))
-                damageObject.topDamage2 = equippedWeapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[1].item.topDamage))
-                damageObject.botDamage2 = equippedWeapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[1].item.botDamage))
-            }
-            if (character.weaponTypeEquipped === 'Twohanded') {
-                let topMultiplier = 0.15 + character.twoHanded / 20
-                let botMultiplier = 0.15 + character.twoHanded / 20
-                damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
-                damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.twoHanded / 5) * 100) / 100).toFixed(1)))
-                damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * equippedWeapons[0]?.item.topDamage))
-                damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * equippedWeapons[0]?.item.botDamage))
-                console.log(damageObject, ' DAMAGE OBJECT')
-            }
-            console.log(damageObject)
-            return damageObject
+
+
+
+
+    const [equippedWeapons, setEquippedWeapons] = useState([])
+
+    useEffect(() => {
+        getEquippedWeapons(selectedCharacterId).then(weapons => {
+            setEquippedWeapons(weapons)
+        })
+    }, [character])
+    const calculcateStatsFromEquipment = () => {
+        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        let statsObject = {
+            str: 0,
+            dex: 0,
+            agi: 0
         }
+        weapons.forEach(item => {
+            console.log(item, ' ITEM')
+            if (item.item.str != null) {statsObject.str += item.item.str}
+            if (item.item.dex != null) {statsObject.dex += item.item.dex}
+            if (item.item.agi != null) {statsObject.agi += item.item.agi}
+        })
+        return statsObject
+    }
 
-        const totalDamages = () => {
-            return (
-                <div className='total-damages'>
-                    <h5>Damage Range</h5>
-                    <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 + ' - ' + calculateAttackPower()?.topDamage1}</span>
-                    <h5>Average Damage</h5>
-                    <span className='damage average-damage'>
-                        {Math.ceil((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)}
-                        {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER')}
-                        </span>
-                    <h5>DPS</h5>
-                    <span className='damage dps'>{(Math.ceil(((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
-                        {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER 2')}
-                </div>
-            )
+    const calculateIncrementedStats = () => {
+        const incrementStatsObject = {
+            str: character?.incrementedStr,
+            dex: character?.incrementedDex,
+            agi: character?.incrementedAgi
         }
+        return incrementStatsObject
+    }
+    const calculateTotalStats = () => {
+        let equipmentStats = calculcateStatsFromEquipment()
+        let cStats = classStats
+        let rStats = raceStats
+        let incrementedStats = calculateIncrementedStats()
+        let totalStatsObject = {}
+        console.log(equipmentStats)
+        console.log(cStats)
+        console.log(rStats)
+        console.log(incrementedStats)
+        console.log(totalStatsObject)
+        let stats = ['str', 'dex', 'agi']
+        stats.forEach(stat => {
+            totalStatsObject[stat] = equipmentStats[stat] + cStats[stat] + rStats[stat] + incrementedStats[stat]
+        })
+        console.log(totalStatsObject)
+        return totalStatsObject
+    }
+    const totalStats = calculateTotalStats()
 
-        const handleCharacterDelete = async () => {
-            if (selectedCharacterId === 0) {
-                window.alert("You need to select a character before you can delete!")
-                return
-            } else if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
-                    await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
-                        method: "DELETE",
-                        // headers: {
-                        //     "Content-Type": "application/json",
-                        // },
-                        // body: JSON.stringify(),
-                    })
-                   await fetch(`http://localhost:8088/character_items/characterId=${selectedCharacterId}`, {
-                        method: "DELETE",
-                        // headers: {
-                        //     "Content-Type": "application/json",
-                        // },
-                        // body: JSON.stringify(),
-                    })
-                    setSelectedCharacterId(0)
-                }
-
+    const calculateAttackPower = () => {
+        if (!character) {
+            return
         }
-
-        const weaponInformation = (weapon) => {
-            if (!weapon) {
-                return (
-                    <ul className='weapon-1-info'>
-                        <p></p>
-                        <li></li>
-                        <li>{''}</li>
-                        <li>{''}</li>
-                        <li>{''}</li>
-                    </ul>
-                )
-            }
-            return (
-                    <ul className='weapon-1-info'>
-                        <p style={{color: weapon.item.color}}>{weapon.item.name}</p>
-                        <li>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</li>
-                        <li>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</li>
-                        <li>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</li>
-                        <li>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</li>
-                    </ul>
-            )
-        }
-
-
+        let damageObject = {}
+        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
         
+        if (character.weaponTypeEquipped === 'Onehanded') {
+            let topMultiplier = 0.15 + character.oneHanded / 20
+            let botMultiplier = 0.15 + character.oneHanded / 20
+            damageObject.attackPower = Math.ceil((totalStats.str + totalStats.dex + (totalStats.agi * 0.5)) * 0.5)
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
+            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
+            damageObject.topDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * weapons[1].item.topDamage))
+            damageObject.botDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * weapons[1].item.botDamage))
+        }
+        if (character.weaponTypeEquipped === 'Twohanded') {
+            let topMultiplier = 0.15 + character.twoHanded / 20
+            let botMultiplier = 0.15 + character.twoHanded / 20
+            damageObject.attackPower = Math.ceil((totalStats.str * 2) + ((totalStats.dex + totalStats.agi) * 0.5))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.twoHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
+            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
+        }
+        return damageObject
+    }
+
+    const totalDamages = () => {
         return (
-            <div className='character-sheet mx-2 d-flex flex-column col-5'>
-                <h2>{character ? character.name : 'No Character Selected'}</h2>
-                <div className='top-container'>
-                        <ul className='character-stats-container col-3 attributes'>
-                            <p>Attributes</p>
-                            <li>{character ? 'STR: ' + character.baseStr : ''}</li>
-                            <li>{character ? 'DEX: ' + character.baseDex : ''}</li>
-                            <li>{character ? 'AGI: ' + character.baseAgi : ''}</li>
-                            <li>{character ? 'INT: ' + character.baseAgi : ''}</li>
-                            <li>{character ? 'WIS: ' + character.baseAgi : ''}</li>
-                            <li>{character ? 'MYS: ' + character.baseAgi : ''}</li>
-                            <li>{character ? 'CON: ' + character.baseAgi : ''}</li>
-                        </ul>
-                        <ul className='character-stats-container col-4 power'>
-                            <p>Offense</p>
-                            <li>{character ? 'Attack Power: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Spell Power: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Speed: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Accuracy: ' + calculateAttackPower().attackPower : ''}</li>
-                        </ul>
-                        <ul className='defense character-stats-container col-5'>
-                            <p>Defense</p>
-                            <li>{character ? 'Attack Power: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Slashing Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Piercing Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                            <li>{character ? 'Blunt Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                        </ul>
-                    <div className='character-equipment-container col-12'>
-                    <h2>Equipment</h2>
-                        <ul className='items'>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[0]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[0]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                            <li className='col-3'>{equippedWeapons ? weaponInformation(equippedWeapons[1]) : ''}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className='bot-container'>
-                    {totalDamages()}
-                </div>
-                <div className='buttons-container'>
-                    <button>Edit</button>
-                    <button onClick={() => {handleCharacterDelete()}}>Delete</button>
+            <div className='total-damages'>
+                <h5>Damage Range</h5>
+                <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 + ' - ' + calculateAttackPower()?.topDamage1}</span>
+                <h5>Average Damage</h5>
+                <span className='damage average-damage'>
+                    {Math.ceil((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)}
+                    {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER')}
+                    </span>
+                <h5>DPS</h5>
+                <span className='damage dps'>{(Math.ceil(((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
+                    {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER 2')}
+            </div>
+        )
+    }
+
+    const handleCharacterDelete = async () => {
+        if (selectedCharacterId === 0) {
+            window.alert("You need to select a character before you can delete!")
+            return
+        } else if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
+                await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
+                    method: "DELETE",
+                    // headers: {
+                    //     "Content-Type": "application/json",
+                    // },
+                    // body: JSON.stringify(),
+                })
+                await fetch(`http://localhost:8088/character_items/characterId=${selectedCharacterId}`, {
+                    method: "DELETE",
+                    // headers: {
+                    //     "Content-Type": "application/json",
+                    // },
+                    // body: JSON.stringify(),
+                })
+                setSelectedCharacterId(0)
+            }
+    }
+
+    const weaponInformation = (weapon) => {
+        if (!weapon) {
+            return (
+                <ul className='weapon-1-info'>
+                    <p></p>
+                    <li></li>
+                    <li>{''}</li>
+                    <li>{''}</li>
+                    <li>{''}</li>
+                </ul>
+            )
+        }
+        return (
+                <ul className='weapon-1-info'>
+                    <p style={{color: weapon.item.color}}>{weapon.item.name}</p>
+                    <li>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</li>
+                    <li>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</li>
+                    <li>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</li>
+                    <li>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</li>
+                </ul>
+        )
+    }
+
+    const displayWeapon1 = () => {
+        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        if (weapons[0]) {
+            return weaponInformation(weapons[0])
+        } else {
+            return ''
+        }
+    }
+    const displayWeapon2 = () => {
+        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        if (weapons[1]) {
+            return weaponInformation(weapons[1])
+        } else {
+            return ''
+        }
+    }
+
+
+
+
+    return (
+        <div className='character-sheet mx-2 d-flex flex-column col-5'>
+            <h2>{character ? character.name : 'No Character Selected'}</h2>
+            <div className='top-container'>
+                    <ul className='character-stats-container col-6 attributes'>
+                        <p>Attributes</p>
+                        <li>{character ? 'STR: ' + totalStats.str : ''}</li>
+                        <li>{character ? 'DEX: ' + totalStats.dex : ''}</li>
+                        <li>{character ? 'AGI: ' + totalStats.agi : ''}</li>
+                        {/* <li>{character ? 'INT: ' + character.baseAgi : ''}</li>
+                        <li>{character ? 'WIS: ' + character.baseAgi : ''}</li>
+                        <li>{character ? 'MYS: ' + character.baseAgi : ''}</li>
+                        <li>{character ? 'CON: ' + character.baseAgi : ''}</li> */}
+                    </ul>
+                    <ul className='character-stats-container col-6 power'>
+                        <p>Offense</p>
+                        <li>Attack Power: {character ? calculateAttackPower().attackPower : 0}</li>
+                        <li>{character?.class === 'mage' ? 'Spell Power: ' + calculateAttackPower().attackPower : ''}</li>
+                        <li>{character?.class === 'mage' ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
+                        <li>Speed: {character ? calculateAttackPower().speed : 0}</li>
+                        <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li>
+                    </ul>
+                    {/* <ul className='defense character-stats-container col-5'>
+                        <p>Defense</p>
+                        <li>{character ? 'Attack Power: ' + calculateAttackPower().attackPower : ''}</li>
+                        <li>{character ? 'Slashing Armor: ' + calculateAttackPower().attackPower : ''}</li>
+                        <li>{character ? 'Piercing Armor: ' + calculateAttackPower().attackPower : ''}</li>
+                        <li>{character ? 'Blunt Armor: ' + calculateAttackPower().attackPower : ''}</li>
+                    </ul> */}
+                <div className='character-equipment-container col-12'>
+                <h2>Equipment</h2>
+                    <ul className='items'>
+                        <li className='col-3 slot1'>{displayWeapon1()}</li>
+                        <li className='col-3 slot2'>{displayWeapon2()}</li>
+                    </ul>
                 </div>
             </div>
-        )    
+            <div className='bot-container'>
+                {totalDamages()}
+            </div>
+            <div className='buttons-container'>
+                <button>Edit</button>
+                <button onClick={() => {handleCharacterDelete()}}>Delete</button>
+            </div>
+        </div>
+    )    
 }
 

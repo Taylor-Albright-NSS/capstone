@@ -6,7 +6,8 @@ import { useState, useEffect } from "react"
 
 export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
-    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
+    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
     // const [character, setCharacter] = useState({})
     // const [characterCopy, setCharacterCopy] = useState({})
@@ -47,6 +48,10 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
             setClassStats={setClassStats}
             raceStats={raceStats}
             setRaceStats={setRaceStats}
+            classStatsCopy={classStatsCopy}
+            setClassStatsCopy={setClassStatsCopy}
+            raceStatsCopy={raceStatsCopy}
+            setRaceStatsCopy={setRaceStatsCopy}
              />
             <CharacterBuilder 
             currentUser={currentUser} 
@@ -64,6 +69,10 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
             setClassStats={setClassStats}
             raceStats={raceStats}
             setRaceStats={setRaceStats}
+            classStatsCopy={classStatsCopy}
+            setClassStatsCopy={setClassStatsCopy}
+            raceStatsCopy={raceStatsCopy}
+            setRaceStatsCopy={setRaceStatsCopy}
             />
         </div>
     )

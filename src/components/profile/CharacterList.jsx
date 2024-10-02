@@ -1,10 +1,13 @@
 import './CharacterList.css'
-import { getAllUserCharacters } from '../../services/characterServices'
+import { getAllUserCharacters, getCharacterById } from '../../services/characterServices'
+import { getAllEquippedItems } from '../../services/itemServices'
+import { getCharacterClassAndRaceStats } from '../../services/statsServices'
 import { useState, useEffect } from 'react'
 
 export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
-    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy
+    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
+    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
     const [characterList, setCharacterList] = useState([])
 
@@ -27,6 +30,8 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         }
         const blankCharacter = {
             userId: currentUser,
+            classStatsId: 1,
+            raceStatsId: 1,
             name: name,
             race: '',
             class: '',
@@ -34,17 +39,12 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             oneHanded: 1,
             twoHanded: 1,
             unarmed: 1,
-            daggers: 1,
-            bows: 1,
             baseStr: 0,
             baseDex: 0,
             baseAgi: 0,
-            // classStr: 0,
-            // classDex: 0,
-            // classAgi: 0,
-            // raceStr: 0,
-            // raceDex: 0,
-            // raceAgi: 0,
+            incrementedStr: 0,
+            incrementedDex: 0,
+            incrementedAgi: 0,
             attackPower: 0,
             weaponSlot1: null,
             weaponSlot2: null
@@ -59,7 +59,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         getAllUserCharacters(currentUser).then(char => {
             setCharacterList(char)
         })
-        console.log(blankCharacter)
     }
 
     return (
@@ -69,8 +68,19 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             <div className='characters'>
                 <ul>
                     {characterList.map(character => {
-                        return <li key={character.id} onClick={() => {
+                        return <li key={character.id} onClick={(e) => {
                             setSelectedCharacterId(character.id)
+                            console.log(character.id, ' CHARACTER ID')
+                            getCharacterById(character.id).then(userCharacter => {
+                                setCharacterCopy({...userCharacter[0]})
+                            })
+                            getAllEquippedItems(character.id).then(equipmentArray => {
+                                setEquippedItemsCopy([...equipmentArray])
+                            })
+                            getCharacterClassAndRaceStats(character.id).then(stats => {
+                                setClassStatsCopy({...stats[0].classStats})
+                                setRaceStatsCopy({...stats[0].raceStats})
+                            })
                         }}>{character.name}</li>
                     })}
                 </ul>
