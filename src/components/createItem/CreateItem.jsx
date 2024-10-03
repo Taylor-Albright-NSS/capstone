@@ -2,33 +2,17 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
-import { ImageSelector } from "../common/ImageSelector"
-import './EditItem.css'
 
-
-export const EditItem = () => {
+export const CreateItem = () => {
     const [itemData, setItemData] = useState({color: 'lightGreen'})
     const {itemId} = useParams()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        console.log(itemId, ' ITEM ID')
-        getSingleItem(itemId).then(singleItem => {
-            console.log(singleItem[0])
-            setItemData(singleItem[0])
-        })
-    }, [])
-
-    useEffect(() => {
-        console.log(itemData, ' ITEM DATA FROM EDIT ITEM COMPONENT')
-    }, [itemData])
-
     const handleSubmit = (event) => {
-        window.alert('submit?')
         event.preventDefault()
         delete itemData.image
-        fetch(`http://localhost:8088/items/${itemId}`, {
-            method: "PUT",
+        fetch(`http://localhost:8088/items/`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -47,12 +31,10 @@ export const EditItem = () => {
         setItemData(copy)
         console.log(copy)  
     }
-
-
     return (
         <div className='edit-item-main'>
-            <form className='edit-item-form' onSubmit={handleSubmit}>
-            <h2>Editor</h2>
+            <h2>Item Creator</h2>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>
                     <input
@@ -64,14 +46,13 @@ export const EditItem = () => {
                     />
                 </div>
 
-                <div className='select-image-container'>
-                    <label>Current Image</label>
+                <div>
+                    <label>Image:</label>
                     <button type="button" onClick={() => setItemData({ ...itemData, imageId: 1 })}>
-                        Change Icon
+                        Select Image
                     </button>
                     {/* Replace with your logic for displaying the selected image */}
-                    {/* <p>Selected Image ID: {itemData.imageId}</p> */}
-                    {<img src={itemData?.image?.imageURL} />}
+                    <p>Selected Image ID: {itemData.imageId}</p>
                 </div>
 
                 <div>
@@ -217,7 +198,6 @@ export const EditItem = () => {
                     navigate(`/allitems/itemdetails/${itemId}`)
                 }}>Go Back</button>
             </form>
-            <ImageSelector itemData={itemData} setItemData={setItemData} />
         </div>
     );
 }

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { AllItemsView } from "./AllItemsView"
 import { ItemDetails } from "../components/itemDetails/ItemDetails"
 import { EditItem } from "../components/editItem/EditItem"
+import { CreateItem } from "../components/createItem/CreateItem"
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({})
@@ -85,6 +86,8 @@ export const ApplicationViews = () => {
                     <Route path="itemdetails/:itemId" element={<ItemDetails />} />
                     <Route path="edititem/:itemId" element={<EditItem />} />
                 </Route>
+                <Route path="createitem/" element={<CreateItem />} />
+0
                 {/* <Route path="/retailers">
                     <Route index element={<RetailersList/>} />
                     <Route path=":retailerId" element={<RetailerDetails currentUser={currentUser} setShoppingCart={setShoppingCart} shoppingCart={shoppingCart}/>}/>

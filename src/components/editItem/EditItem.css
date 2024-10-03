@@ -1,7 +1,18 @@
 .edit-item-main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border: 2px solid red;
+}
+
+.edit-item-form {
+    border: 2px solid yellow
+}
+
+.select-image-container {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
