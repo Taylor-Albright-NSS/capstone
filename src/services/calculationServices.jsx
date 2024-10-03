@@ -1,5 +1,5 @@
 
-export const calculcateStatsFromEquipment = (equippedItemsCopy) => {
+const calculcateStatsFromEquipment = (equippedItemsCopy) => {
     console.log(equippedItemsCopy)
     let weapons = equippedItemsCopy && equippedItemsCopy.filter(item => item.item.slotId === 'weapon')
     let statsObject = {
@@ -16,15 +16,15 @@ export const calculcateStatsFromEquipment = (equippedItemsCopy) => {
     return statsObject
 }
 
-export const calculateIncrementedStats = (characterCopy) => {
+const calculateIncrementedStats = (characterCopy) => {
     const incrementStatsObject = {
-        str: characterCopy?.incrementedStr,
-        dex: characterCopy?.incrementedDex,
-        agi: characterCopy?.incrementedAgi
+        str: characterCopy?.str,
+        dex: characterCopy?.dex,
+        agi: characterCopy?.agi
     }
     return incrementStatsObject
 }
-export const calculateTotalStats = () => {
+const calculateTotalStats = () => {
     let equipmentStats = calculcateStatsFromEquipment()
     let cStats = classStatsCopy
     let rStats = raceStatsCopy

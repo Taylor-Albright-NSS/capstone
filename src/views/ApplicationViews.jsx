@@ -3,7 +3,9 @@ import { Navbar } from "../components/navbar/Navbar"
 import { ProfileView } from "./ProfileView"
 import { CharacterBuilderView } from "./CharacterBuilderView"
 import { useState, useEffect } from "react"
-
+import { AllItemsView } from "./AllItemsView"
+import { ItemDetails } from "../components/itemDetails/ItemDetails"
+import { EditItem } from "../components/editItem/EditItem"
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({})
@@ -16,6 +18,7 @@ export const ApplicationViews = () => {
     const [classStatsCopy, setClassStatsCopy] = useState({str: 0, dex: 0, agi: 0})
     const [raceStats, setRaceStats] = useState({str: 0, dex: 0, agi: 0})
     const [raceStatsCopy, setRaceStatsCopy] = useState({str: 0, dex: 0, agi: 0})
+
 
     useEffect(() => {
         const currentUserObj = localStorage.getItem('capstone_user')
@@ -77,6 +80,15 @@ export const ApplicationViews = () => {
                                                 setRaceStatsCopy={setRaceStatsCopy}
                                                 />} 
                                                 />
+                <Route path='/allitems'>
+                    <Route index element={<AllItemsView />} />
+                    <Route path="itemdetails/:itemId" element={<ItemDetails />} />
+                    <Route path="edititem/:itemId" element={<EditItem />} />
+                </Route>
+                {/* <Route path="/retailers">
+                    <Route index element={<RetailersList/>} />
+                    <Route path=":retailerId" element={<RetailerDetails currentUser={currentUser} setShoppingCart={setShoppingCart} shoppingCart={shoppingCart}/>}/>
+                </Route> */}
             </Route>
         </Routes>
     )  

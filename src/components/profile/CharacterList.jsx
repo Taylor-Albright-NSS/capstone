@@ -10,6 +10,7 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
     setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
     const [characterList, setCharacterList] = useState([])
+    const [testGear, setTestGear] = useState({})
 
     useEffect(() => {
         getAllUserCharacters(currentUser).then(char => {
@@ -39,12 +40,9 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             oneHanded: 1,
             twoHanded: 1,
             unarmed: 1,
-            baseStr: 0,
-            baseDex: 0,
-            baseAgi: 0,
-            incrementedStr: 0,
-            incrementedDex: 0,
-            incrementedAgi: 0,
+            str: 0,
+            dex: 0,
+            agi: 0,
             attackPower: 0,
             weaponSlot1: null,
             weaponSlot2: null
@@ -75,7 +73,14 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
                                 setCharacterCopy({...userCharacter[0]})
                             })
                             getAllEquippedItems(character.id).then(equipmentArray => {
-                                setEquippedItemsCopy([...equipmentArray])
+                                let weapons = equipmentArray.filter(item => item.item.slotId === 'weapon')
+                                setEquippedItemsCopy(
+                                    equipmentArray
+                                    // {
+                                    //     slot1: {...weapons[0]},
+                                    //     slot2: {...weapons[1]},
+                                    // }
+                                )
                             })
                             getCharacterClassAndRaceStats(character.id).then(stats => {
                                 setClassStatsCopy({...stats[0].classStats})

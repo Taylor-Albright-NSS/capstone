@@ -1,0 +1,32 @@
+.item-details-main {
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    border: 2px solid red;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid pink;
+    align-items: center;
+    height: 400px;
+    width: 400px;
+}
+
+.item-details img {
+    border: 2px solid green;
+    width: 200px;
+    height: 200px;
+}
+
+/* .custom-border {
+    border: 40px solid transparent;
+    border-image-source: url('/assets/borders/custom\ border.png');
+    border-image-slice: 50 fill; 
+    border-image-width: 40px; 
+    border-image-outset: 0; 
+    border-image-repeat: round; 
+  } */

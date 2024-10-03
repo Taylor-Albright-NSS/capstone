@@ -18,63 +18,40 @@ export const ItemSelector = ({
     }, [])
 
     const handleEquipItemLeft = (item) => {
-        setCharacterCopy({
-            ...characterCopy, 
-            weaponSlot1: item.id,
-            weaponSkillUsed: item.type,
-            weaponTypeEquipped: item.type
-        })
+        console.log(item, ' ITEM')
         setEquippedItemsCopy({
-            ...equippedItemsCopy,
-            weaponSlot1: item
+            ...equippedItemsCopy, 
+            0: {...equippedItemsCopy[0], item: item}
         })
+        setCharacterCopy({...characterCopy, weaponTypeEquipped: "onehanded"})
     }
     const handleEquipItemRight = (item) => {
-        setCharacterCopy({
-            ...characterCopy, 
-            weaponSlot2: item.id,
-            weaponSkillUsed: item.type,
-            weaponTypeEquipped: item.type
-
-        })
-        setEquippedItemsCopy({
-            ...equippedItemsCopy,
-            weaponSlot1: equippedItemsCopy?.weaponSlot1?.type === 'Twohanded' ? null : equippedItemsCopy.weaponSlot1,
-            weaponSlot2: item,
-        })
+        console.log(equippedItemsCopy)
+        if (equippedItemsCopy[0]?.item?.type === 'twohanded') {
+            setEquippedItemsCopy({
+                ...equippedItemsCopy, 
+                0: {...equippedItemsCopy[0], item: null},
+                1: {...equippedItemsCopy[1], item: item}, 
+            })
+        } else {
+            setEquippedItemsCopy({...equippedItemsCopy, 1: {...equippedItemsCopy[1], item: item}})
+        }
+        setCharacterCopy({...characterCopy, weaponTypeEquipped: "onehanded"})
     }
 
-
     const handleEquipTwohanded = (item) => {
-        setCharacterCopy({
-            ...characterCopy, 
-            weaponSlot1: item.id,
-            weaponSlot2: null,
-            weaponSkillUsed: item.type
-        })
         setEquippedItemsCopy({
             ...equippedItemsCopy,
-            weaponSlot1: item,
-            weaponSlot2: null
+            0: {...equippedItemsCopy[0], item: item},
+            1: {...equippedItemsCopy[1], item: null}
         })
+        setCharacterCopy({...characterCopy, weaponTypeEquipped: "twohanded"})
     }
 
     const handleRemoveItem = (item, weaponSlot) => {
-        setCharacterCopy({
-            ...characterCopy, 
-            [weaponSlot]: null,
-            // weaponSkillUsed: !characterCopy.weaponSlot1 && !characterCopy.weaponSlot2 ? null : item.type,
-            // weaponTypeEquipped: !characterCopy.weaponSlot1 && !characterCopy.weaponSlot2 ? null : item.type 
-        })
-        // if (!characterCopy.weaponSlot1 && !characterCopy.weaponSlot2) {
-        //     setCharacterCopy({
-        //         ...characterCopy, 
-        //         weaponSkillUsed: null
-        //     })
-        // }
         setEquippedItemsCopy({
             ...equippedItemsCopy,
-            [weaponSlot]: null
+            [weaponSlot]: {...equippedItemsCopy[weaponSlot], item: null}
         })
     }
 
@@ -92,18 +69,18 @@ export const ItemSelector = ({
                                 <p>Dex: {item.dex ? item.dex : ''}</p>
                                 <p>Agi: {item.agi ? item.agi : ''}</p>
                             </div>
-                            { item.type === "Onehanded" &&
+                            { item.type === "onehanded" &&
                                 <div className='equip-buttons-container'>
                                 <button onClick={(e) => {handleEquipItemLeft(item)}}>Equip Left</button>
                                 <button onClick={(e) => {handleEquipItemRight(item)}}>Equip Right</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 'weaponSlot1')}}>Remove Left</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 'weaponSlot2')}}>Remove Right</button>
+                                <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove Left</button>
+                                <button onClick={(e) => {handleRemoveItem(item, 1)}}>Remove Right</button>
                                 </div>
                             }
-                            { item.type === "Twohanded" &&
+                            { item.type === "twohanded" &&
                                 <div className='equip-buttons-container'>
                                 <button onClick={(e) => {handleEquipTwohanded(item)}}>Equip</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 'weaponSlot1')}}>Remove</button>
+                                <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove</button>
                                 </div>
                             }
                         </div>

@@ -1,0 +1,51 @@
+.all-items-container {
+    display: flex;
+    border: 2px solid purple;
+}
+
+.sort-container {
+    border: 2px solid red;
+}
+
+.weapon-sort,
+.armor-sort {
+    border: 2px solid green;
+    height: 50%;
+}
+
+.weapon-sort h2,
+.armor-sort h2 {
+    border: 2px solid green;
+}
+
+.item-list {
+    display: flex;
+    overflow: auto;
+    border: 2px solid orange;
+    margin-left: 4.3rem;
+    height: 600px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    text-align: center;
+}
+
+.item {
+    border: 2px solid green;
+    height: 226.25px;
+}
+
+img {
+    border: 2px solid green;
+    width: 100px;
+    height: 100px;
+}
+
+.item button {
+    background-color: rgb(43, 43, 43);
+    color: gold;
+}

@@ -19,7 +19,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     useEffect(() => {
         getAllEquippedItems(selectedCharacterId).then(equipmentArray => {
             setEquippedItems(equipmentArray)
-
         })
     }, [selectedCharacterId])
 
@@ -60,9 +59,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     const calculateIncrementedStats = () => {
         const incrementStatsObject = {
-            str: character?.incrementedStr,
-            dex: character?.incrementedDex,
-            agi: character?.incrementedAgi
+            str: character?.str,
+            dex: character?.dex,
+            agi: character?.agi
         }
         return incrementStatsObject
     }
@@ -93,7 +92,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         let damageObject = {}
         let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
         
-        if (character.weaponTypeEquipped === 'Onehanded') {
+        if (character.weaponTypeEquipped === 'onehanded') {
             let topMultiplier = 0.15 + character.oneHanded / 20
             let botMultiplier = 0.15 + character.oneHanded / 20
             damageObject.attackPower = Math.ceil((totalStats.str + totalStats.dex + (totalStats.agi * 0.5)) * 0.5)
@@ -103,7 +102,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             damageObject.topDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * weapons[1].item.topDamage))
             damageObject.botDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * weapons[1].item.botDamage))
         }
-        if (character.weaponTypeEquipped === 'Twohanded') {
+        if (character.weaponTypeEquipped === 'twohanded') {
             let topMultiplier = 0.15 + character.twoHanded / 20
             let botMultiplier = 0.15 + character.twoHanded / 20
             damageObject.attackPower = Math.ceil((totalStats.str * 2) + ((totalStats.dex + totalStats.agi) * 0.5))
@@ -157,8 +156,8 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     const weaponInformation = (weapon) => {
         if (!weapon) {
             return (
-                <ul className='weapon-1-info'>
-                    <p></p>
+                <ul className='item-info'>
+                    <p>WEAPON</p>
                     <li></li>
                     <li>{''}</li>
                     <li>{''}</li>
@@ -178,20 +177,43 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     }
 
     const displayWeapon1 = () => {
-        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
-        if (weapons[0]) {
-            return weaponInformation(weapons[0])
+        // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        if (equippedItems[0]) {
+            return weaponInformation(equippedItems[0])
         } else {
-            return ''
+            return weaponInformation()
         }
     }
     const displayWeapon2 = () => {
-        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
-        if (weapons[1]) {
-            return weaponInformation(weapons[1])
+        // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        if (equippedItems[1]) {
+            return weaponInformation(equippedItems[1])
         } else {
-            return ''
+            return weaponInformation()
         }
+    }
+
+    const itemInformation = (item, itemString) => {
+        if (!item) {
+            return (
+                <ul className='item-info'>
+                    <p>{itemString}</p>
+                    <li></li>
+                    <li>{''}</li>
+                    <li>{''}</li>
+                    <li>{''}</li>
+                </ul>
+            )
+        }
+        return (
+                <ul className='item-info'>
+                    <p style={{color: item.item.color}}>{item.item.name}</p>
+                    <li>Damage: {item.item.botDamage + ' - ' + item.item.topDamage}</li>
+                    <li>{item.item.str ? 'STR: ' + item.item.str : ''}</li>
+                    <li>{item.item.dex ? 'DEX: ' + item.item.dex : ''}</li>
+                    <li>{item.item.agi ? 'AGI: ' + item.item.agi : ''}</li>
+                </ul>
+        )
     }
 
 
@@ -213,10 +235,10 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     </ul>
                     <ul className='character-stats-container col-6 power'>
                         <p>Offense</p>
-                        <li>Attack Power: {character ? calculateAttackPower().attackPower : 0}</li>
+                        <li>Attack Power: {calculateAttackPower()?.attackPower ? calculateAttackPower().attackPower : 0}</li>
                         <li>{character?.class === 'mage' ? 'Spell Power: ' + calculateAttackPower().attackPower : ''}</li>
                         <li>{character?.class === 'mage' ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>Speed: {character ? calculateAttackPower().speed : 0}</li>
+                        <li>Speed: {calculateAttackPower()?.speed ? calculateAttackPower().speed : 0}</li>
                         <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li>
                     </ul>
                     {/* <ul className='defense character-stats-container col-5'>
@@ -231,11 +253,26 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     <ul className='items'>
                         <li className='col-3 slot1'>{displayWeapon1()}</li>
                         <li className='col-3 slot2'>{displayWeapon2()}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'chest')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'helm')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'shoulders')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'leggings')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'gloves')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'boots')}</li>
                     </ul>
                 </div>
             </div>
             <div className='bot-container'>
-                {totalDamages()}
+                <div className='total-damages'>
+                    <h5>Damage Range</h5>
+                    <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 ? calculateAttackPower().botDamage1 + ' - ' + calculateAttackPower()?.topDamage1 : 0 + ' - ' + 0}</span>
+                    <h5>Average Damage</h5>
+                    <span className='damage average-damage'>
+                        {calculateAttackPower()?.botDamage1 ? Math.ceil((calculateAttackPower().botDamage1 + calculateAttackPower().topDamage1) * 0.5) : 0}
+                    </span>
+                    <h5>DPS</h5>
+                    <span className='damage dps'>{calculateAttackPower()?.botDamage1 ? (Math.ceil(((calculateAttackPower().botDamage1 + calculateAttackPower().topDamage1) * 0.5)) / calculateAttackPower().speed).toFixed(1) : 0}</span>
+                </div>            
             </div>
             <div className='buttons-container'>
                 <button>Edit</button>
