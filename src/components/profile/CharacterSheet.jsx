@@ -1,7 +1,7 @@
 import './CharacterSheet.css'
 import { getCharacterById, getEquippedWeapons, getAllUserCharacters } from "../../services/characterServices"
 import { useState, useEffect } from "react"
-import { getAllEquippedItems } from '../../services/itemServices'
+import { getAllEquippedItems, getSingleItem } from '../../services/itemServices'
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
 
 export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
@@ -10,6 +10,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
 
+
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(userCharacter => {
             setCharacter(userCharacter[0])
@@ -17,10 +18,18 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     }, [selectedCharacterId])
 
     useEffect(() => {
-        getAllEquippedItems(selectedCharacterId).then(equipmentArray => {
-            setEquippedItems(equipmentArray)
-        })
-    }, [selectedCharacterId])
+        const fetchEquippedItems = async () => {
+            const equipmentArray = await getAllEquippedItems(selectedCharacterId);
+            const updatedEquipmentArray = await Promise.all(equipmentArray.map(async (item) => {
+                const singleItemArray = await getSingleItem(item.itemId);
+                item.item = singleItemArray[0];
+                return item
+            }));
+            setEquippedItems(updatedEquipmentArray)
+        };
+    
+        fetchEquippedItems();
+    }, [selectedCharacterId]);
 
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
@@ -30,19 +39,8 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         })
     }, [selectedCharacterId])
 
-
-
-
-
-    const [equippedWeapons, setEquippedWeapons] = useState([])
-
-    useEffect(() => {
-        getEquippedWeapons(selectedCharacterId).then(weapons => {
-            setEquippedWeapons(weapons)
-        })
-    }, [character])
     const calculcateStatsFromEquipment = () => {
-        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        let weapons = equippedItems.filter(item => item?.item?.slotId === 'weapon')
         let statsObject = {
             str: 0,
             dex: 0,
@@ -71,11 +69,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         let rStats = raceStats
         let incrementedStats = calculateIncrementedStats()
         let totalStatsObject = {}
-        console.log(equipmentStats)
-        console.log(cStats)
-        console.log(rStats)
-        console.log(incrementedStats)
-        console.log(totalStatsObject)
+
         let stats = ['str', 'dex', 'agi']
         stats.forEach(stat => {
             totalStatsObject[stat] = equipmentStats[stat] + cStats[stat] + rStats[stat] + incrementedStats[stat]
@@ -90,7 +84,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             return
         }
         let damageObject = {}
-        let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
+        let weapons = equippedItems.filter(item => item?.item?.slotId === 'weapon')
         
         if (character.weaponTypeEquipped === 'onehanded') {
             let topMultiplier = 0.15 + character.oneHanded / 20
@@ -154,7 +148,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     }
 
     const weaponInformation = (weapon) => {
-        if (!weapon) {
+        if (!weapon?.item?.name) {
             return (
                 <ul className='item-info'>
                     <p>WEAPON</p>
@@ -167,7 +161,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         }
         return (
                 <ul className='weapon-1-info'>
+                    {console.log(equippedItems)}
                     <p style={{color: weapon.item.color}}>{weapon.item.name}</p>
+                    <img src={weapon?.item?.image?.imageURL} />
                     <li>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</li>
                     <li>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</li>
                     <li>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</li>
@@ -178,11 +174,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     const displayWeapon1 = () => {
         // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
-        if (equippedItems[0]) {
             return weaponInformation(equippedItems[0])
-        } else {
-            return weaponInformation()
-        }
     }
     const displayWeapon2 = () => {
         // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
@@ -225,9 +217,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             <div className='top-container'>
                     <ul className='character-stats-container col-6 attributes'>
                         <p>Attributes</p>
-                        <li>{character ? 'STR: ' + totalStats.str : ''}</li>
-                        <li>{character ? 'DEX: ' + totalStats.dex : ''}</li>
-                        <li>{character ? 'AGI: ' + totalStats.agi : ''}</li>
+                        <li>STR: {character ? totalStats.str : 0}</li>
+                        <li>DEX: {character ? totalStats.dex : 0}</li>
+                        <li>AGI: {character ? totalStats.agi : 0}</li>
                         {/* <li>{character ? 'INT: ' + character.baseAgi : ''}</li>
                         <li>{character ? 'WIS: ' + character.baseAgi : ''}</li>
                         <li>{character ? 'MYS: ' + character.baseAgi : ''}</li>

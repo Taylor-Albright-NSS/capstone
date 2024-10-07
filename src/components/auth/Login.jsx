@@ -5,14 +5,14 @@ import "./Login.css"
 import { getUserByEmailAndPassword } from "../../services/userServices"
 
 export const Login = () => {
-    const [email, set] = useState("")
+    const [userName, set] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
   
     const handleLogin = (e) => {
       e.preventDefault()
   
-      getUserByEmailAndPassword(email, password).then((foundUsers) => {
+      getUserByEmailAndPassword(userName, password).then((foundUsers) => {
         if (foundUsers.length === 1) {
           const user = foundUsers[0]
           localStorage.setItem(
@@ -21,7 +21,7 @@ export const Login = () => {
               id: user.id,
             })
           )
-          navigate("/")
+          navigate("/profile")
         } else {
           window.alert("Invalid login")
         }
@@ -36,12 +36,12 @@ export const Login = () => {
             <fieldset>
               <div className="form-group">
                 <input
-                  style={{width: '300px', fontFamily: email.length > 0 ? 'serif' : 'Cinzel'}}
-                  type="email"
-                  value={email}
+                  style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
+                  type="text"
+                  value={userName}
                   onChange={(evt) => set(evt.target.value)}
                   className="form-control mx-auto my-1"
-                  placeholder="Email address"
+                  placeholder="Username"
                   required
                   autoFocus
                 />
@@ -50,7 +50,7 @@ export const Login = () => {
             <fieldset>
               <div className="form-group">
                 <input
-                  style={{width: '300px', fontFamily: email.length > 0 ? 'serif' : 'Cinzel'}}
+                  style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
                   type="password"
                   value={password}
                   onChange={(evt) => setPassword(evt.target.value)}

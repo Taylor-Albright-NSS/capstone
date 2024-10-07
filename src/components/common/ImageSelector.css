@@ -1,3 +1,10 @@
 .images-main {
+    display: flex;
+    flex-direction: row;
+    width: 421px;
+    height: 400px;
     border: 2px solid grey;
+    flex-wrap: wrap;
+    overflow: auto;
 }
+

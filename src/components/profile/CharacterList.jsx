@@ -1,7 +1,8 @@
 import './CharacterList.css'
 import { getAllUserCharacters, getCharacterById } from '../../services/characterServices'
-import { getAllEquippedItems } from '../../services/itemServices'
+import { getAllEquippedItems, getAllEquippedItems2, getAllEquippedItems3 } from '../../services/itemServices'
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
+import { getSingleItem } from '../../services/itemServices'
 import { useState, useEffect } from 'react'
 
 export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
@@ -67,25 +68,27 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
                 <ul>
                     {characterList.map(character => {
                         return <li key={character.id} onClick={(e) => {
+
                             setSelectedCharacterId(character.id)
-                            console.log(character.id, ' CHARACTER ID')
+                            
                             getCharacterById(character.id).then(userCharacter => {
                                 setCharacterCopy({...userCharacter[0]})
-                            })
-                            getAllEquippedItems(character.id).then(equipmentArray => {
-                                let weapons = equipmentArray.filter(item => item.item.slotId === 'weapon')
-                                setEquippedItemsCopy(
-                                    equipmentArray
-                                    // {
-                                    //     slot1: {...weapons[0]},
-                                    //     slot2: {...weapons[1]},
-                                    // }
-                                )
                             })
                             getCharacterClassAndRaceStats(character.id).then(stats => {
                                 setClassStatsCopy({...stats[0].classStats})
                                 setRaceStatsCopy({...stats[0].raceStats})
                             })
+                            // getAllEquippedItems(character.id).then(equipmentArray => {
+                            //     console.log(equipmentArray)
+                            //     setEquippedItemsCopy(equipmentArray)
+                            // })
+                            getAllEquippedItems3(character.id).then(equipmentArray => {
+                                console.log(equipmentArray)
+                                setEquippedItemsCopy(equipmentArray)
+                            })
+
+                            
+                            
                         }}>{character.name}</li>
                     })}
                 </ul>

@@ -2,10 +2,20 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
+import { ImageSelector } from "../common/ImageSelector"
+import './CreateItem.css'
 
 export const CreateItem = () => {
-    const [itemData, setItemData] = useState({color: 'lightGreen'})
+    const [itemData, setItemData] = useState(
+        {color: 'lightGreen', str: 0, dex: 0, agi: 0, int: 0, wis: 0, mys: 0, con: 0,
+            topDamage: 0, botDamage: 0, category: 'weapon', imageId: 0, image: {
+                id: 0,
+                imageURL: "/assets/no image/no image.png",
+             }
+        }
+    )
     const {itemId} = useParams()
+    const [showImageSelector, setShowImageSelector] = useState(false)
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
@@ -18,6 +28,7 @@ export const CreateItem = () => {
             },
             body: JSON.stringify(itemData),
         }).then(res => res.json())
+        navigate('/allitems', { state: { fromEdit: true } });
     }
     const handleChange = (event, propToChange) => {
         let copy = {...itemData}
@@ -31,12 +42,22 @@ export const CreateItem = () => {
         setItemData(copy)
         console.log(copy)  
     }
+
+    const handleSelectIconToggle = () => {
+        setShowImageSelector(!showImageSelector)
+    }
     return (
         <div className='edit-item-main'>
-            <h2>Item Creator</h2>
-            <form onSubmit={handleSubmit}>
+            <form className='edit-item-form' onSubmit={handleSubmit}>
+            <h2>Edit Item</h2>
+                <div className='select-image-container'>
+                    {/* Replace with your logic for displaying the selected image */}
+                    {/* <p>Selected Image ID: {itemData.imageId}</p> */}
+                    {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />}
+                </div>
+                <label>Name</label>
+
                 <div>
-                    <label>Name:</label>
                     <input
                         type="text"
                         name="name"
@@ -45,145 +66,181 @@ export const CreateItem = () => {
                         required
                     />
                 </div>
+                <div className='top-options'>
+                    <div className='dropdowns'>
+                        <div>
+                            <label>Category:</label>
+                            <select
+                                name="category"
+                                value={itemData.category}
+                                onChange={(event) => {handleChange(event, 'category')}}
+                            >
+                                <option value="">Category</option>
+                                <option value="weapon">Weapon</option>
+                                <option value="armor">Armor</option>
+                                {/* Add more categories if needed */}
+                            </select>
+                        </div>
 
-                <div>
-                    <label>Image:</label>
-                    <button type="button" onClick={() => setItemData({ ...itemData, imageId: 1 })}>
-                        Select Image
-                    </button>
-                    {/* Replace with your logic for displaying the selected image */}
-                    <p>Selected Image ID: {itemData.imageId}</p>
-                </div>
+                        <div>
+                            <label>Type:</label>
+                            <select
+                                name="type"
+                                value={itemData.type}
+                                onChange={(event) => {handleChange(event, 'type')}}
+                            >
+                                <option value="">Type</option>
+                                <option value="onehanded">One-Handed</option>
+                                <option value="twohanded">Two-Handed</option>
+                                <option value="daggers">Daggers</option>
+                                <option value="bows">Bows</option>
+                                <option value="unarmed">Unarmed</option>
+                            </select>
+                        </div>
 
-                <div>
-                    <label>Category:</label>
-                    <select
-                        name="category"
-                        value={itemData.category}
-                        onChange={(event) => {handleChange(event, 'category')}}
-                    >
-                        <option value="weapon">Weapon</option>
-                        <option value="armor">Armor</option>
-                        {/* Add more categories if needed */}
-                    </select>
-                </div>
+                        <div>
+                            <label>Subtype:</label>
+                            <select
+                                name="subType"
+                                value={itemData.subType}
+                                onChange={(event) => {handleChange(event, 'subType')}}
+                            >
+                                <option value="">Subtype</option>
+                                <option value="sword">Sword</option>
+                                <option value="mace">Mace</option>
+                                <option value="axe">Axe</option>
+                                <option value="dagger">Dagger</option>
+                                <option value="bow">Bow</option>
+                                <option value="fist">Fist</option>
+                            </select>
+                        </div>
+                        </div>
 
-                <div>
-                    <label>Type:</label>
-                    <select
-                        name="type"
-                        value={itemData.type}
-                        onChange={(event) => {handleChange(event, 'type')}}
-                    >
-                        <option value="">Select Type</option>
-                        <option value="onehanded">One-Handed</option>
-                        <option value="twohanded">Two-Handed</option>
-                        <option value="daggers">Daggers</option>
-                        <option value="bows">Bows</option>
-                        <option value="unarmed">Unarmed</option>
-                    </select>
-                </div>
+                        <div className='checkboxes-and-text'>
+                            <div>
+                                <label>Slashing:</label>
+                                <input
+                                    type="checkbox"
+                                    name="slashing"
+                                    checked={itemData.slashing}
+                                    onChange={(event) => {handleChange(event, 'slashing')}}
+                                />
+                            </div>
 
-                <div>
-                    <label>Subtype:</label>
-                    <select
-                        name="subType"
-                        value={itemData.subType}
-                        onChange={(event) => {handleChange(event, 'subType')}}
-                    >
-                        <option value="">Select Subtype</option>
-                        <option value="sword">Sword</option>
-                        <option value="mace">Mace</option>
-                        <option value="axe">Axe</option>
-                        <option value="dagger">Dagger</option>
-                        <option value="bow">Bow</option>
-                        <option value="fist">Fist</option>
-                    </select>
-                </div>
+                            <div>
+                                <label>Piercing:</label>
+                                <input
+                                    type="checkbox"
+                                    name="piercing"
+                                    checked={itemData.piercing}
+                                    onChange={(event) => {handleChange(event, 'piercing')}}
+                                />
+                            </div>
 
-                <div>
-                    <label>Slashing:</label>
-                    <input
-                        type="checkbox"
-                        name="slashing"
-                        checked={itemData.slashing}
-                        onChange={(event) => {handleChange(event, 'slashing')}}
-                    />
+                            <div>
+                                <label>Blunt:</label>
+                                <input
+                                    type="checkbox"
+                                    name="blunt"
+                                    checked={itemData.blunt}
+                                    onChange={(event) => {handleChange(event, 'blunt')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Top Damage:</label>
+                                <input
+                                    type="number"
+                                    name="topDamage"
+                                    value={itemData.topDamage}
+                                    onChange={(event) => {handleChange(event, 'topDamage')}}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Bottom Damage:</label>
+                                <input
+                                    type="number"
+                                    name="botDamage"
+                                    value={itemData.botDamage}
+                                    onChange={(event) => {handleChange(event, 'botDamage')}}
+                                    required
+                                    />
+                            </div>
+                        </div>
                 </div>
-
-                <div>
-                    <label>Piercing:</label>
-                    <input
-                        type="checkbox"
-                        name="piercing"
-                        checked={itemData.piercing}
-                        onChange={(event) => {handleChange(event, 'piercing')}}
-                    />
-                </div>
-
-                <div>
-                    <label>Blunt:</label>
-                    <input
-                        type="checkbox"
-                        name="blunt"
-                        checked={itemData.blunt}
-                        onChange={(event) => {handleChange(event, 'blunt')}}
-                    />
-                </div>
-                <div>
-                    <label>Top Damage:</label>
-                    <input
-                        type="number"
-                        name="topDamage"
-                        value={itemData.topDamage}
-                        onChange={(event) => {handleChange(event, 'topDamage')}}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Bottom Damage:</label>
-                    <input
-                        type="number"
-                        name="botDamage"
-                        value={itemData.botDamage}
-                        onChange={(event) => {handleChange(event, 'botDamage')}}
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label>Mods:</label>
-                    <div>
-                        <label>Str:</label>
-                        <input
-                            type="number"
-                            name="mod_str"
-                            value={itemData.str}
-                            onChange={(event) => {handleChange(event, 'str')}}
-                            />
+                <div className='mods-container'>
+                    <label>Mods</label>
+                    <div className='mods'>
+                        <div className="stats-col-1">
+                            <div>
+                                <label>Str:</label>
+                                <input
+                                    type="number"
+                                    name="mod-str"
+                                    value={itemData.str}
+                                    onChange={(event) => {handleChange(event, 'str')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Dex:</label>
+                                <input
+                                    type="number"
+                                    name="mod-dex"
+                                    value={itemData.dex}
+                                    onChange={(event) => {handleChange(event, 'dex')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Agi:</label>
+                                <input
+                                    type="number"
+                                    name="mod-agi"
+                                    value={itemData.agi}
+                                    onChange={(event) => {handleChange(event, 'agi')}}
+                                    />
+                            </div>
+                        </div>
+                        <div className='stats-col-2'>
+                            <div>
+                                <label>Int:</label>
+                                <input
+                                    type="number"
+                                    name="mod-int"
+                                    value={itemData.int}
+                                    onChange={(event) => {handleChange(event, 'int')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Wis:</label>
+                                <input
+                                    type="number"
+                                    name="mod-wis"
+                                    value={itemData.wis}
+                                    onChange={(event) => {handleChange(event, 'wis')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Mys:</label>
+                                <input
+                                    type="number"
+                                    name="mod-mys"
+                                    value={itemData.mys}
+                                    onChange={(event) => {handleChange(event, 'mys')}}
+                                    />
+                            </div>
+                            <div>
+                                <label>Con:</label>
+                                <input
+                                    type="number"
+                                    name="mod-con"
+                                    value={itemData.con}
+                                    onChange={(event) => {handleChange(event, 'con')}}
+                                    />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label>Dex:</label>
-                        <input
-                            type="number"
-                            name="mod_dex"
-                            value={itemData.dex}
-                            onChange={(event) => {handleChange(event, 'dex')}}
-                            />
-                    </div>
-                    <div>
-                        <label>Agi:</label>
-                        <input
-                            type="number"
-                            name="mod_agi"
-                            value={itemData.agi}
-                            onChange={(event) => {handleChange(event, 'agi')}}
-                            />
-                    </div>
                 </div>
-
-                <div>
+                <div className='description-container'>
                     <label>Description:</label>
                     <textarea
                         name="description"
@@ -193,11 +250,15 @@ export const CreateItem = () => {
                     ></textarea>
                 </div>
 
-                <button type="submit">Submit</button>
+                <button type="submit">Create Item</button>
                 <button onClick={() => {
                     navigate(`/allitems/itemdetails/${itemId}`)
                 }}>Go Back</button>
             </form>
+            {showImageSelector ? <ImageSelector itemData={itemData} setItemData={setItemData} /> : ''}
+{/* 
+            <div className='image-select-window'>
+            </div> */}
         </div>
     );
 }

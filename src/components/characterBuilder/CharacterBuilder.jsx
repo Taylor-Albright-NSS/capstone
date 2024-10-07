@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
 import { getCharacterById } from "../../services/characterServices"
 import { getEquippedWeapons } from "../../services/characterServices"
+import { getAllEquippedItems } from "../../services/itemServices"
 import { CharacterSheet } from "character-sheet"
 import { getCharacterClassAndRaceStats } from "../../services/statsServices"
+import { getSingleItem } from "../../services/itemServices"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId, character, 
@@ -12,11 +14,11 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
     const [equippedWeapons, setEquippedWeapons] = useState([])
     const [showMessage, setShowMessage] = useState(false)
     const [incrementStats, setIncrementStats] = useState({str: 0, dex: 0, agi: 0})
+    const [weaponSkillLevel, setWeaponSkillLevel] = useState({})
     const [statsFromGear, setStatsFromGear] = useState({str: 0, dex: 0, agi: 0})
-    
+    const [equipmentImages, setEquipmentImages] = useState([])
 
     useEffect(() => {
-        // console.log(calculcateStatsFromEquipment(equippedItemsCopy))
         let combinedBaseStats = {}
         let combinedAllStats = {}
         let statsFromGear = totalStatsFromGear()
@@ -30,16 +32,15 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         for (const stat in classStats) {
             let classStat = classStats[stat] ? classStats[stat] : 0
             let raceStat = raceStats[stat] ? raceStats[stat] : 0
-            let incrementStat = incrementStats[stat] ? incrementStats[stat] : 0
+            let incrementStat = characterCopy[stat] ? characterCopy[stat] : 0
             let gearStat = statsFromGear[stat] ? statsFromGear[stat] : 0
             combinedAllStats[stat] = classStat + raceStat + incrementStat + gearStat
         }
-        console.log(equippedItemsCopy, ' EQUIPPED ITEMS USE EFFECT')
     }, [classStats, raceStats, equippedItemsCopy])
+
 
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
-            // setRaceStatsCopy({...stats[0].raceStats})
         })    
     }, [characterCopy])
 
@@ -63,9 +64,9 @@ const totalStatsFromGear = () => {
 
 const calculateIncrementedStats = () => {
     const totalStatsObject = {
-        str: incrementStats.str,
-        dex: incrementStats.dex,
-        agi: incrementStats.agi
+        str: characterCopy.str,
+        dex: characterCopy.dex,
+        agi: characterCopy.agi
     }
     return totalStatsObject
 }
@@ -260,47 +261,6 @@ const totalStats = calculateTotalStats()
         }
     }
 
-    // const handleSaveCharacter = async () => {
-    //     for (const index in equippedItemsCopy) {
-    //         const item = {...equippedItemsCopy[index]}
-    //         console.log(item)
-    //         item.characterId = selectedCharacterId
-    //         item.itemId = item.item.id
-    //         item.slotId = item.item.slotId
-
-    //         const response = await fetch(`http://localhost:8088/character_items?id=${item.id}`);
-    //         const data = await response.json()
-    //         delete item.item
-    //         console.log(data, ' DATA DATA DATA')
-    //         if (data.length > 0) {
-    //             console.log('PUT PUT PUT PUT')
-    //             await fetch(`http://localhost:8088/character_items/${item.id}`, {
-    //                 method: "PUT",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify(item)
-    //             })
-    //         } else {
-    //             console.log('POST POST POST POST')
-    //             const newItemResponse = await fetch(`http://localhost:8088/character_items/`, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify(item)
-    //             })
-    //             const newItemData = await newItemResponse.json()
-    //             console.log(index)
-    //             console.log(item, ' ITEM ITEM ITEM')
-    //             console.log(newItemData, ' NEW ITEM DATA')
-    //             console.log(newItemData?.id, ' NEW ITEM DATA ID')
-    //             console.log({...equippedItemsCopy[index]}, ' EQUIPPED ITEMS COPY')
-    //             await setEquippedItemsCopy({...equippedItemsCopy, [index]: {...equippedItemsCopy[index], id: newItemData.id}})
-    //         }
-    //     }
-    // }
-
     const handleSaveCharacter = async () => {
         // Create a new array to hold the updated items
         const updatedItems = {...equippedItemsCopy};
@@ -314,11 +274,11 @@ const totalStats = calculateTotalStats()
     
             const response = await fetch(`http://localhost:8088/character_items?id=${item.id}`);
             const data = await response.json();
-            delete item.item;
             console.log(data, ' DATA DATA DATA');
     
             if (data.length > 0) {
                 console.log('PUT PUT PUT PUT');
+                delete item.item;
                 await fetch(`http://localhost:8088/character_items/${item.id}`, {
                     method: "PUT",
                     headers: {
@@ -336,26 +296,27 @@ const totalStats = calculateTotalStats()
                     body: JSON.stringify(item),
                 });
                 const newItemData = await newItemResponse.json();
-                console.log(index);
-                console.log(item, ' ITEM ITEM ITEM');
-                console.log(newItemData, ' NEW ITEM DATA');
-                console.log(newItemData?.id, ' NEW ITEM DATA ID');
-                console.log({ ...equippedItemsCopy[index] }, ' EQUIPPED ITEMS COPY');
-    
-                // Use the newItemData.id to update the correct index in the new array
                 updatedItems[index] = { ...equippedItemsCopy[index], id: newItemData.id };
             }
         }
-    
-        // Set the new state outside the loop to avoid mutability issues
         await setEquippedItemsCopy(updatedItems);
     };
     
-
+    const getImage = (index) => {
+        let item = equippedItemsCopy[index]
+        getSingleItem(item.id).then(newItem => {
+            console.log(newItem, ' NEW ITEM')   
+            let imageUrl = newItem[0].image.imageURL
+            console.log(imageUrl, ' IMAGE URL')
+            return imageUrl
+        })
+    }
     
 
     return (
         <div className='character-builder'>
+                        {console.log(equippedItemsCopy)}
+
             <h2>{character && character.name}</h2>
             <div className='builders'>
                 <div className='left-builder col-6'>
@@ -377,44 +338,20 @@ const totalStats = calculateTotalStats()
                             <span className='attribute-string'>STR:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'str')}}>-</button>
                             <span className='attribute-number'>{totalStats.str}</span>
-                            <button onClick={() => {handleIncrement('str')}}>+</button>
+                            <button className='increment-button' onClick={() => {handleIncrement('str')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>DEX:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'dex')}}>-</button>
                             <span className='attribute-number'>{totalStats.dex}</span>
-                            <button onClick={() => {handleIncrement('dex')}}>+</button>
+                            <button className='increment-button' onClick={() => {handleIncrement('dex')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>AGI:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'agi')}}>-</button>
                             <span className='attribute-number'>{totalStats.agi}</span>
-                            <button onClick={() => {handleIncrement('agi')}}>+</button>
+                            <button className='increment-button' onClick={() => {handleIncrement('agi')}}>+</button>
                         </li>
-                        {/* <li className='d-flex'>
-                            <span className='attribute-string'>AGI:</span>
-                            <button className='decrement-button' onClick={handleDecrement}>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseStr}</span>
-                            <button onClick={handleIncrement}>+</button>
-                        </li>
-                        <li className='d-flex'>
-                            <span className='attribute-string'>AGI:</span>
-                            <button className='decrement-button'>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseStr}</span>
-                            <button>+</button>
-                        </li>
-                        <li className='d-flex'>
-                            <span className='attribute-string'>AGI:</span>
-                            <button className='decrement-button'>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseStr}</span>
-                            <button>+</button>
-                        </li>
-                        <li className='d-flex'>
-                            <span className='attribute-string'>AGI:</span>
-                            <button className='decrement-button'>-</button>
-                            <span className='attribute-number'>{characterCopy?.baseStr}</span>
-                            <button>+</button>
-                        </li> */}
                     </ul>
                     <p className=''>Attackpower: {calculateDamageObject().attackPower}</p>
                 </div>
@@ -422,51 +359,41 @@ const totalStats = calculateTotalStats()
                     <h4>Weapon Skills</h4>
                     <div className='weapon-skills'>
                         <p className={characterCopy.weaponTypeEquipped === 'onehanded' ? 'selected-weapon-skill' : ''}>Onehanded</p>
+                        <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'oneHanded')}}>-</button>
                         <p>{characterCopy.oneHanded}</p>
+                        <button className='increment-button' onClick={() => {handleIncrement('oneHanded')}}>+</button>
+
                         <p className={characterCopy.weaponTypeEquipped === 'twohanded' ? 'selected-weapon-skill' : ''}>Twohanded</p>
-                        <p>{characterCopy.oneHanded}</p>
+                        <p>{characterCopy.twoHanded}</p>
                     </div>
                 </div>
             </div>
             <div>
             <h4>Equipment</h4>
             <div className='item-container'>
+            {console.log(equippedItemsCopy)}
                 {equippedItemsCopy[0]?.item ?
-                <div className='equipment col-3'>
+                <div className='equipped-item col-3'>
+                    {console.log(equippedItemsCopy)}
                     <h6 style={{color: equippedItemsCopy[0].item.color}}>{equippedItemsCopy[0].item.name}</h6>
+                    {console.log(equippedItemsCopy)}
+                    <img src={equippedItemsCopy[0]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[0].item.botDamage + ' - ' + equippedItemsCopy[0].item.topDamage}</p>
                     <p>Str: {equippedItemsCopy[0].item.str}</p>
                     <p>Dex: {equippedItemsCopy[0].item.dex}</p>
                     <p>Agi: {equippedItemsCopy[0].item.agi}</p>
-                 </div> : <div className='equipment col-3'>Weapon slot 1</div>
+                 </div> : <div className='equipped-item col-3'>Weapon slot 1</div>
                  }
                 {equippedItemsCopy[1]?.item ?
-                <div className='equipment col-3'>
+                <div className='equipped-item col-3'>
                     <h6 style={{color: equippedItemsCopy[1].item.color}}>{equippedItemsCopy[1].item.name}</h6>
+                    <img src={equippedItemsCopy[1]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[1].item.botDamage + ' - ' + equippedItemsCopy[1].item.topDamage}</p>
                     <p>Str: {equippedItemsCopy[1].item.str}</p>
                     <p>Dex: {equippedItemsCopy[1].item.dex}</p>
                     <p>Agi: {equippedItemsCopy[1].item.agi}</p>
-                 </div> : <div className='equipment col-3'>Weapon slot 2</div>
+                 </div> : <div className='equipped-item col-3'>Weapon slot 2</div>
                  }
-                        {/* {itemSelectorWeapons[0] && 
-                            <div className='equipment col-3'>
-                                <h6 style={{color: itemSelectorWeapons[0].color}}>{itemSelectorWeapons[0].name}</h6>
-                                <p>Damage: {itemSelectorWeapons[0].botDamage + ' - ' + itemSelectorWeapons[0].topDamage}</p>
-                                <p>Str: {itemSelectorWeapons[0].str ? itemSelectorWeapons[0].str : ''}</p>
-                                <p>Dex: {itemSelectorWeapons[0].dex ? itemSelectorWeapons[0].dex : ''}</p>
-                                <p>Agi: {itemSelectorWeapons[0].agi ? itemSelectorWeapons[0].agi : ''}</p>
-                            </div>
-                        }
-                        {itemSelectorWeapons[1] && 
-                            <div className='equipment col-3'>
-                                <h6 style={{color: itemSelectorWeapons[1].color}}>{itemSelectorWeapons[1].name}</h6>
-                                <p>Damage: {itemSelectorWeapons[1].botDamage + ' - ' + itemSelectorWeapons[1].topDamage}</p>
-                                <p>Str: {itemSelectorWeapons[1].str ? itemSelectorWeapons[1].str : ''}</p>
-                                <p>Dex: {itemSelectorWeapons[1].dex ? itemSelectorWeapons[1].dex : ''}</p>
-                                <p>Agi: {itemSelectorWeapons[1].agi ? itemSelectorWeapons[1].agi : ''}</p>
-                            </div>
-                        } */}
             </div>
 
             </div>

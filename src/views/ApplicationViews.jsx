@@ -7,6 +7,8 @@ import { AllItemsView } from "./AllItemsView"
 import { ItemDetails } from "../components/itemDetails/ItemDetails"
 import { EditItem } from "../components/editItem/EditItem"
 import { CreateItem } from "../components/createItem/CreateItem"
+import { MyAccount } from "./MyAccount"
+import { Home } from "./Home"
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({})
@@ -19,6 +21,7 @@ export const ApplicationViews = () => {
     const [classStatsCopy, setClassStatsCopy] = useState({str: 0, dex: 0, agi: 0})
     const [raceStats, setRaceStats] = useState({str: 0, dex: 0, agi: 0})
     const [raceStatsCopy, setRaceStatsCopy] = useState({str: 0, dex: 0, agi: 0})
+    const [allItems, setAllItems] = useState([])
 
 
     useEffect(() => {
@@ -79,14 +82,18 @@ export const ApplicationViews = () => {
                                                 setClassStatsCopy={setClassStatsCopy}
                                                 raceStatsCopy={raceStatsCopy}
                                                 setRaceStatsCopy={setRaceStatsCopy}
+                                                allItems={allItems}
+                                                setAllItems={setAllItems}
                                                 />} 
                                                 />
                 <Route path='/allitems'>
-                    <Route index element={<AllItemsView />} />
+                    <Route index element={<AllItemsView selectedCharacterId={selectedCharacterId} equippedItemsCopy={equippedItemsCopy} setEquippedItemsCopy={setEquippedItems} />} />
                     <Route path="itemdetails/:itemId" element={<ItemDetails />} />
                     <Route path="edititem/:itemId" element={<EditItem />} />
                 </Route>
                 <Route path="createitem/" element={<CreateItem />} />
+                <Route path="myaccount/" element={<MyAccount currentUser={currentUser}/>} />
+                <Route path="/" element={<Home />} />
 0
                 {/* <Route path="/retailers">
                     <Route index element={<RetailersList/>} />

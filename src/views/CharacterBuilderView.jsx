@@ -2,12 +2,13 @@ import { CharacterBuilder } from "../components/characterBuilder/CharacterBuilde
 import { ItemSelector } from "../components/characterBuilder/ItemSelector"
 import { getCharacterById } from "../services/characterServices"
 import { getEquippedWeapons } from "../services/characterServices"
+import { getAllEquippedItems } from "../services/itemServices"
 import { useState, useEffect } from "react"
 
 export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
     equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
-    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
+    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy, allItems, setAllItems
  }) => {
     // const [character, setCharacter] = useState({})
     // const [characterCopy, setCharacterCopy] = useState({})
@@ -17,13 +18,14 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(character => {
             setCharacter(character[0])
-            setCharacterCopy({...character[0]})
+            // setCharacterCopy({...character[0]})
             console.log(character)
             })
     }, [])
 
     useEffect(() => {
         getEquippedWeapons(selectedCharacterId).then(weaponsArray => {
+            console.log(weaponsArray, ' GET ALL EQUIPPED WEAPONS')
             setEquippedItems(weaponsArray)
         })
     }, [selectedCharacterId])

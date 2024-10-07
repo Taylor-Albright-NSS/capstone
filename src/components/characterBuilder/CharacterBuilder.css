@@ -2,6 +2,7 @@
     border: 2px solid blue;
     min-width: 600px;
     min-height: 800px;
+    margin: 0 2rem 0 2rem;
 }
 .character-builder h2, h3, h4, h5 {
     text-align: center;
@@ -24,6 +25,7 @@
 }
 .weapon-skills p {
     margin: 0.5em;
+    font-size: 14px;
 }
 
 .attributes {
@@ -95,6 +97,31 @@
     height: 150px;
 }
 
+.equipped-item {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid purple;
+    /* width: 100px; */
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.equipped-item h6 {
+    font-size: 14px;
+    height: 40px;
+    text-align: center;
+}
+.equipped-item p {
+    font-size: 12px;
+    text-align: center;
+}
+
+.equipped-item img {
+    height: 40px;
+    width: 40px;
+}
+
 .equipment h6 {
     font-size: 14px;
     text-align: center;
@@ -119,4 +146,14 @@
 
 .selected-weapon-skill {
     color: rgb(0, 255, 0)
+}
+
+.increment-button,
+.decrement-button {
+    display: flex;
+    height: 22px;
+    width: 22px;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
 }

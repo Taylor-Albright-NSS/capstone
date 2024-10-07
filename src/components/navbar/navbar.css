@@ -1,4 +1,17 @@
+.navbar {
+    border: 4px ridge grey;
+    background: rgb(0, 0, 0);
+}
+
 .navbar a {
     text-decoration: none;
     color: gold;
+}
+
+.navbar li {
+    margin: 0 2rem 0 2rem;
+}
+
+ul {
+    margin: 0;
 }

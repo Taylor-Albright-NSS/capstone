@@ -1,13 +1,21 @@
 .edit-item-main {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     border: 2px solid red;
 }
 
 .edit-item-form {
-    border: 2px solid yellow
+    display: flex;
+    flex-direction: column;
+    border: 2px solid yellow;
+    text-align: center;
+    align-items: center;
+}
+
+.edit-item-form button {
+    width: 100px;
 }
 
 .select-image-container {
@@ -15,4 +23,70 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.image-select-window {
+    border: 2px solid purple;
+    width: 408px;
+    height: 500px;
+}
+
+.top-options {
+    display: flex;
+}
+.dropdowns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid red;
+    align-items: flex-end;
+}
+
+.checkboxes-and-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border: 2px solid green;
+}
+
+input[type='number'] {
+    text-align: center;
+    width: 50px;
+}
+select {
+    text-align: center;
+    width: 140px;
+}
+
+.mods-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mods {
+    border: 2px solid purple;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 240px;
+}
+
+
+.mods label {
+    width: 60px;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+textarea {
+    width: 400px;
+    resize: none !important;
+
 }

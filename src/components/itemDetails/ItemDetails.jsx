@@ -36,6 +36,7 @@ export const ItemDetails = () => {
                     <div>
                         <button onClick={() => {navigate(`/allitems/edititem/${itemId}`)}}>Edit</button>
                         <button onClick={handleItemDelete}>Delete</button>
+                        <button onClick={() => {navigate('/allitems')}}>Back</button>
                     </div>
                 </div>
             </div>

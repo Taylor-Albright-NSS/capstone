@@ -1,0 +1,35 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px solid green;
+    height: 820px;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px solid red;
+    /* border: 40px solid transparent; Required solid border */
+    /* border-image: url('/assets/borders/border 5.png') 40 fill round; */
+    margin-top: 2rem;
+    width: 860px;
+    height: 600px;
+    background-color: black;
+}
+
+.welcome p {
+    width: 380px;
+    margin: 2rem 0 2rem 0;
+    color: white;
+    text-align: center;
+}
+
+.welcome h1 {
+    margin: 2rem 0 2rem 0;
+}
+
+

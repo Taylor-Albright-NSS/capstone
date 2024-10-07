@@ -11,8 +11,13 @@ export const ImageSelector = ({ itemData, setItemData }) => {
         })
     }, [])
 
-    const handleImageSelect = (image) => {
-        console.log(image, 'image')
+    const handleImageSelect = (event, image) => {
+        const selectedImages = document.querySelectorAll('.image')
+        selectedImages.forEach(imageElement => {
+            imageElement.classList.remove('selected')
+        })
+        console.log(event)
+        event.target.classList.add('selected')
         setItemData({...itemData,
             imageId: image.id,
              image: {
@@ -26,8 +31,8 @@ export const ImageSelector = ({ itemData, setItemData }) => {
         <div className='images-main'>
             {images ? images.map(image => {
                 return (
-                    <div className='image' onClick={() => {handleImageSelect(image)}}>
-                        <img src={image.imageURL} />
+                    <div onClick={(event) => {handleImageSelect(event, image)}}>
+                        <img className='image' src={image.imageURL} />
                     </div>
                 )
             }) : ''}

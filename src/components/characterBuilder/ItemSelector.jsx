@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllItems } from "../../services/itemServices"
+import { getAllItemsWithImages } from "../../services/itemServices"
 import './ItemSelector.css'
 
 export const ItemSelector = ({
@@ -11,11 +11,12 @@ export const ItemSelector = ({
     const [allItems, setAllItems] = useState([])
 
     useEffect(() => {
-        getAllItems().then(allItemsArray => {
+        getAllItemsWithImages().then(allItemsArray => {
             setAllItems(allItemsArray)
             console.log(allItemsArray)
         })
     }, [])
+
 
     const handleEquipItemLeft = (item) => {
         console.log(item, ' ITEM')
@@ -30,7 +31,7 @@ export const ItemSelector = ({
         if (equippedItemsCopy[0]?.item?.type === 'twohanded') {
             setEquippedItemsCopy({
                 ...equippedItemsCopy, 
-                0: {...equippedItemsCopy[0], item: null},
+                0: {...equippedItemsCopy[0], item: allItems[0]},
                 1: {...equippedItemsCopy[1], item: item}, 
             })
         } else {
@@ -43,15 +44,21 @@ export const ItemSelector = ({
         setEquippedItemsCopy({
             ...equippedItemsCopy,
             0: {...equippedItemsCopy[0], item: item},
-            1: {...equippedItemsCopy[1], item: null}
+            1: {...equippedItemsCopy[1], item: allItems[1]}
         })
         setCharacterCopy({...characterCopy, weaponTypeEquipped: "twohanded"})
     }
 
     const handleRemoveItem = (item, weaponSlot) => {
+        let fist
+        if (weaponSlot === 0) {
+            fist = allItems[0]
+        } else {
+            fist = allItems[1]
+        }
         setEquippedItemsCopy({
             ...equippedItemsCopy,
-            [weaponSlot]: {...equippedItemsCopy[weaponSlot], item: null}
+            [weaponSlot]: {...equippedItemsCopy[weaponSlot], item: fist}
         })
     }
 
@@ -60,10 +67,12 @@ export const ItemSelector = ({
             <h4>Item Selector</h4>
             <div className="scroll-window">
                 {allItems && allItems.map(item => {
+                    console.log(item)
                     return (
                         <div className='equipment col-3'>
                             <div className='equipment-properties'>
                                 <h6 style={{color: item.color}}>{item.name}</h6>
+                                <img src={item.image.imageURL} />
                                 <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
                                 <p>Str: {item.str ? item.str : ''}</p>
                                 <p>Dex: {item.dex ? item.dex : ''}</p>

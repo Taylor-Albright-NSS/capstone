@@ -9,13 +9,20 @@
 
 .weapon-sort,
 .armor-sort {
-    border: 2px solid green;
     height: 50%;
+    border: 4px outset white;
 }
 
 .weapon-sort h2,
 .armor-sort h2 {
-    border: 2px solid green;
+    border: 2px solid rgb(162, 162, 162);
+    background: black;
+}
+
+.weapon-sort ul,
+.armor-sort ul {
+    padding: 0;
+    margin: 0;
 }
 
 .item-list {
@@ -35,8 +42,32 @@ li {
 }
 
 .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 2px solid green;
-    height: 226.25px;
+    height: 240px;
+    background: black;
+}
+
+.item div {
+    background: black;
+}
+
+.item p {
+    font-size: 12px;
+}
+
+.item-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.item-bot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 img {
@@ -48,4 +79,46 @@ img {
 .item button {
     background-color: rgb(43, 43, 43);
     color: gold;
+    width: 80px;
+
+}
+
+.stats-group-1 {
+    border: 2px solid red;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.stats-group-1 p {
+    width: 60px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.attribute {
+    display: flex;
+}
+
+.attribute span {
+    margin: 0;
+    font-size: 12px;
+}
+
+.attribute-number {
+    /* color: rgb(0, 255, 0); */
+    width: 22px;
+}
+
+
+
+.sort-on-click {
+    border: 4px ridge grey;
+    background: black;
+    cursor: pointer;
 }

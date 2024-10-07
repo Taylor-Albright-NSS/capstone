@@ -1,7 +1,7 @@
 .character-sheet {
     border: 2px solid green;
     width: 300px;
-    height: 800px;
+    height: 700px;
     justify-content: space-between;
 }
 
@@ -82,4 +82,9 @@
 
 .buttons-container {
     text-align: center;
+}
+
+ul img {
+    height: 40px;
+    width: 40px
 }
