@@ -47,15 +47,20 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
 const totalStatsFromGear = () => {
     let statsObject = {
         str: 0,
+
         dex: 0,
         agi: 0
     }
     for (const itemSlot in equippedItemsCopy) {
         let checkedEquipment = equippedItemsCopy[itemSlot]
-        for (const stat in checkedEquipment) {
-            if (stat === 'str') {statsObject.str += checkedEquipment[stat]}
-            if (stat === 'dex') {statsObject.dex += checkedEquipment[stat]}
-            if (stat === 'agi') {statsObject.agi += checkedEquipment[stat]}
+        console.log(checkedEquipment.item)
+        for (const stat in checkedEquipment.item) {
+            if (stat === 'str') {
+                console.log(checkedEquipment.item[stat])
+                statsObject.str += checkedEquipment.item[stat]
+            }
+            if (stat === 'dex') {statsObject.dex += checkedEquipment.item[stat]}
+            if (stat === 'agi') {statsObject.agi += checkedEquipment.item[stat]}
         }
     }
     console.log(statsObject)
@@ -108,6 +113,7 @@ const totalStats = calculateTotalStats()
 
     const calculateDamageObject = () => {
         const totalStats = calculateTotalStats()
+        console.log(totalStats)
         if (!characterCopy) {
             return
         }
@@ -126,12 +132,10 @@ const totalStats = calculateTotalStats()
             let botMultiplier = 0.15 + characterCopy.oneHanded / 20
             damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
             damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
-
-            damageObject.botDamage1 = slot1 && damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage)
-            damageObject.topDamage1 = slot1 && damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage)
-
-            damageObject.botDamage2 = slot2 && damageObject.attackPower * (botMultiplier * slot2?.item?.botDamage)
-            damageObject.topDamage2 = slot2 && damageObject.attackPower * (topMultiplier * slot2?.item?.topDamage)
+            damageObject.botDamage1 = slot1 && Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
+            damageObject.topDamage1 = slot1 && Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
+            damageObject.botDamage2 = slot2 && Math.ceil(damageObject.attackPower * (botMultiplier * slot2?.item?.botDamage))
+            damageObject.topDamage2 = slot2 && Math.ceil(damageObject.attackPower * (topMultiplier * slot2?.item?.topDamage))
 
             damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0) + (damageObject.botDamage2 || 0)).toFixed(2))
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
@@ -156,6 +160,7 @@ const totalStats = calculateTotalStats()
             console.log(damageObject)
 
         }
+        console.log(damageObject)
         return damageObject
     }
 
@@ -244,19 +249,19 @@ const totalStats = calculateTotalStats()
             setCharacterCopy({...characterCopy, raceStatsId: 1, race: 'none'})
         }
         if (characterRace === 'human') {
-            setRaceStatsCopy({str: 1, dex: 1, agi: 0, raceName: 'human'})
+            setRaceStatsCopy({str: 2, dex: 2, agi: 2, raceName: 'human'})
             setCharacterCopy({...characterCopy, raceStatsId: 2, race: 'human'})
         }
         if (characterRace === 'elf') {
-            setRaceStatsCopy({str: 0, dex: 1, agi: 1, raceName: 'elf'})
+            setRaceStatsCopy({str: 0, dex: 3, agi: 3, raceName: 'elf'})
             setCharacterCopy({...characterCopy, raceStatsId: 3, race: 'elf'})
         }
         if (characterRace === 'half-elf') {
-            setRaceStatsCopy({str: 1, dex: 0, agi: 1, raceName: 'half-elf'})
+            setRaceStatsCopy({str: 1, dex: 2, agi: 3, raceName: 'half-elf'})
             setCharacterCopy({...characterCopy, raceStatsId: 4, race: 'half-elf'})
         }
         if (characterRace === 'half-minotaur') {
-            setRaceStatsCopy({str: 2, dex: 0, agi: 0, raceName: 'half-minotaur'})
+            setRaceStatsCopy({str: 6, dex: 0, agi: 0, raceName: 'half-minotaur'})
             setCharacterCopy({...characterCopy, raceStatsId: 5, race: 'half-minotaur'})
         }
     }
@@ -272,12 +277,12 @@ const totalStats = calculateTotalStats()
             item.itemId = item.item.id;
             item.slotId = item.item.slotId;
     
-            const response = await fetch(`http://localhost:8088/character_items?id=${item.id}`);
-            const data = await response.json();
-            console.log(data, ' DATA DATA DATA');
+            const response = await fetch(`http://localhost:8088/character_items?id=${item.id}`)
+            const data = await response.json()
+            console.log(data, ' DATA DATA DATA')
     
             if (data.length > 0) {
-                console.log('PUT PUT PUT PUT');
+                console.log('PUT PUT PUT PUT')
                 delete item.item;
                 await fetch(`http://localhost:8088/character_items/${item.id}`, {
                     method: "PUT",
@@ -285,7 +290,7 @@ const totalStats = calculateTotalStats()
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(item),
-                });
+                })
             } else {
                 console.log('POST POST POST POST');
                 const newItemResponse = await fetch(`http://localhost:8088/character_items/`, {
@@ -294,11 +299,18 @@ const totalStats = calculateTotalStats()
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(item),
-                });
-                const newItemData = await newItemResponse.json();
-                updatedItems[index] = { ...equippedItemsCopy[index], id: newItemData.id };
+                })
+                const newItemData = await newItemResponse.json()
+                updatedItems[index] = { ...equippedItemsCopy[index], id: newItemData.id }
             }
         }
+        await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(characterCopy)
+        })
         await setEquippedItemsCopy(updatedItems);
     };
     

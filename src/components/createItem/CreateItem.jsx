@@ -8,7 +8,7 @@ import './CreateItem.css'
 export const CreateItem = () => {
     const [itemData, setItemData] = useState(
         {color: 'lightGreen', str: 0, dex: 0, agi: 0, int: 0, wis: 0, mys: 0, con: 0,
-            topDamage: 0, botDamage: 0, category: 'weapon', imageId: 0, image: {
+            topDamage: 0, botDamage: 0, slotId: 'weapon', imageId: 0, image: {
                 id: 0,
                 imageURL: "/assets/no image/no image.png",
              }

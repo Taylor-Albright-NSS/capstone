@@ -1,0 +1,3 @@
+Create Item view has Edit Item heading
+When deleting a character, also delete the character_items relationships
+When selecting a race, implement getting race and class stats from the database rather than setting them manually

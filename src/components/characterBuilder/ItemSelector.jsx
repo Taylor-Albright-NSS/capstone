@@ -69,7 +69,7 @@ export const ItemSelector = ({
                 {allItems && allItems.map(item => {
                     console.log(item)
                     return (
-                        <div className='equipment col-3'>
+                        <div className='equipment col-3' key={item.key}>
                             <div className='equipment-properties'>
                                 <h6 style={{color: item.color}}>{item.name}</h6>
                                 <img src={item.image.imageURL} />

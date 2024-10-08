@@ -4,6 +4,7 @@ import { getAllEquippedItems, getAllEquippedItems2, getAllEquippedItems3 } from 
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
 import { getSingleItem } from '../../services/itemServices'
 import { useState, useEffect } from 'react'
+import { getAllDatabaseCharacters } from '../../services/characterServices'
 
 export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
@@ -12,6 +13,20 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
  }) => {
     const [characterList, setCharacterList] = useState([])
     const [testGear, setTestGear] = useState({})
+    const [newCharacterId, setNewCharacterId] = useState(0)
+    const [allDatabaseCharacters, setAllDatabaseCharacters] = useState([])
+
+    useEffect(() => {
+        getAllDatabaseCharacters().then(allCharsArray => {
+            setAllDatabaseCharacters(allCharsArray)
+        })
+    }, [selectedCharacterId])
+
+    useEffect(() => {
+        getAllDatabaseCharacters().then(allCharsArray => {
+            setNewCharacterId(allCharsArray.length)
+        })
+    }, [allDatabaseCharacters])
 
     useEffect(() => {
         getAllUserCharacters(currentUser).then(char => {
@@ -48,6 +63,18 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             weaponSlot1: null,
             weaponSlot2: null
         }
+
+        const emptyLeftHand = {
+            characterId: newCharacterId + 1,
+            itemId: 1,
+            slotId: "weapon",    
+        }
+        const emptyRightHand = {
+            characterId: newCharacterId + 1,
+            itemId: 2,
+            slotId: "weapon",    
+        }
+
         await fetch("http://localhost:8088/characters", {
             method: "POST",
             headers: {
@@ -55,8 +82,34 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             },
             body: JSON.stringify(blankCharacter),
         })
+        await fetch("http://localhost:8088/character_items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(emptyLeftHand),
+        })
+        await fetch("http://localhost:8088/character_items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(emptyRightHand),
+        })
         getAllUserCharacters(currentUser).then(char => {
             setCharacterList(char)
+            setSelectedCharacterId(newCharacterId + 1)
+        })
+        getCharacterById(character.id).then(userCharacter => {
+            setCharacterCopy({...userCharacter[0]})
+        })
+        getCharacterClassAndRaceStats(character.id).then(stats => {
+            setClassStatsCopy({...stats[0].classStats})
+            setRaceStatsCopy({...stats[0].raceStats})
+        })
+        getAllEquippedItems3(character.id).then(equipmentArray => {
+            console.log(equipmentArray)
+            setEquippedItemsCopy(equipmentArray)
         })
     }
 
@@ -70,7 +123,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
                         return <li key={character.id} onClick={(e) => {
 
                             setSelectedCharacterId(character.id)
-                            
                             getCharacterById(character.id).then(userCharacter => {
                                 setCharacterCopy({...userCharacter[0]})
                             })
@@ -78,17 +130,11 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
                                 setClassStatsCopy({...stats[0].classStats})
                                 setRaceStatsCopy({...stats[0].raceStats})
                             })
-                            // getAllEquippedItems(character.id).then(equipmentArray => {
-                            //     console.log(equipmentArray)
-                            //     setEquippedItemsCopy(equipmentArray)
-                            // })
                             getAllEquippedItems3(character.id).then(equipmentArray => {
                                 console.log(equipmentArray)
                                 setEquippedItemsCopy(equipmentArray)
                             })
 
-                            
-                            
                         }}>{character.name}</li>
                     })}
                 </ul>

@@ -45,9 +45,6 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
         }
     }
 
-    const removeItemFromEquippedItemsCopy = () => {
-
-    }
 
     const handleDelete = async (itemId) => {
         const confirmDelete = confirm(`Are you sure you want to delete this item?`)

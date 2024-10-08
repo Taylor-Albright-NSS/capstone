@@ -20,11 +20,13 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     useEffect(() => {
         const fetchEquippedItems = async () => {
             const equipmentArray = await getAllEquippedItems(selectedCharacterId);
+            console.log(equipmentArray)
             const updatedEquipmentArray = await Promise.all(equipmentArray.map(async (item) => {
                 const singleItemArray = await getSingleItem(item.itemId);
                 item.item = singleItemArray[0];
                 return item
             }));
+            console.log(updatedEquipmentArray)
             setEquippedItems(updatedEquipmentArray)
         };
     
@@ -85,16 +87,26 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         }
         let damageObject = {}
         let weapons = equippedItems.filter(item => item?.item?.slotId === 'weapon')
-        
+        console.log(equippedItems)
+        console.log(weapons)
         if (character.weaponTypeEquipped === 'onehanded') {
             let topMultiplier = 0.15 + character.oneHanded / 20
             let botMultiplier = 0.15 + character.oneHanded / 20
+
             damageObject.attackPower = Math.ceil((totalStats.str + totalStats.dex + (totalStats.agi * 0.5)) * 0.5)
             damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(1)))
-            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
-            damageObject.topDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * weapons[1].item.topDamage))
+            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
             damageObject.botDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * weapons[1].item.botDamage))
+            damageObject.topDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * weapons[1].item.topDamage))
+
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0) + (damageObject.botDamage2 || 0)).toFixed(2))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
+
+
         }
         if (character.weaponTypeEquipped === 'twohanded') {
             let topMultiplier = 0.15 + character.twoHanded / 20
@@ -104,24 +116,8 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
         }
+        console.log(damageObject, ' DAMAGE OBJECT')
         return damageObject
-    }
-
-    const totalDamages = () => {
-        return (
-            <div className='total-damages'>
-                <h5>Damage Range</h5>
-                <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 + ' - ' + calculateAttackPower()?.topDamage1}</span>
-                <h5>Average Damage</h5>
-                <span className='damage average-damage'>
-                    {Math.ceil((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)}
-                    {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER')}
-                    </span>
-                <h5>DPS</h5>
-                <span className='damage dps'>{(Math.ceil(((calculateAttackPower()?.botDamage1 + calculateAttackPower()?.topDamage1) * 0.5)) / calculateAttackPower()?.speed).toFixed(1)}</span>
-                    {console.log(calculateAttackPower(), ' CALCULATE ATTACK POWER 2')}
-            </div>
-        )
     }
 
     const handleCharacterDelete = async () => {
@@ -131,17 +127,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         } else if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
                 await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
                     method: "DELETE",
-                    // headers: {
-                    //     "Content-Type": "application/json",
-                    // },
-                    // body: JSON.stringify(),
                 })
                 await fetch(`http://localhost:8088/character_items/characterId=${selectedCharacterId}`, {
                     method: "DELETE",
-                    // headers: {
-                    //     "Content-Type": "application/json",
-                    // },
-                    // body: JSON.stringify(),
                 })
                 setSelectedCharacterId(0)
             }
@@ -213,7 +201,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     return (
         <div className='character-sheet mx-2 d-flex flex-column col-5'>
-            <h2>{character ? character.name : 'No Character Selected'}</h2>
+            <h2>{character ? character.name + character.race + ' ' + character.class : 'No Character Selected'}</h2>
             <div className='top-container'>
                     <ul className='character-stats-container col-6 attributes'>
                         <p>Attributes</p>
@@ -257,13 +245,13 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             <div className='bot-container'>
                 <div className='total-damages'>
                     <h5>Damage Range</h5>
-                    <span className='damage damage-range'>{calculateAttackPower()?.botDamage1 ? calculateAttackPower().botDamage1 + ' - ' + calculateAttackPower()?.topDamage1 : 0 + ' - ' + 0}</span>
+                    <span className='damage damage-range'>{calculateAttackPower()?.totalDamageBot ? calculateAttackPower().totalDamageBot + ' - ' + calculateAttackPower()?.totalDamageTop : 0 + ' - ' + 0}</span>
                     <h5>Average Damage</h5>
                     <span className='damage average-damage'>
-                        {calculateAttackPower()?.botDamage1 ? Math.ceil((calculateAttackPower().botDamage1 + calculateAttackPower().topDamage1) * 0.5) : 0}
+                        {calculateAttackPower()?.botDamage1 ? calculateAttackPower().totalAverageDamage : 0}
                     </span>
                     <h5>DPS</h5>
-                    <span className='damage dps'>{calculateAttackPower()?.botDamage1 ? (Math.ceil(((calculateAttackPower().botDamage1 + calculateAttackPower().topDamage1) * 0.5)) / calculateAttackPower().speed).toFixed(1) : 0}</span>
+                    <span className='damage dps'>{calculateAttackPower()?.botDamage1 ? calculateAttackPower().totalDps : 0}</span>
                 </div>            
             </div>
             <div className='buttons-container'>
