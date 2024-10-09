@@ -1,8 +1,10 @@
 .character-sheet {
-    border: 2px solid green;
+    display: flex;
+    border: 4px ridge silver;
     width: 300px;
-    height: 700px;
-    justify-content: space-between;
+    height: 760px;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .character-sheet ul {
@@ -18,13 +20,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    border: 2px solid green;
+    border: 4px ridge silver
 }
 .character-stats-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid purple;
+    border: 4px ridge silver;
     height: 200px;
     flex-wrap: wrap;
 }
@@ -35,10 +37,16 @@
 .items {
     display: flex;
     flex-wrap: wrap;
+    height: 248px;
+    border: 4px ridge silver
+}
+
+.items li > ul {
+    height: 120px;
 }
 .weapon-1-info,
 .weapon-2-info {
-    border: 2px solid blue;
+    border: 2px solid silver;
     height: 100px;
     font-size: 10px;
     text-align: center; /* Center the list items */
@@ -46,7 +54,7 @@
 
 .item-info {
     display: flex;
-    border: 2px solid blue;
+    border: 2px solid silver;
     height: 100px;
     font-size: 18px;
     justify-content: center;
@@ -58,7 +66,7 @@
 .bot-container {
     display: flex;
     border: 2px solid red;
-    height: 400px;
+    height: 180px;
     justify-content: space-around;
 }
 
@@ -80,11 +88,24 @@
     border: 2px solid yellow;
 }
 
-.buttons-container {
-    text-align: center;
+
+
+.character-builder-button,
+.delete-character-button {
+    margin-top: 22px;
+    width: 200px !important;
+    height: 40px !important
 }
+
 
 ul img {
     height: 40px;
     width: 40px
+}
+
+.damage-container {
+    border: 4px ridge silver;
+    text-align: center;
+    width: 500px;
+    height: 173px;
 }

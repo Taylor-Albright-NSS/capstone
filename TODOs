@@ -1,5 +1,11 @@
 Create Item view has Edit Item heading
 When deleting a character, also delete the character_items relationships
 When selecting a race, implement getting race and class stats from the database rather than setting them manually
-Add increments and decrements for twohanded weapon skill
-Update items in the character builder after editing an item
+
+Remove hands from being able to be selected in all items, editor, and character builder
+Move character builder button from character sheet to character list
+In the all items view, add a weapon skill to each item so you can see whether it is onehanded, twohanded, etc
+
+Implement the inability to assign negative numbers to stat and damage values: creating item, editing item, character builder
+Maybe make it so that character builder view isn't even available to look at until you have a character selected. check
+selectedCharacterId to see if a character is selected

@@ -1,9 +1,9 @@
 #root {
-  width: 1280px;
-  height: 880px;
+  width: 1400px;
+  height: 830px;
   margin: 0 auto;
-  border: 4px ridge grey;
-  padding: 1rem;
+  border: 4px ridge rgb(232, 182, 31);
+  background-color: rgb(29, 29, 29);
   /* text-align: center; */
 }
 

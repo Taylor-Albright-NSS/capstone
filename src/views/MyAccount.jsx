@@ -65,8 +65,10 @@ export const MyAccount = ({ currentUser }) => {
                     <dt>Password</dt>
                     <dd><input type='text' value={userEdit ? userEdit.password : ''} onChange={(event) => {handleChangeEvent(event, 'password')}}/></dd>
                 </dl>
-                <button onClick={handleAccountEditToggle}>Back</button>
-                <button onClick={handleSaveEdits}>Save Edits</button>
+                <div className='d-flex'>
+                    <button onClick={handleAccountEditToggle}>Back</button>
+                    <button onClick={handleSaveEdits}>Save Edits</button>
+                </div>
             </div> 
             }
         </div>

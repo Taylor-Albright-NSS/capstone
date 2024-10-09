@@ -1,6 +1,6 @@
 .profile-view {
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    align-items: flex-start;     /* Center vertically */
     height: 85vh;   
 }

@@ -12,6 +12,9 @@ export const ItemSelector = ({
 
     useEffect(() => {
         getAllItemsWithImages().then(allItemsArray => {
+            const itemsWithoutHands = allItemsArray.filter(item => {
+                return item.id != 1 && item.id !=2
+            })
             setAllItems(allItemsArray)
             console.log(allItemsArray)
         })
@@ -67,33 +70,38 @@ export const ItemSelector = ({
             <h4>Item Selector</h4>
             <div className="scroll-window">
                 {allItems && allItems.map(item => {
-                    console.log(item)
-                    return (
-                        <div className='equipment col-3' key={item.key}>
-                            <div className='equipment-properties'>
-                                <h6 style={{color: item.color}}>{item.name}</h6>
-                                <img src={item.image.imageURL} />
-                                <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
-                                <p>Str: {item.str ? item.str : ''}</p>
-                                <p>Dex: {item.dex ? item.dex : ''}</p>
-                                <p>Agi: {item.agi ? item.agi : ''}</p>
+                    if (item.id != 1 && item.id != 2) {
+                        return (
+                            <div className='equipment col-3' key={item.id}>
+                                <div className='equipment-properties'>
+                                    <h6 style={{color: item.color}}>{item.name}</h6>
+                                    <img src={item.image.imageURL} />
+                                    <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
+                                    <p>Str: {item.str ? item.str : ''}</p>
+                                    <p>Dex: {item.dex ? item.dex : ''}</p>
+                                    <p>Agi: {item.agi ? item.agi : ''}</p>
+                                </div>
+                                { item.type === "onehanded" &&
+                                    <div className='equip-buttons-container'>
+                                        <div className='equip-and-remove-left'>
+                                            <button onClick={(e) => {handleEquipItemLeft(item)}}>Equip Left</button>
+                                            <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove Left</button>
+                                        </div>
+                                        <div className='equip-and-remove-right'>
+                                            <button onClick={(e) => {handleEquipItemRight(item)}}>Equip Right</button>
+                                            <button onClick={(e) => {handleRemoveItem(item, 1)}}>Remove Right</button>
+                                        </div>
+                                    </div>
+                                }
+                                { item.type === "twohanded" &&
+                                        <div className='equip-twohanded-buttons'>
+                                            <button onClick={(e) => {handleEquipTwohanded(item)}}>Equip</button>
+                                            <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove</button>
+                                        </div>
+                                }
                             </div>
-                            { item.type === "onehanded" &&
-                                <div className='equip-buttons-container'>
-                                <button onClick={(e) => {handleEquipItemLeft(item)}}>Equip Left</button>
-                                <button onClick={(e) => {handleEquipItemRight(item)}}>Equip Right</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove Left</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 1)}}>Remove Right</button>
-                                </div>
-                            }
-                            { item.type === "twohanded" &&
-                                <div className='equip-buttons-container'>
-                                <button onClick={(e) => {handleEquipTwohanded(item)}}>Equip</button>
-                                <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove</button>
-                                </div>
-                            }
-                        </div>
-                    )
+                        )
+                    }
                 })}
             </div>
         </div>

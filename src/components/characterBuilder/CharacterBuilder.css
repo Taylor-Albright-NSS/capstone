@@ -1,7 +1,9 @@
 .character-builder {
-    border: 2px solid blue;
+    display: flex;
+    flex-direction: column;
+    border: 4px ridge silver;
     min-width: 600px;
-    min-height: 800px;
+    min-height: 700px;
     margin: 0 2rem 0 2rem;
 }
 .character-builder h2, h3, h4, h5 {
@@ -12,7 +14,8 @@
 }
 .left-builder,
 .right-builder {
-    border: 2px solid yellow;
+    border: 4px ridge silver;
+    padding: 4px;
 }
 
 .right-builder h4 {
@@ -59,10 +62,8 @@
     text-align: center;
 }
 
-
-
-.character-builder-damage {
-    border: 2px solid brown;
+.total-damages {
+    border: 4px ridge silver;
     text-align: center;
     width: 500px;
     height: 173px;
@@ -93,7 +94,6 @@
 .equipment {
     display: flex;
     flex-direction: column;
-    border: 2px solid purple;
     /* width: 100px; */
     height: 150px;
 }
@@ -101,7 +101,7 @@
 .equipped-item {
     display: flex;
     flex-direction: column;
-    border: 2px solid purple;
+    border: 4px solid silver;
     /* width: 100px; */
     height: 150px;
     justify-content: center;
@@ -137,7 +137,7 @@
     flex-direction: row;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     align-content: flex-start; /* Align wrapped lines to the top */
-    border: 2px solid green;
+    border: 4px ridge silver;
     width: 100%;
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -161,4 +161,10 @@
 
 .weapon-skill-row {
     display: flex;
+}
+
+.save-character-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
 }

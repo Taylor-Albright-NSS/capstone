@@ -3,8 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 2px solid green;
-    height: 820px;
+    height: 700px;
 }
 
 .welcome {
@@ -12,13 +11,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 2px solid red;
+    border: 4px solid silver;
     /* border: 40px solid transparent; Required solid border */
     /* border-image: url('/assets/borders/border 5.png') 40 fill round; */
     margin-top: 2rem;
     width: 860px;
     height: 600px;
     background-color: black;
+}
+.welcome h1 {
+    font-size: 36px;
 }
 
 .welcome p {

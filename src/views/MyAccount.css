@@ -1,20 +1,22 @@
 .account-container {
     display: flex;
     flex-direction: column;
-    border: 2px inset gold;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 400px;
 }
 
-.account-information {
+.account-information,
+.edit-account-information {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 8px ridge grey;
     width: 400px;
+    height: 340px;
+    padding: 10px
 }
 
 .account-information dl {

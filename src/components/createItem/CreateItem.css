@@ -3,10 +3,13 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    border: 2px solid red;
+    border: 4px ridge silver;
 }
 
 .create-item-form {
     display: flex;
     flex-direction: column;
+}
+
+.dropdowns div > select {
 }

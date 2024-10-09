@@ -1,5 +1,5 @@
 .character-list {
-    border: 2px solid green;
+    border: 4px ridge silver;
     height: 400px;
     text-align: center;
 }
@@ -15,6 +15,6 @@
 }
 
 .characters {
-    border: 2px solid yellow;
+    border: 4px ridge silver;
     margin: 30px 20px 20px 20px;
 }

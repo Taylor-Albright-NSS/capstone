@@ -47,9 +47,9 @@ export const Register = () => {
 
   return (
     <main className="container-login mt-5 mx-auto pt-5">
-      <form className="form-login mx-auto text-center" onSubmit={handleRegister}>
+      <form className="form-login mx-auto text-center d-flex flex-column align-items-center" onSubmit={handleRegister}>
       <h1 className="text-center mb-5">Register Your Galvadia Armory Account</h1>
-        <fieldset>
+        <fieldset style={{width: '250px'}}>
           <div className="form-group">
             <input
               style={{fontFamily: user.name.length > 0 ? 'serif' : 'Cinzel'}}
@@ -63,7 +63,7 @@ export const Register = () => {
             />
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset style={{width: '250px'}}>
           <div className="form-group">
             <input
               style={{fontFamily: user.userName.length > 0 ? 'serif' : 'Cinzel'}}
@@ -77,7 +77,7 @@ export const Register = () => {
             />
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset style={{width: '250px'}}>
           <div className="form-group">
             <input
               style={{fontFamily: user.email.length > 0 ? 'serif' : 'Cinzel'}}
@@ -90,7 +90,7 @@ export const Register = () => {
             />
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset style={{width: '250px'}}>
           <div className="form-group">
             <input
               style={{fontFamily: user.password.length > 0 ? 'serif' : 'Cinzel'}}
@@ -105,7 +105,7 @@ export const Register = () => {
         </fieldset>
         <fieldset>
           <div className="form-group">
-            <button className="mt-3 login btn fw-bold" type="submit">
+            <button className="my-3" type="submit">
               Register
             </button>
           </div>

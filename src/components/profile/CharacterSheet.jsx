@@ -3,6 +3,7 @@ import { getCharacterById, getEquippedWeapons, getAllUserCharacters } from "../.
 import { useState, useEffect } from "react"
 import { getAllEquippedItems, getSingleItem } from '../../services/itemServices'
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
@@ -10,6 +11,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
 
+    const navigate = useNavigate()
 
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(userCharacter => {
@@ -35,9 +37,10 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
-            setClassStats(stats[0].classStats)
-            setRaceStats(stats[0].raceStats)
-            console.log(stats, ' SHOULD BE STATS')
+            if (stats[0]) {
+                setClassStats(stats[0].classStats)
+                setRaceStats(stats[0].raceStats)
+            }
         })
     }, [selectedCharacterId])
 
@@ -231,7 +234,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                         <li>{character ? 'Blunt Armor: ' + calculateAttackPower().attackPower : ''}</li>
                     </ul> */}
                 <div className='character-equipment-container col-12'>
-                <h2>Equipment</h2>
                     <ul className='items'>
                         <li className='col-3 slot1'>{displayWeapon1()}</li>
                         <li className='col-3 slot2'>{displayWeapon2()}</li>
@@ -244,8 +246,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     </ul>
                 </div>
             </div>
-            <div className='bot-container'>
-                <div className='total-damages'>
+                <div className='damage-container'>
                     <h5>Damage Range</h5>
                     <span className='damage damage-range'>{calculateAttackPower()?.totalDamageBot ? calculateAttackPower().totalDamageBot + ' - ' + calculateAttackPower()?.totalDamageTop : 0 + ' - ' + 0}</span>
                     <h5>Average Damage</h5>
@@ -255,10 +256,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     <h5>DPS</h5>
                     <span className='damage dps'>{calculateAttackPower()?.botDamage1 ? calculateAttackPower().totalDps : 0}</span>
                 </div>            
-            </div>
             <div className='buttons-container'>
-                <button>Edit</button>
-                <button onClick={() => {handleCharacterDelete()}}>Delete</button>
+                <button className='character-builder-button' onClick={() => {navigate('/characterbuilder')}}>Character Builder</button>
+                <button className='delete-character-button' onClick={() => {handleCharacterDelete()}}>Delete Character</button>
             </div>
         </div>
     )    

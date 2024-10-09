@@ -1,16 +1,16 @@
 .all-items-container {
     display: flex;
-    border: 2px solid purple;
+    padding: 2rem;
 }
 
 .sort-container {
-    border: 2px solid red;
 }
 
 .weapon-sort,
 .armor-sort {
     height: 50%;
     border: 4px outset white;
+    text-align: center;
 }
 
 .weapon-sort h2,
@@ -28,7 +28,7 @@
 .item-list {
     display: flex;
     overflow: auto;
-    border: 2px solid orange;
+    border: 6px outset white ;
     margin-left: 4.3rem;
     height: 600px;
 }
@@ -44,8 +44,8 @@ li {
 .item {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    border: 2px solid green;
+    justify-content: space-around;
+    border: 2px solid silver;
     height: 240px;
     background: black;
 }
@@ -64,6 +64,7 @@ li {
     justify-content: center;
     align-items: center;
 }
+
 .item-bot {
     display: flex;
     flex-direction: row;
@@ -71,20 +72,21 @@ li {
 }
 
 img {
-    border: 2px solid green;
+    border: 4px ridge rgb(195, 195, 195);
     width: 100px;
     height: 100px;
 }
 
-.item button {
+.buttons-container button {
     background-color: rgb(43, 43, 43);
     color: gold;
     width: 80px;
+    height: 25px;
 
 }
 
 .stats-group-1 {
-    border: 2px solid red;
+    border: 2px solid silver;
     width: 120px;
     height: 60px;
     display: flex;
@@ -94,6 +96,7 @@ img {
 
 .stats-group-1 p {
     width: 60px;
+    margin-left: 4px;
 }
 
 .buttons-container {
@@ -103,6 +106,7 @@ img {
 
 .attribute {
     display: flex;
+    margin-left: 4px;
 }
 
 .attribute span {

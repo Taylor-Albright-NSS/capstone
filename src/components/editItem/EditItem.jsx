@@ -69,20 +69,20 @@ export const EditItem = () => {
         <div className='edit-item-main'>
             <form className='edit-item-form' onSubmit={handleSubmit}>
             <h2>Edit Item</h2>
-                <div className='select-image-container'>
-                    {/* Replace with your logic for displaying the selected image */}
-                    {/* <p>Selected Image ID: {itemData.imageId}</p> */}
-                    {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />}
-                </div>
-                <label>Name</label>
-                <div>
-                    <input
-                        type="text"
-                        name="name"
-                        value={itemData.name}
-                        onChange={(event) => {handleTextChange(event, 'name')}}
-                        required
-                    />
+            <div className='first-container'>
+                    <div className='select-image-container'>
+                        {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />}
+                    </div>
+                    <label>Item Name</label>
+                    <div>
+                        <input
+                            type="text"
+                            name="name"
+                            value={itemData.name}
+                            onChange={(event) => {handleTextChange(event, 'name')}}
+                            required
+                        />
+                    </div>
                 </div>
                 <div className='top-options'>
                     <div className='dropdowns'>
@@ -264,7 +264,6 @@ export const EditItem = () => {
                         name="description"
                         value={itemData.description}
                         onChange={(event) => {handleTextChange(event, 'description')}}
-                        required
                     ></textarea>
                 </div>
 

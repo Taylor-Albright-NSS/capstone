@@ -31,7 +31,7 @@ export const ImageSelector = ({ itemData, setItemData }) => {
         <div className='images-main'>
             {images ? images.map(image => {
                 return (
-                    <div onClick={(event) => {handleImageSelect(event, image)}}>
+                    <div onClick={(event) => {handleImageSelect(event, image)}} key={image.key}>
                         <img className='image' src={image.imageURL} />
                     </div>
                 )

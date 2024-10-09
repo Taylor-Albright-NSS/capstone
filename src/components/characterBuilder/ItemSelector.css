@@ -1,8 +1,8 @@
 .item-selector {
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
-    width: 600px;
+    border: 4px outset silver;
+    width: 720px;
     height: 600px;
 }
 
@@ -14,7 +14,7 @@
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     align-content: flex-start; /* Align wrapped lines to the top */
-    border: 2px solid green;
+    border: 4px ridge silver;
     height: 100%; /* Set a fixed height for the container */
     width: 100%;
     overflow-y: auto; /* Enable vertical scrolling */
@@ -26,10 +26,9 @@
 .equipment {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    border: 2px solid purple;
+    border: 2px solid silver;
     /* width: 100px; */
-    height: 200px;
+    height: 230px;
 }
 
 .equipment h6 {
@@ -45,14 +44,19 @@
 .equip-buttons-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .equip-buttons-container button {
+    display: flex;
+    width: 46px;
+    height: 30px;
     font-size: 8px;
     font-weight: 900;
     margin-bottom: 0.3rem;
+    /* transform: translateY(-80px); */
 }
+
 
 .equipment-properties {
     display: flex;
@@ -61,6 +65,24 @@
 }
 
 .equipment-properties img {
+    border: 2px solid silver;
     height: 40px;
     width: 40px;
 }
+
+.equip-and-remove-left {
+    margin-left: 0.5rem;
+}
+.equip-and-remove-right {
+    margin-right: 0.5rem;
+}
+
+.equip-twohanded-buttons button {
+    font-size: 12px;
+    width: 80px;
+    font-weight: 900;
+}
+
+.equip-twohanded-buttons {
+    margin-top: 20px;
+  }

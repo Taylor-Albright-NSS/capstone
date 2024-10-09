@@ -275,7 +275,8 @@ const totalStats = calculateTotalStats()
     const handleSaveCharacter = async () => {
         // Create a new array to hold the updated items
         const updatedItems = {...equippedItemsCopy};
-    
+        let saveCheck = confirm('Are you sure you wish to save these changes?')
+        if (!saveCheck) {return}
         for (const index in equippedItemsCopy) {
             const item = { ...equippedItemsCopy[index] };
             console.log(item);
@@ -355,19 +356,19 @@ const totalStats = calculateTotalStats()
                         <li className='d-flex'>
                             <span className='attribute-string'>STR:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'str')}}>-</button>
-                            <span className='attribute-number'>{totalStats.str}</span>
+                            <span className='attribute-number'>{totalStats.str ? totalStats.str : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('str')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>DEX:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'dex')}}>-</button>
-                            <span className='attribute-number'>{totalStats.dex}</span>
+                            <span className='attribute-number'>{totalStats.dex ? totalStats.str : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('dex')}}>+</button>
                         </li>
                         <li className='d-flex'>
                             <span className='attribute-string'>AGI:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'agi')}}>-</button>
-                            <span className='attribute-number'>{totalStats.agi}</span>
+                            <span className='attribute-number'>{totalStats.agi ? totalStats.agi : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('agi')}}>+</button>
                         </li>
                     </ul>
@@ -423,10 +424,8 @@ const totalStats = calculateTotalStats()
             </div>
 
             </div>
-            <div className='character-builder-damage'>
                 {totalDamages()}
-            </div>
-            <div>
+            <div className='save-character-button'>
                 <button onClick={handleSaveCharacter}>Save Character</button>
             </div>
         </div>
