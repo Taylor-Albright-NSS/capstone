@@ -43,11 +43,19 @@ export const EditItem = () => {
         } else if (isNaN(copy[propToChange]) == false) {
             console.log(copy[propToChange], ' IS NAN COPY PROP TO CHANGE')
             copy[propToChange] = parseInt(event.target.value)
+        } else {
+            copy[propToChange] = event.target.value
+
         }
         setItemData(copy)
         console.log(copy)  
     }
     const handleTextChange = (event, propToChange) => {
+        let copy = {...itemData}
+        copy[propToChange] = event.target.value
+        setItemData(copy)
+    }
+    const handleDropdownChange = (event, propToChange) => {
         let copy = {...itemData}
         copy[propToChange] = event.target.value
         setItemData(copy)
@@ -83,7 +91,7 @@ export const EditItem = () => {
                             <select
                                 name="category"
                                 value={itemData.category}
-                                onChange={(event) => {handleChange(event, 'category')}}
+                                onChange={(event) => {handleDropdownChange(event, 'category')}}
                             >
                                 <option value="">Category</option>
                                 <option value="weapon">Weapon</option>
@@ -97,7 +105,7 @@ export const EditItem = () => {
                             <select
                                 name="type"
                                 value={itemData.type}
-                                onChange={(event) => {handleChange(event, 'type')}}
+                                onChange={(event) => {handleDropdownChange(event, 'type')}}
                             >
                                 <option value="">Type</option>
                                 <option value="onehanded">One-Handed</option>
@@ -113,7 +121,7 @@ export const EditItem = () => {
                             <select
                                 name="subType"
                                 value={itemData.subType}
-                                onChange={(event) => {handleChange(event, 'subType')}}
+                                onChange={(event) => {handleDropdownChange(event, 'subType')}}
                             >
                                 <option value="">Subtype</option>
                                 <option value="sword">Sword</option>

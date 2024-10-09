@@ -201,7 +201,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     return (
         <div className='character-sheet mx-2 d-flex flex-column col-5'>
-            <h2>{character ? character.name + character.race + ' ' + character.class : 'No Character Selected'}</h2>
+            <h2>{character ? character.name + ': ' + character.race + ' ' + character.class : 'No Character Selected'}</h2>
             <div className='top-container'>
                     <ul className='character-stats-container col-6 attributes'>
                         <p>Attributes</p>
@@ -220,6 +220,8 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                         <li>{character?.class === 'mage' ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
                         <li>Speed: {calculateAttackPower()?.speed ? calculateAttackPower().speed : 0}</li>
                         <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li>
+                        <li>Onehanded Skill: {character?.oneHanded ? character.oneHanded : 0}</li>
+                        <li>Twohanded Skill: {character?.twoHanded ? character.twoHanded : 0}</li>
                     </ul>
                     {/* <ul className='defense character-stats-container col-5'>
                         <p>Defense</p>

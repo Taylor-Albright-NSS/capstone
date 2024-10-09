@@ -30,6 +30,13 @@ export const CreateItem = () => {
         }).then(res => res.json())
         navigate('/allitems', { state: { fromEdit: true } });
     }
+
+    const handleNameChange = (event) => {
+        let copy = {...itemData}
+        copy.name = event.target.value
+        setItemData(copy)
+
+    }
     const handleChange = (event, propToChange) => {
         let copy = {...itemData}
         if (event.target.type === 'checkbox') {
@@ -49,7 +56,7 @@ export const CreateItem = () => {
     return (
         <div className='edit-item-main'>
             <form className='edit-item-form' onSubmit={handleSubmit}>
-            <h2>Edit Item</h2>
+            <h2>Create Item</h2>
                 <div className='select-image-container'>
                     {/* Replace with your logic for displaying the selected image */}
                     {/* <p>Selected Image ID: {itemData.imageId}</p> */}
@@ -62,7 +69,7 @@ export const CreateItem = () => {
                         type="text"
                         name="name"
                         value={itemData.name}
-                        onChange={(event) => {handleChange(event, 'name')}}
+                        onChange={(event) => {handleNameChange(event, 'name')}}
                         required
                     />
                 </div>
@@ -246,7 +253,6 @@ export const CreateItem = () => {
                         name="description"
                         value={itemData.description}
                         onChange={(event) => {handleChange(event, 'description')}}
-                        required
                     ></textarea>
                 </div>
 

@@ -5,6 +5,7 @@ import { getAllEquippedItems } from "../../services/itemServices"
 import { CharacterSheet } from "character-sheet"
 import { getCharacterClassAndRaceStats } from "../../services/statsServices"
 import { getSingleItem } from "../../services/itemServices"
+import { getAllEquippedItems3 } from "../../services/itemServices"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId, character, 
@@ -38,6 +39,11 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         }
     }, [classStats, raceStats, equippedItemsCopy])
 
+    useEffect(() => {
+        getAllEquippedItems3(selectedCharacterId).then(equipmentArray => {
+            setEquippedItemsCopy(equipmentArray)
+        })
+    }, [])
 
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
@@ -366,17 +372,25 @@ const totalStats = calculateTotalStats()
                         </li>
                     </ul>
                     <p className=''>Attackpower: {calculateDamageObject().attackPower}</p>
+                    <p className=''>Swing speed: {calculateDamageObject().speed}</p>
                 </div>
                 <div className='right-builder col-6'>
                     <h4>Weapon Skills</h4>
                     <div className='weapon-skills'>
-                        <p className={characterCopy.weaponTypeEquipped === 'onehanded' ? 'selected-weapon-skill' : ''}>Onehanded</p>
-                        <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'oneHanded')}}>-</button>
-                        <p>{characterCopy.oneHanded}</p>
-                        <button className='increment-button' onClick={() => {handleIncrement('oneHanded')}}>+</button>
+                        <div className='weapon-skill-row'>
+                            <p className={characterCopy.weaponTypeEquipped === 'onehanded' ? 'selected-weapon-skill' : ''}>Onehanded</p>
+                            <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'oneHanded')}}>-</button>
+                            <p>{characterCopy.oneHanded}</p>
+                            <button className='increment-button' onClick={() => {handleIncrement('oneHanded')}}>+</button>
+                        </div>
+                        <div className='weapon-skill-row'>
+                            <p className={characterCopy.weaponTypeEquipped === 'twohanded' ? 'selected-weapon-skill' : ''}>Twohanded</p>
+                            <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'twoHanded')}}>-</button>
+                            <p>{characterCopy.twoHanded}</p>
+                            <button className='increment-button' onClick={() => {handleIncrement('twoHanded')}}>+</button>
+                        </div>
 
-                        <p className={characterCopy.weaponTypeEquipped === 'twohanded' ? 'selected-weapon-skill' : ''}>Twohanded</p>
-                        <p>{characterCopy.twoHanded}</p>
+
                     </div>
                 </div>
             </div>
