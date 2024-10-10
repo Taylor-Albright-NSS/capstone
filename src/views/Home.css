@@ -15,9 +15,9 @@
     /* border: 40px solid transparent; Required solid border */
     /* border-image: url('/assets/borders/border 5.png') 40 fill round; */
     margin-top: 2rem;
-    width: 860px;
-    height: 600px;
     background-color: black;
+    max-width: 100%;
+
 }
 .welcome h1 {
     font-size: 36px;
@@ -32,6 +32,17 @@
 
 .welcome h1 {
     margin: 2rem 0 2rem 0;
+    text-align: center;
 }
 
-
+@media (max-width: 375px) {
+    .home-container {
+        height: 100%
+    }
+    .welcome h1 {
+        font-size: 26px;
+    }
+    .welcome p {
+        width: 100%
+    }
+}
