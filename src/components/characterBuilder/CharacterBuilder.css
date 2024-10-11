@@ -168,3 +168,69 @@
     justify-content: center;
     margin-top: 4px;
 }
+
+@media (max-width: 768px) {
+    .character-builder {
+        height: 100% !important;
+        /* width: 100% !important; */
+        min-width: 0px;
+        min-height: 0px;
+    }
+
+    .builders {
+        display: flex;
+        /* flex-direction: row; */
+        width: 100%;
+    }
+    .d-flex {
+        flex-direction: column-reverse !important
+    }
+    .ItemSelector-CharacterBuilder-container {
+        flex-direction: column-reverse;
+    }
+    .scroll-window {
+        overflow: visible !important;
+
+    }
+    .item-selector {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .total-damages {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+    .attributes {
+        width: 100% !important;
+    }
+    .attribute-container {
+        flex-direction: row !important;
+    }
+    .character-builder {
+        margin: 0;
+    }
+    .weapon-skill-row p {
+        font-size: 10px;
+    }
+    /* .equipment {
+        min-width: 160px;
+        min-height: 230px;
+    } */
+     .scroll-window .equipment {
+        min-width: 50%;
+     }
+     .item-container {
+        overflow: visible;
+     }
+     .equipped-item h6 {
+        font-size: 10px !important
+     }
+     .equipped-item p {
+        font-size: 9px !important
+     }
+}
+
+.ItemSelector-CharacterBuilder-container {
+    display: flex;
+}

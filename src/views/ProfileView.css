@@ -4,3 +4,36 @@
     align-items: flex-start;     /* Center vertically */
     height: 85vh;   
 }
+
+@media (max-width: 768px) {
+    .profile-view {
+        flex-direction: column;
+        height: 100%;
+    }
+    .character-list {
+        width: 100% !important;
+        height: 200px;
+    }
+
+    .character-list .mx-2 {
+        margin: 0 !important;
+    }
+
+    .character-sheet {
+        width: 100% !important;
+        height: 100%;
+    }
+    .item-info p {
+        font-size: 14px;
+    }
+    .buttons-container button {
+        font-size: 10px;
+        width: 134px !important;
+        margin-top: .2rem;
+        margin-bottom: .2rem;
+    } 
+    .damage-container {
+        width: 100%;
+    }
+
+}

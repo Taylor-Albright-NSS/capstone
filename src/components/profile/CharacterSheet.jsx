@@ -203,7 +203,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
 
     return (
-        <div className='character-sheet mx-2 d-flex flex-column col-5'>
+        <div className='character-sheet d-flex flex-column col-5'>
             <h2>{character ? character.name + ': ' + character.race + ' ' + character.class : 'No Character Selected'}</h2>
             <div className='top-container'>
                     <ul className='character-stats-container col-6 attributes'>

@@ -29,4 +29,10 @@
     color: white;
 }
 
+@media (max-width: 768px) {
+    .account-information,
+    .edit-account-information {
+        width: 100%;
+    }
+}
 

@@ -18,10 +18,11 @@ ul {
     margin: 0;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
     .navbar {
         /* font-size: 8px; */
     }
     .navbar li {
+
     }
 }

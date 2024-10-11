@@ -353,19 +353,19 @@ const totalStats = calculateTotalStats()
                         <option value='half-minotaur'>half-minotaur</option>
                     </select>
                     <ul className='attributes'>
-                        <li className='d-flex'>
+                        <li className='attribute-container d-flex'>
                             <span className='attribute-string'>STR:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'str')}}>-</button>
                             <span className='attribute-number'>{totalStats.str ? totalStats.str : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('str')}}>+</button>
                         </li>
-                        <li className='d-flex'>
+                        <li className='attribute-container d-flex'>
                             <span className='attribute-string'>DEX:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'dex')}}>-</button>
                             <span className='attribute-number'>{totalStats.dex ? totalStats.str : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('dex')}}>+</button>
                         </li>
-                        <li className='d-flex'>
+                        <li className='attribute-container d-flex'>
                             <span className='attribute-string'>AGI:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'agi')}}>-</button>
                             <span className='attribute-number'>{totalStats.agi ? totalStats.agi : 0}</span>

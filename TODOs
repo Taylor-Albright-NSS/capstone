@@ -7,5 +7,8 @@ Move character builder button from character sheet to character list
 In the all items view, add a weapon skill to each item so you can see whether it is onehanded, twohanded, etc
 
 Implement the inability to assign negative numbers to stat and damage values: creating item, editing item, character builder
-Maybe make it so that character builder view isn't even available to look at until you have a character selected. check
-selectedCharacterId to see if a character is selected
+Maybe make it so that character builder view isn't even available to look at until you have a character selected.
+
+
+ItemSelector.css has commented out code that works well for responsiveness of larger screens that shrink,
+but messed up the small screen view of the items in the select items list

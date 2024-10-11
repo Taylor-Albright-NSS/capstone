@@ -36,7 +36,7 @@ export const CharacterBuilderView = ({ currentUser, selectedCharacterId, setSele
     }, [])
 
     return (
-        <div className='d-flex'>
+        <div className='ItemSelector-CharacterBuilder-container'>
             <ItemSelector
             character={character}
             characterCopy={characterCopy}

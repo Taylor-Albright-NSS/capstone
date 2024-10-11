@@ -127,7 +127,7 @@ img {
     cursor: pointer;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
     .all-items-container {
         width: 100%;
         flex-direction: column;
@@ -139,12 +139,22 @@ img {
     .item-list {
         margin-left: 0;
         width: 100% !important;
-        padding-bottom: 204px;
+        height: 100%;
+        overflow: hidden;
     }
     .item-top h6 {
         font-size: 12px;
     }
     .buttons-container button {
         height: 30px !important;
+    }
+    .top-options {
+        width: 100% !important;
+    }
+    .mods-container {
+        width: 100% !important;
+    }
+    .description-container {
+        width: 100% !important;
     }
 }

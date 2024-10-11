@@ -93,12 +93,27 @@ select {
     width: 400px;
 }
 
-textarea {
+/* textarea {
     width: 400px;
     resize: none !important;
 
-}
+} */
 
 .first-container {
     padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .edit-item-form {
+        width: 100%;
+    }
+    .edit-item-main {
+    }
+    label {
+        font-size: 12px;
+    }
+    .top-options {
+        flex-direction: column;
+        align-items: center;
+    }
 }

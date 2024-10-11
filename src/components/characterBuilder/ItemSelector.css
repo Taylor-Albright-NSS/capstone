@@ -44,13 +44,13 @@
 .equip-buttons-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .equip-buttons-container button {
     display: flex;
-    width: 46px;
-    height: 30px;
+    max-width: 46px;
+    max-height: 30px;
     font-size: 8px;
     font-weight: 900;
     margin-bottom: 0.3rem;
@@ -71,10 +71,12 @@
 }
 
 .equip-and-remove-left {
-    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 .equip-and-remove-right {
-    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .equip-twohanded-buttons button {
@@ -84,5 +86,28 @@
 }
 
 .equip-twohanded-buttons {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
   }
+
+  
+
+  /* @media (max-width: 1317px) {
+     .equipment {
+        width: 33% !important;
+     }
+  }
+
+
+
+@media (max-width: 1116px) {
+    .equipment {
+        width: 50% !important;
+    }
+}
+@media (max-width: 935px) {
+    .equipment {
+        width: 100% !important;
+    }
+} */

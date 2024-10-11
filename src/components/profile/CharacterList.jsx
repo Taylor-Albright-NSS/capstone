@@ -114,7 +114,7 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
     }
 
     return (
-        <div className='character-list col-4 mx-2'>
+        <div className='character-list col-4'>
             <h2>Your Characters</h2>
             <button onClick={handleCreateCharacter}>Create New Character</button>
             <div className='characters'>
