@@ -222,7 +222,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                         <li>{character?.class === 'mage' ? 'Spell Power: ' + calculateAttackPower().attackPower : ''}</li>
                         <li>{character?.class === 'mage' ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
                         <li>Speed: {calculateAttackPower()?.speed ? calculateAttackPower().speed : 0}</li>
-                        <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li>
+                        {/* <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li> */}
                         <li>Onehanded Skill: {character?.oneHanded ? character.oneHanded : 0}</li>
                         <li>Twohanded Skill: {character?.twoHanded ? character.twoHanded : 0}</li>
                     </ul>

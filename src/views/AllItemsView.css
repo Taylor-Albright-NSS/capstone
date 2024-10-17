@@ -1,6 +1,9 @@
 .all-items-container {
     display: flex;
     padding: 2rem;
+    border: 20px solid transparent;
+    background-color: rgb(29, 29, 29);
+    /* border-image: url('assets/borders/message border 1.png') 30 round; */
 }
 
 .sort-container {
@@ -31,6 +34,8 @@
     border: 6px outset white ;
     margin-left: 4.3rem;
     height: 600px;
+
+
 }
 
 ul {

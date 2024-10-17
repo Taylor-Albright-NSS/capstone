@@ -67,7 +67,7 @@ export const ItemSelector = ({
 
     return (
         <div className='item-selector'>
-            <h4>Item Selector</h4>
+            <h4>Weapons And Armor</h4>
             <div className="scroll-window">
                 {allItems && allItems.map(item => {
                     if (item.id != 1 && item.id != 2) {

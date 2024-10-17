@@ -1,7 +1,9 @@
 #root {
   margin: 0 auto;
-  border: 4px ridge rgb(232, 182, 31);
+  /* border: 4px ridge rgb(232, 182, 31); */
+  border: 20px solid transparent;
   background-color: rgb(29, 29, 29);
+  /* border-image: url('assets/borders/message border 1.png') 30 round; */
   /* text-align: center; */
 }
 
@@ -27,12 +29,6 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
@@ -40,3 +36,8 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* div {
+  position: relative;
+} */

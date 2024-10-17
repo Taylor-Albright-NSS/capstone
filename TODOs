@@ -11,4 +11,9 @@ Maybe make it so that character builder view isn't even available to look at unt
 
 
 ItemSelector.css has commented out code that works well for responsiveness of larger screens that shrink,
-but messed up the small screen view of the items in the select items list
+but messed up the small screen view of the items in the select items list.
+
+
+
+Set in the edit item POST or function that calls it to check to see if that item that is
+being changed is equipped, and if so, reset that equipped item in the character builder

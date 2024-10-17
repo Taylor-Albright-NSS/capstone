@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Routes, Route, Outlet } from 'react-router-dom'
-import { Welcome } from './views/Welcome'
 import { Login } from './components/auth/Login'
 import { Register } from './components/auth/Register'
 import { Authorized } from './views/Authorized'

@@ -233,4 +233,10 @@
 
 .ItemSelector-CharacterBuilder-container {
     display: flex;
+    padding: 2rem;
+}
+
+.select-character-warning {
+    font-size: 24px;
+    margin: auto;
 }

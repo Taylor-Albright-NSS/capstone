@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { getCharacterById } from "../../services/characterServices"
 import { getEquippedWeapons } from "../../services/characterServices"
 import { getAllEquippedItems } from "../../services/itemServices"
-import { CharacterSheet } from "character-sheet"
+import { CharacterSheet } from "../profile/CharacterSheet"
 import { getCharacterClassAndRaceStats } from "../../services/statsServices"
 import { getSingleItem } from "../../services/itemServices"
 import { getAllEquippedItems3 } from "../../services/itemServices"
@@ -39,11 +39,11 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         }
     }, [classStats, raceStats, equippedItemsCopy])
 
-    useEffect(() => {
-        getAllEquippedItems3(selectedCharacterId).then(equipmentArray => {
-            setEquippedItemsCopy(equipmentArray)
-        })
-    }, [])
+    // useEffect(() => {
+    //     getAllEquippedItems3(selectedCharacterId).then(equipmentArray => {
+    //         setEquippedItemsCopy(equipmentArray)
+    //     })
+    // }, [])
 
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
@@ -334,8 +334,9 @@ const totalStats = calculateTotalStats()
 
     return (
         <div className='character-builder'>
-                        {console.log(equippedItemsCopy)}
-
+            {selectedCharacterId === 0 ? 
+            <div className='select-character-warning'>Select a character from the Profile page</div> : 
+            <>
             <h2>{character && character.name}</h2>
             <div className='builders'>
                 <div className='left-builder col-6'>
@@ -362,7 +363,7 @@ const totalStats = calculateTotalStats()
                         <li className='attribute-container d-flex'>
                             <span className='attribute-string'>DEX:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'dex')}}>-</button>
-                            <span className='attribute-number'>{totalStats.dex ? totalStats.str : 0}</span>
+                            <span className='attribute-number'>{totalStats.dex ? totalStats.dex : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('dex')}}>+</button>
                         </li>
                         <li className='attribute-container d-flex'>
@@ -428,6 +429,9 @@ const totalStats = calculateTotalStats()
             <div className='save-character-button'>
                 <button onClick={handleSaveCharacter}>Save Character</button>
             </div>
+            </>
+            }
         </div>
+        
     )
 }

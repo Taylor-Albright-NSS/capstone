@@ -3,7 +3,7 @@
     flex-direction: column;
     border: 4px outset silver;
     width: 720px;
-    height: 600px;
+    height: 700px;
 }
 
 .item-selector h4 {
@@ -35,27 +35,16 @@
     font-size: 14px;
     text-align: center;
     height: 40px;
+    width: 112px;
 }
 .equipment p {
     font-size: 12px;
     text-align: center;
 }
 
-.equip-buttons-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
 
-.equip-buttons-container button {
-    display: flex;
-    max-width: 46px;
-    max-height: 30px;
-    font-size: 8px;
-    font-weight: 900;
-    margin-bottom: 0.3rem;
-    /* transform: translateY(-80px); */
-}
+
+
 
 
 .equipment-properties {
@@ -70,6 +59,12 @@
     width: 40px;
 }
 
+.equipment-properties h6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .equip-and-remove-left {
     display: flex;
     flex-direction: column;
@@ -79,25 +74,43 @@
     flex-direction: column;
 }
 
-.equip-twohanded-buttons button {
-    font-size: 12px;
-    width: 80px;
+
+.equip-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.equip-buttons-container button {
+    display: flex;
+    max-width: 46px;
+    max-height: 30px;
+    font-size: 8px;
     font-weight: 900;
+    margin-bottom: 0.3rem;
+    /* transform: translateY(-80px); */
 }
 
 .equip-twohanded-buttons {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
-
+  .equip-twohanded-buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+    font-weight: 900;
+    width: 46px;
+    height: 30px;
+}
   
 
   /* @media (max-width: 1317px) {
      .equipment {
         width: 33% !important;
      }
-  }
+  } */
 
 
 
@@ -110,4 +123,4 @@
     .equipment {
         width: 100% !important;
     }
-} */
+}
