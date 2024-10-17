@@ -1,10 +1,11 @@
 #root {
   margin: 0 auto;
   /* border: 4px ridge rgb(232, 182, 31); */
-  border: 20px solid transparent;
   background-color: rgb(29, 29, 29);
-  /* border-image: url('assets/borders/message border 1.png') 30 round; */
-  /* text-align: center; */
+  background: url('c:/users/mudfobby/workspace/capstone/assets/backgrounds/Galvadia Background Upscale.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 914px;
 }
 
 .logo {
@@ -38,6 +39,3 @@
 }
 
 
-/* div {
-  position: relative;
-} */

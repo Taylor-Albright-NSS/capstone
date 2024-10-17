@@ -17,6 +17,15 @@
     background-color: black;
     max-width: 100%;
 
+    border-style: solid; /* Required to use border-image */
+    border-width: 20px; /* Set the width of the border */
+    border-image-source: url('/assets/borders/message border 1.png');
+    border-image-slice: 30%; /* Adjusts how much of the image is used */
+    border-image-width: 100px; /* Specify the width of the border */
+    border-image-outset: 20px; /* Optional, for spacing */
+    border-image-repeat: stretch; /* Controls how the image is displayed */
+    padding: 1rem;
+    backdrop-filter: blur(100px);
 }
 .welcome h1 {
     font-size: 36px;
@@ -45,3 +54,11 @@
         width: 100%
     }
 }
+
+.welcome-banner {
+    height: 200px;
+    width: 200px;
+    opacity: 0.5;
+}
+
+

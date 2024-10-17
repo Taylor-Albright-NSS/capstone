@@ -4,9 +4,9 @@ body {
   font-family: 'Cinzel', serif;
   background-color: black;
   color: gold;
-  background: url('c:/users/mudfobby/workspace/capstone/assets/backgrounds/Galvadia Background Upscale.png');
+  /* background: url('c:/users/mudfobby/workspace/capstone/assets/backgrounds/Galvadia Background Upscale.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   /* background-position: center;
   overflow: hidden; */
 }
@@ -21,8 +21,6 @@ p, h1, h2, h3, h4, h5, h6, span {
   cursor: default;
 }
 
-div {
-}
 
 .selected {
   border: 4px ridge white;

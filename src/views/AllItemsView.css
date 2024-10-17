@@ -76,7 +76,7 @@ li {
     justify-content: space-evenly;
 }
 
-img {
+.item-top img {
     border: 4px ridge rgb(195, 195, 195);
     width: 100px;
     height: 100px;
