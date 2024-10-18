@@ -5,6 +5,23 @@
     height: 760px;
     justify-content: flex-start;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.715);
+    backdrop-filter: blur(10px);}
+
+.character-sheet::before {
+    content: "";
+    position: absolute;
+    top: 5.6%;
+    width: 110%;
+    height: 84%;
+    min-width: 600px;
+    border-image-source: url('/assets/borders/border 9.png');
+    border-image-slice: 40%; 
+    border-image-width: 29%;
+    border-image-outset: 116px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
 }
 
 .character-sheet ul {

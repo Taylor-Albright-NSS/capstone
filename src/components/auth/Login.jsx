@@ -30,46 +30,56 @@ export const Login = () => {
   
     return (
       <main className="container-login mx-auto pt-5">
+
         <section className='login'>
-          <form className="form-login mx-auto text-center" style={{ width: '500px'}} onSubmit={handleLogin}>
-            <h1 className="text-center mb-5" style={{fontSize: '52px'}}>Welcome To The Galvadia Armory</h1>
-            <fieldset>
-              <div className="form-group">
-                <input
-                  style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
-                  type="text"
-                  value={userName}
-                  onChange={(evt) => set(evt.target.value)}
-                  className="form-control mx-auto my-1"
-                  placeholder="Username"
-                  required
-                  autoFocus
-                />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div className="form-group">
-                <input
-                  style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
-                  type="password"
-                  value={password}
-                  onChange={(evt) => setPassword(evt.target.value)}
-                  className="form-control  mx-auto"
-                  placeholder="Password"
-                  required
-                  autoFocus
-                />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div className="form-group">
-                <button className="mt-3 mb-3 login btn btn-primary fw-bold" type="submit">
-                  SUBMIT
-                </button>
-              </div>
-              <Link to="/register" className="register">Not a member yet?</Link>
-            </fieldset>
-          </form>
+        <div className='home-container'>
+            <div className='welcome'>
+              <img src='/assets/icons/Galvadia Banner.png' className='welcome-banner'/>
+              <h1>Welcome To The The Galvadian Armory!</h1>
+              <p>The armory is an interactive website that allows you to create a character sheet for your in-game Galvadia
+              characters.</p>
+              <form className="form-login mx-auto text-center" style={{ width: '500px'}} onSubmit={handleLogin}>
+
+<fieldset>
+  <div className="form-group">
+    <input
+      style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
+      type="text"
+      value={userName}
+      onChange={(evt) => set(evt.target.value)}
+      className="form-control mx-auto my-1"
+      placeholder="Username"
+      required
+      autoFocus
+    />
+  </div>
+</fieldset>
+<fieldset>
+  <div className="form-group">
+    <input
+      style={{width: '300px', fontFamily: userName.length > 0 ? 'serif' : 'Cinzel'}}
+      type="password"
+      value={password}
+      onChange={(evt) => setPassword(evt.target.value)}
+      className="form-control  mx-auto"
+      placeholder="Password"
+      required
+      autoFocus
+    />
+  </div>
+</fieldset>
+<fieldset>
+  <div className="form-group">
+    <button className="mt-3 mb-3 login btn btn-primary fw-bold" type="submit">
+      SUBMIT
+    </button>
+  </div>
+  <Link to="/register" className="register">Not a member yet?</Link>
+</fieldset>
+</form>
+            </div>
+        </div>
+
         </section>
         <section className="text-center register mt-3">
         </section>

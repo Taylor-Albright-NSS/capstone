@@ -59,7 +59,6 @@ export const CreateItem = () => {
     return (
         <div className='edit-item-main'>
             <form className='edit-item-form' onSubmit={handleSubmit}>
-            <h2>Create Item</h2>
                 <div className='first-container'>
                         <div className='select-image-container'>
                             {/* Replace with your logic for displaying the selected image */}

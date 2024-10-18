@@ -1,9 +1,5 @@
 .container-login {
-    background: #6161613a;
-    backdrop-filter: blur(10px);
-    border: 4px outset silver;
     width: 800px;
-    margin-top: 10rem;
 }
 
 @media (max-width: 768px) {

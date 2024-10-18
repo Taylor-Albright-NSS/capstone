@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import "./Register.css"
 import { getUserByEmail, createUser } from "../../services/userServices"
 
 export const Register = () => {
@@ -46,58 +46,59 @@ export const Register = () => {
   }
 
   return (
-    <main className="container-login mt-5 mx-auto pt-5">
-      <form className="form-login mx-auto text-center d-flex flex-column align-items-center" onSubmit={handleRegister}>
+    <main className="register-main mx-auto">
+      <div className="register-container">
       <h1 className="text-center mb-5">Register Your Galvadia Armory Account</h1>
-        <fieldset style={{width: '250px'}}>
+      <form className="form-register" onSubmit={handleRegister}>
+        <fieldset>
           <div className="form-group">
             <input
               style={{fontFamily: user.name.length > 0 ? 'serif' : 'Cinzel'}}
               onChange={updateUser}
               type="text"
               id="name"
-              className="form-control  mx-auto"
+              className="form-item  mx-auto"
               placeholder="Name"
               required
               autoFocus
             />
           </div>
         </fieldset>
-        <fieldset style={{width: '250px'}}>
+        <fieldset>
           <div className="form-group">
             <input
               style={{fontFamily: user.userName.length > 0 ? 'serif' : 'Cinzel'}}
               onChange={updateUser}
               type="text"
               id="userName"
-              className="form-control  mx-auto"
+              className="form-item  mx-auto"
               placeholder="Username"
               required
               autoFocus
             />
           </div>
         </fieldset>
-        <fieldset style={{width: '250px'}}>
+        <fieldset>
           <div className="form-group">
             <input
               style={{fontFamily: user.email.length > 0 ? 'serif' : 'Cinzel'}}
               onChange={updateUser}
               type="email"
               id="email"
-              className="form-control mx-auto"
+              className="form-item  mx-auto"
               placeholder="Email address"
               required
             />
           </div>
         </fieldset>
-        <fieldset style={{width: '250px'}}>
-          <div className="form-group">
+        <fieldset>
+          <div className="">
             <input
               style={{fontFamily: user.password.length > 0 ? 'serif' : 'Cinzel'}}
               onChange={updateUser}
               type="password"
               id="password"
-              className="form-control mx-auto"
+              className="form-item  mx-auto"
               placeholder="Password"
               required
             />
@@ -108,9 +109,13 @@ export const Register = () => {
             <button className="my-3" type="submit">
               Register
             </button>
+            <button className="my-3" onClick={() => {navigate('/login')}}>
+              Back
+            </button>
           </div>
         </fieldset>
       </form>
+      </div>
     </main>
   )
 }
