@@ -6,6 +6,21 @@
     min-height: 700px;
     margin: 0 2rem 0 2rem;
 }
+.character-builder::before {
+    content: "";
+    position: absolute;
+    width: 30%;
+    min-width: 600px;
+    height: 72%;
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 40%; 
+    border-image-width: 29%;
+    border-image-outset: 116px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
+}
+
 .character-builder h2, h3, h4, h5 {
     text-align: center;
 }
@@ -172,7 +187,7 @@
 @media (max-width: 768px) {
     .character-builder {
         height: 100% !important;
-        /* width: 100% !important; */
+        margin: 0;
         min-width: 0px;
         min-height: 0px;
     }
@@ -206,9 +221,6 @@
     }
     .attribute-container {
         flex-direction: row !important;
-    }
-    .character-builder {
-        margin: 0;
     }
     .weapon-skill-row p {
         font-size: 10px;

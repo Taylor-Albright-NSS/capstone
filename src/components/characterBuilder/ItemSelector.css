@@ -124,3 +124,21 @@
         width: 100% !important;
     }
 }
+
+.item {
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 30%; 
+    border-image-width: 100px; 
+    border-image-outset: 20px; 
+    border-image-repeat: stretch; 
+    border-style: solid; 
+    border: none;
+    border-width: 20px; 
+}
+
+.item-top img {
+    background-image: url('/assets/backgrounds/item backdrop 1.png');
+    background-size: cover;
+
+}

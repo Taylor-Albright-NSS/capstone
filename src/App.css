@@ -5,7 +5,10 @@
   background: url('c:/users/mudfobby/workspace/capstone/assets/backgrounds/Galvadia Background Upscale.png');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 914px;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+  width: 100%
 }
 
 .logo {

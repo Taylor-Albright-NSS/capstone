@@ -3,6 +3,8 @@
     flex-direction: row;
     border: 4px ridge rgb(232, 182, 31);
     background: rgb(0, 0, 0);
+    margin-bottom: 5rem;
+    background-image: url('/assets/backgrounds/navbar.png');
 }
 
 .navbar a {

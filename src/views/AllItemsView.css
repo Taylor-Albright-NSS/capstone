@@ -1,24 +1,27 @@
-.all-items-container {
-    display: flex;
-    padding: 2rem;
-    border: 20px solid transparent;
-    background-color: rgb(29, 29, 29);
-    /* border-image: url('assets/borders/message border 1.png') 30 round; */
-}
+
 
 .sort-container {
+    margin-top: 1.2rem;
+    margin-left: 1rem;
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 24%; 
+    border-image-width: 80px; 
+    border-image-outset: 20px; 
+    border-image-repeat: stretch; 
+    border-style: solid; 
+    border-width: 20px; 
 }
 
 .weapon-sort,
 .armor-sort {
     height: 50%;
-    border: 4px outset white;
+    border: 4px ridge rgb(142, 79, 24);
     text-align: center;
 }
 
 .weapon-sort h2,
 .armor-sort h2 {
-    border: 2px solid rgb(162, 162, 162);
+    /* border: 2px solid rgb(162, 162, 162); */
     background: black;
 }
 
@@ -28,16 +31,95 @@
     margin: 0;
 }
 
-.item-list {
+.all-items-container {
+    position: relative;
     display: flex;
-    overflow: auto;
-    border: 6px outset white ;
-    margin-left: 4.3rem;
-    height: 600px;
-
-
+    padding: 2rem;
+    margin: 2rem;
+    /* background-color: rgba(29, 29, 29, 0.713);
+    backdrop-filter: blur(10px); */
 }
 
+.all-items-container::before {
+    content: "";
+    position: absolute;
+    left: 80px;
+    width: 1600px; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.715);
+    backdrop-filter: blur(10px);
+    z-index: 0; 
+    border-radius: 8px;
+}
+
+.item-list-border {
+    display: flex;
+    /* background-color: rgba(29, 29, 29, 0.713); */
+    /* backdrop-filter: blur(10px); */
+    position: relative;
+    overflow: hidden;
+    top: -20px;
+    border-image-source: url('/assets/borders/all items border 2.png');
+    border-image-slice: 20%; 
+    border-image-width: 20%;
+    border-image-outset: 116px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    width: 1430px;
+    margin-left: 8rem;
+    margin-top: 2rem;
+}
+
+.item-list-border::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-image-source: url('/assets/borders/all items border 2.png');
+    border-image-slice: 48%; 
+    border-image-width: 48%;
+    border-image-outset: 116px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
+}
+
+
+
+.item-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: auto;
+    height: 620px;
+    margin-left: 1.3rem;
+    
+    /* box-sizing: border-box; */
+}
+
+
+
+.all-items-item {
+    display: flex;
+    flex: 0 0 20%;
+    max-width: 30%;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 240px;
+    max-width: 200px;
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 30%; 
+    border-image-width: 80px; 
+    border-image-outset: 20px; 
+    border-image-repeat: stretch; 
+    border-style: solid; 
+    border-width: 20px; 
+    background-size: cover;
+    margin: 2rem;
+}
 ul {
     padding: 0;
     margin: 0;
@@ -45,21 +127,11 @@ ul {
 li {
     text-align: center;
 }
-
-.item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border: 2px solid silver;
-    height: 240px;
-    background: black;
+.all-items-item div {
+    /* background: black; */
 }
 
-.item div {
-    background: black;
-}
-
-.item p {
+.all-items-item p {
     font-size: 12px;
 }
 
@@ -137,8 +209,9 @@ li {
         width: 100%;
         flex-direction: column;
         padding: 0;
+        margin: 0;
     }
-    .item {
+    .all-items-item {
         width: 50% !important;
     }
     .item-list {
@@ -161,5 +234,23 @@ li {
     }
     .description-container {
         width: 100% !important;
+    }
+
+    .item-list-border {
+        max-width: 100%;  /* Make sure it fits the screen */
+        margin-left: 1rem;
+        margin-top: 1rem;
+        border-image-width: 0%; /* Reduce border width */
+        border-image-outset: 20px; /* Adjust for smaller screens */
+    }
+
+    .item-list-border::before {
+        border-image-width: 0%;
+    }
+}
+
+@media (max-width: 375px) {
+    .all-items-container::before {
+        width: 375px;
     }
 }

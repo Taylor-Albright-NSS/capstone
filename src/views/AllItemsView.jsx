@@ -80,6 +80,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
 
     return (
         <div className='all-items-container'>
+            <div className='item-list-border'>
             <div className='sort-container'>
                 <div className='weapon-sort'>
                 <h2>Weapons</h2>
@@ -89,7 +90,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'twohanded')}}>Twohanded</li>
                     </ul>
                 </div>
-                {/* <div className='armor-sort'>
+                <div className='armor-sort'>
                 <h2>Armor</h2>
                     <ul>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event)}}>All Armor</li>
@@ -97,34 +98,35 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'leather')}}>Leather</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'cloth')}}>Cloth</li>
                     </ul>
-                </div> */}
+                </div>
             </div>
-            <div className='item-list col-9'>
-                {displayedItems && displayedItems.map(item => {
-                    console.log(item)
-                    return (
-                        <div className='item col-3'>
-                            <div>
-                                <div className='item-top'>
-                                    <h6>{item.name}</h6>
-                                    <img src={item?.image?.imageURL} onClick={() => {navigate(`/allitems/itemdetails/${item.id}`)}}/>
-                                    <h6>Damage: {item.botDamage + ' - ' + item.topDamage}</h6>
-                                </div>
-                                <div className='item-bot'>
-                                    <div className='stats-group-1'>
-                                        {item.str > 0 ? <div className='attribute'><span style={{width: '30px'}}>Str:</span><span className='attribute-number'>{item.str}</span></div> : ''}
-                                        {item.dex > 0 ? <div className='attribute'><span style={{width: '30px'}}>Dex:</span><span className='attribute-number'>{item.dex}</span></div> : ''}
-                                        {item.agi > 0 ? <div className='attribute'><span style={{width: '30px'}}>Agi:</span><span className='attribute-number'>{item.agi}</span></div> : ''}
+                <div className='item-list col-11'>
+                    {displayedItems && displayedItems.map(item => {
+                        console.log(item)
+                        return (
+                            <div className='all-items-item'>
+                                <div>
+                                    <div className='item-top'>
+                                        <h6>{item.name}</h6>
+                                        <img src={item?.image?.imageURL} onClick={() => {navigate(`/allitems/itemdetails/${item.id}`)}}/>
+                                        <h6>Damage: {item.botDamage + ' - ' + item.topDamage}</h6>
+                                    </div>
+                                    <div className='item-bot'>
+                                        <div className='stats-group-1'>
+                                            {item.str > 0 ? <div className='attribute'><span style={{width: '30px'}}>Str:</span><span className='attribute-number'>{item.str}</span></div> : ''}
+                                            {item.dex > 0 ? <div className='attribute'><span style={{width: '30px'}}>Dex:</span><span className='attribute-number'>{item.dex}</span></div> : ''}
+                                            {item.agi > 0 ? <div className='attribute'><span style={{width: '30px'}}>Agi:</span><span className='attribute-number'>{item.agi}</span></div> : ''}
+                                        </div>
                                     </div>
                                 </div>
+                                <div className='buttons-container'>
+                                    <button className='edit-button' onClick={() => {navigate(`/allitems/edititem/${item.id}`)}}>Edit</button>
+                                    <button className='delete-button' onClick={() => {handleDelete(item.id)}}>Delete</button>
+                                </div>
                             </div>
-                            <div className='buttons-container'>
-                                <button className='edit-button' onClick={() => {navigate(`/allitems/edititem/${item.id}`)}}>Edit</button>
-                                <button className='delete-button' onClick={() => {handleDelete(item.id)}}>Delete</button>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
