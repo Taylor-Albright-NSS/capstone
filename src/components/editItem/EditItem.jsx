@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
-import { ImageSelectModal } from "../common/ImageSelectModal"
 import './EditItem.css'
 
 
@@ -41,18 +40,23 @@ export const EditItem = () => {
         navigate('/allitems', { state: { fromEdit: true } });
     }
     const handleChange = (event, propToChange) => {
+        console.log(event.target.value)
         let copy = {...itemData}
+        let newValue = event.target.value
         if (event.target.type === 'checkbox') {
             copy[propToChange] = !copy[propToChange]
-        } else if (isNaN(copy[propToChange]) == false) {
-            console.log(copy[propToChange], ' IS NAN COPY PROP TO CHANGE')
+        } else if (!isNaN(copy[propToChange])) {
+            if (event.target.value < 0) {
+                return
+            } else if (propToChange === 'botDamage' && parseInt(newValue) > copy.topDamage ||
+                       propToChange === 'topDamage' && parseInt(newValue) < copy.botDamage) {
+                return
+            }
             copy[propToChange] = parseInt(event.target.value)
         } else {
-            copy[propToChange] = event.target.value
-
+            copy[propToChange] = parseInt(0)
         }
         setItemData(copy)
-        console.log(copy)  
     }
     const handleTextChange = (event, propToChange) => {
         let copy = {...itemData}
@@ -263,7 +267,7 @@ export const EditItem = () => {
                     </div>
                 </div>
                 <div className='description-container'>
-                    <label>Description:</label>
+                    <label>Description</label>
                     <textarea
                         name="description"
                         value={itemData.description}
@@ -276,11 +280,9 @@ export const EditItem = () => {
                     }}>Go Back</button>
                     <button type="submit">Save Edits</button>
                 </div>
+                {isModalOpen && <div className='edit-item-image-selector'><ImageSelector onClose={toggleModal} itemData={itemData} setItemData={setItemData}/></div>} 
+
             </form>
-            {isModalOpen && <ImageSelectModal onClose={toggleModal} itemData={itemData} setItemData={setItemData}/>} 
-            {/* 
-            <div className='image-select-window'>
-            </div> */}
         </div>
     );
 }

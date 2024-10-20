@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
-import { ImageSelectModal } from '../common/ImageSelectModal'
+// import { ImageSelectModal } from '../common/ImageSelectModal'
 import './CreateItem.css'
 
 export const CreateItem = () => {
@@ -44,12 +44,23 @@ export const CreateItem = () => {
     }
 
     const handleChange = (event, propToChange) => {
+        console.log(event.target.value)
         let copy = {...itemData}
+        let newValue = event.target.value
         if (event.target.type === 'checkbox') {
             copy[propToChange] = !copy[propToChange]
         } else if (!isNaN(copy[propToChange])) {
+            if (event.target.value < 0) {
+                return
+            } 
+            else if (propToChange === 'botDamage' && parseInt(newValue) > copy.topDamage ||
+                    propToChange === 'topDamage' && parseInt(newValue) < copy.botDamage) {
+                        return
+                    }
             copy[propToChange] = parseInt(event.target.value)
-        } 
+        } else {
+            copy[propToChange] = parseInt(0)
+        }
         setItemData(copy)
     }
 
@@ -69,9 +80,8 @@ export const CreateItem = () => {
             <form className='edit-item-form' onSubmit={handleSubmit}>
                 <div className='first-container'>
                         <div className='select-image-container'>
-                            {/* {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />} */}
                             {<img src={itemData?.image?.imageURL} onClick={openModal} />}
-                            {isModalOpen && <ImageSelectModal onClose={closeModal} itemData={itemData} setItemData={setItemData} />} 
+                            {isModalOpen ? <div className='create-item-image-selector'><ImageSelector itemData={itemData} setItemData={setItemData} /></div> : ''}
                             </div>
 
                         <label>Item Name</label>
@@ -271,7 +281,7 @@ export const CreateItem = () => {
                         
                     </div>
                     <div className='description-container'>
-                        <label>Description:</label>
+                        <label>Description</label>
                         <textarea
                             name="description"
                             value={itemData.description}
@@ -284,7 +294,6 @@ export const CreateItem = () => {
                     navigate(`/allitems/itemdetails/${itemId}`)
                 }}>Go Back</button>
             </form>
-            {showImageSelector ? <ImageSelector itemData={itemData} setItemData={setItemData} /> : ''}
 {/* 
             <div className='image-select-window'>
             </div> */}

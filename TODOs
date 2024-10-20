@@ -1,19 +1,5 @@
-Create Item view has Edit Item heading
-When deleting a character, also delete the character_items relationships
+
 When selecting a race, implement getting race and class stats from the database rather than setting them manually
-
-Remove hands from being able to be selected in all items, editor, and character builder
-Move character builder button from character sheet to character list
-In the all items view, add a weapon skill to each item so you can see whether it is onehanded, twohanded, etc
-
-Implement the inability to assign negative numbers to stat and damage values: creating item, editing item, character builder
-Maybe make it so that character builder view isn't even available to look at until you have a character selected.
-
-
-ItemSelector.css has commented out code that works well for responsiveness of larger screens that shrink,
-but messed up the small screen view of the items in the select items list.
-
-
 
 Set in the edit item POST or function that calls it to check to see if that item that is
 being changed is equipped, and if so, reset that equipped item in the character builder

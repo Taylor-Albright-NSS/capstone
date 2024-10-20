@@ -23,10 +23,10 @@ p, h1, h2, h3, h4, h5, h6, span {
 
 
 .selected {
-  border: 4px ridge white;
+  border: 4px ridge rgb(255, 255, 255);
 }
 
 button {
   background-image: url('/assets/backgrounds/button background.png');
-  color: yellow;
+  color: white;
 }

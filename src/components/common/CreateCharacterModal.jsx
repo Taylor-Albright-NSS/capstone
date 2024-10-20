@@ -1,6 +1,8 @@
 import './CreateCharacterModal.css'; // Optional: CSS for styling the modal
 import { useState } from 'react';
 import { getAllDatabaseCharacters } from '../../services/characterServices';
+import React from 'react';
+import ReactDOM from 'react-dom'
 
 export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacterId, currentUser, toggleModal, handleCreateCharacter, itemData, setItemData }) => {
     const [newCharacter, setNewCharacter] = useState(
@@ -160,7 +162,7 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
         }
     }
 
-  return (
+  return ReactDOM.createPortal(
     <div className="create-character-modal-overlay" onClick={toggleModal}>
       <div className="create-character-modal-content" onClick={(e) => e.stopPropagation()}>
         <span className="close-button" onClick={toggleModal}>&times;</span>
@@ -192,6 +194,7 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
                 </fieldset>
                 <button onClick={handleSaveCharacter}>Save</button>
       </div>
-    </div>
+    </div>,
+        document.getElementById('modal-root') // The target DOM node for the portal
   );
 }

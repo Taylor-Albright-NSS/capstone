@@ -6,6 +6,7 @@
     border: 2px solid grey;
     flex-wrap: wrap;
     overflow: auto;
+    position: fixed;
 }
 .images-main img {
     width: 100px;
@@ -13,3 +14,6 @@
     background-size: cover;
 }
 
+.image {
+    border: 4px ridge silver;
+}

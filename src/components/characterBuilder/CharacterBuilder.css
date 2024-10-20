@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     border: 4px ridge silver;
-    min-width: 600px;
+    min-width: 609px;
     min-height: 700px;
     margin: 0 2rem 0 2rem;
     background-color: rgba(0, 0, 0, 0.715);
@@ -128,6 +128,7 @@
     border: 4px solid silver;
     /* width: 100px; */
     height: 150px;
+    min-width: 155px; 
     justify-content: center;
     align-items: center;
     background-image: url('/assets/backgrounds/item container background 1.png')

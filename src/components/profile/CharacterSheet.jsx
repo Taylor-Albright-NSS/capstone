@@ -114,10 +114,17 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         if (character.weaponTypeEquipped === 'twohanded') {
             let topMultiplier = 0.15 + character.twoHanded / 20
             let botMultiplier = 0.15 + character.twoHanded / 20
+
             damageObject.attackPower = Math.ceil((totalStats.str * 2) + ((totalStats.dex + totalStats.agi) * 0.5))
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.twoHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.twoHanded / 5) * 100) / 100).toFixed(0)))
+            
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0)).toFixed(0))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0)).toFixed(0))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(0))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
         }
         console.log(damageObject, ' DAMAGE OBJECT')
         return damageObject
