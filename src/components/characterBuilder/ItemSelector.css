@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     border: 4px outset silver;
-    width: 720px;
+    width: 812px;
     height: 700px;
     background-color: rgba(0, 0, 0, 0.715);
     backdrop-filter: blur(10px);
@@ -13,7 +13,7 @@
 .item-selector::before {
     content: "";
     position: absolute;
-    top: -14px;
+    top: 10px;
     left: -21px;
     min-width: 105%;
     height: 100%;
@@ -35,22 +35,35 @@
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     align-content: flex-start; /* Align wrapped lines to the top */
-    border: 4px ridge silver;
     height: 100%; /* Set a fixed height for the container */
     width: 100%;
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     word-wrap: break-word;
     white-space: normal;
+    padding: 2rem;
 }
 
-.equipment {
+.item-selector-equipment {
     display: flex;
+    flex: 0 0 24%;
+    height: 290px;
     flex-direction: column;
-    border: 2px solid silver;
-    /* width: 100px; */
-    height: 230px;
+    justify-content: space-between;
+    border: 4px ridge white;
+    background-size: cover;
+    margin: 0.2rem;
+    background-image: url('/assets/backgrounds/item container background 1.png')
 }
+.item-selector-equipment h6 {
+    font-size: 14px;
+    text-align: center;
+}
+.item-selector-equipment p {
+    font-size: 12px;
+    text-align: center;
+}
+
 
 .equipment h6 {
     font-size: 14px;
@@ -75,15 +88,17 @@
 }
 
 .equipment-properties img {
-    border: 2px solid silver;
-    height: 40px;
-    width: 40px;
+    border: 2px ridge silver;
+    height: 100px;
+    width: 100px;
+    background-image: url('assets/backgrounds/item backdrop 2.png');
 }
 
 .equipment-properties h6 {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 40px;
 }
 
 .equip-and-remove-left {
@@ -124,6 +139,7 @@
     font-weight: 900;
     width: 46px;
     height: 30px;
+    margin-bottom: 0.3rem;
 }
   
 
@@ -136,12 +152,12 @@
 
 
 @media (max-width: 1116px) {
-    .equipment {
+    .item-selector-equipment {
         width: 50% !important;
     }
 }
 @media (max-width: 935px) {
-    .equipment {
+    .item-selector-equipment {
         width: 100% !important;
     }
 }
@@ -159,7 +175,7 @@
 }
 
 .item-top img {
-    background-image: url('/assets/backgrounds/item backdrop 1.png');
+    background-image: url('/assets/backgrounds/item backdrop 2.png');
     background-size: cover;
 
 }

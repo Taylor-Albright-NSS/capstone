@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
+import { ImageSelectModal } from '../common/ImageSelectModal'
 import './CreateItem.css'
 
 export const CreateItem = () => {
@@ -16,6 +17,11 @@ export const CreateItem = () => {
     )
     const {itemId} = useParams()
     const [showImageSelector, setShowImageSelector] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const openModal = () => setIsModalOpen(!isModalOpen)
+    const closeModal = () => setIsModalOpen(false)
+
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
@@ -56,15 +62,17 @@ export const CreateItem = () => {
     const handleSelectIconToggle = () => {
         setShowImageSelector(!showImageSelector)
     }
+
+
     return (
         <div className='edit-item-main'>
             <form className='edit-item-form' onSubmit={handleSubmit}>
                 <div className='first-container'>
                         <div className='select-image-container'>
-                            {/* Replace with your logic for displaying the selected image */}
-                            {/* <p>Selected Image ID: {itemData.imageId}</p> */}
-                            {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />}
-                        </div>
+                            {/* {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />} */}
+                            {<img src={itemData?.image?.imageURL} onClick={openModal} />}
+                            {isModalOpen && <ImageSelectModal onClose={closeModal} itemData={itemData} setItemData={setItemData} />} 
+                            </div>
 
                         <label>Item Name</label>
 

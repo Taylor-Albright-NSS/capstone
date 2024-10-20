@@ -2,9 +2,14 @@
     display: flex;
     flex-direction: row;
     width: 421px;
-    height: 400px;
+    height: 700px;
     border: 2px solid grey;
     flex-wrap: wrap;
     overflow: auto;
+}
+.images-main img {
+    width: 100px;
+    background-image: url('/assets/backgrounds/item backdrop 2.png');
+    background-size: cover;
 }
 

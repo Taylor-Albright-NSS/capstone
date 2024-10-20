@@ -5,6 +5,7 @@ import { getCharacterClassAndRaceStats } from '../../services/statsServices'
 import { getSingleItem } from '../../services/itemServices'
 import { useState, useEffect } from 'react'
 import { getAllDatabaseCharacters } from '../../services/characterServices'
+import { CreateCharacterModal } from '../common/CreateCharacterModal'
 
 export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
     setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
@@ -15,6 +16,9 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
     const [testGear, setTestGear] = useState({})
     const [newCharacterId, setNewCharacterId] = useState(0)
     const [allDatabaseCharacters, setAllDatabaseCharacters] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const toggleModal = () => setIsModalOpen(!isModalOpen)
+
 
     useEffect(() => {
         getAllDatabaseCharacters().then(allCharsArray => {
@@ -34,6 +38,8 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         })
     }, [currentUser, selectedCharacterId])
 
+
+
     const handleCreateCharacter = async () => {
         console.log(characterList)
         if (characterList.length >= 10) {
@@ -41,10 +47,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             return
         } 
         let name = prompt("Enter your character name")
-        if (!name) {
-            window.alert('character not created')
-            return
-        }
         const blankCharacter = {
             userId: currentUser,
             classStatsId: 1,
@@ -113,27 +115,34 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         })
     }
 
+    const initializeCharacter = async (character) => {
+        console.log(character)
+        setSelectedCharacterId(character.id)
+        getCharacterById(character.id).then(userCharacter => {
+            setCharacterCopy({...userCharacter[0]})
+        })
+        getCharacterClassAndRaceStats(character.id).then(stats => {
+            setClassStatsCopy({...stats[0].classStats})
+            setRaceStatsCopy({...stats[0].raceStats})
+        })
+        getAllEquippedItems3(character.id).then(equipmentArray => {
+            console.log(equipmentArray)
+            setEquippedItemsCopy(equipmentArray)
+        })
+    }
+
     return (
         <div className='character-list'>
             <h2>Characters</h2>
-            <button onClick={handleCreateCharacter}>Create New Character</button>
+            <button onClick={() => {setIsModalOpen(!isModalOpen)}}>Create New Character</button>
+            {isModalOpen && <CreateCharacterModal initializeCharacter={initializeCharacter} setSelectedCharacterId={setSelectedCharacterId} currentUser={currentUser} toggleModal={toggleModal} handleCreateCharacter={handleCreateCharacter} />}
             <div className='characters'>
                 <ul>
                     {characterList.map(character => {
                         return <li key={character.id} onClick={(e) => {
 
-                            setSelectedCharacterId(character.id)
-                            getCharacterById(character.id).then(userCharacter => {
-                                setCharacterCopy({...userCharacter[0]})
-                            })
-                            getCharacterClassAndRaceStats(character.id).then(stats => {
-                                setClassStatsCopy({...stats[0].classStats})
-                                setRaceStatsCopy({...stats[0].raceStats})
-                            })
-                            getAllEquippedItems3(character.id).then(equipmentArray => {
-                                console.log(equipmentArray)
-                                setEquippedItemsCopy(equipmentArray)
-                            })
+                            initializeCharacter(character)
+
 
                         }}>{character.name}</li>
                     })}

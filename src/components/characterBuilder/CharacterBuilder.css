@@ -1,8 +1,7 @@
 .ItemSelector-CharacterBuilder-container {
     display: flex;
-    justify-content: space-evenly;
-    padding: 2rem;
-
+    justify-content: space-around;
+    width: 1900px;
 }
 
 .character-builder {
@@ -18,10 +17,10 @@
 .character-builder::before {
     content: "";
     position: absolute;
-    top: 84px;
+    top: 50px;
     width: 30%;
     min-width: 600px;
-    height: 72%;
+    height: 86%;
     border-image-source: url('/assets/borders/border 9.png');
     border-image-slice: 40%; 
     border-image-width: 29%;
@@ -131,21 +130,30 @@
     height: 150px;
     justify-content: center;
     align-items: center;
+    background-image: url('/assets/backgrounds/item container background 1.png')
+}
+
+.equipped-item img {
+    border: 2px ridge silver;
+    background-image: url('assets/backgrounds/item backdrop 2.png');
 }
 
 .equipped-item h6 {
-    font-size: 14px;
-    height: 40px;
+    display: flex;
+    font-size: 12px;
+    height: 31px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 .equipped-item p {
-    font-size: 12px;
+    font-size: 10px;
     text-align: center;
 }
 
 .equipped-item img {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
 }
 
 .equipment h6 {
@@ -254,8 +262,11 @@
 }
 
 
-
 .select-character-warning {
     font-size: 24px;
     margin: auto;
+}
+
+.equipped-item-attributes {
+    height: 45px;
 }

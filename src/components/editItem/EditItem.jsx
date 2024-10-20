@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
+import { ImageSelectModal } from "../common/ImageSelectModal"
 import './EditItem.css'
 
 
@@ -10,6 +11,9 @@ export const EditItem = () => {
     const [itemData, setItemData] = useState({color: 'lightGreen'})
     const {itemId} = useParams()
     const [showImageSelector, setShowImageSelector] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const toggleModal = () => setIsModalOpen(!isModalOpen)
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -71,7 +75,7 @@ export const EditItem = () => {
             <h2>Edit Item</h2>
             <div className='first-container'>
                     <div className='select-image-container'>
-                        {<img src={itemData?.image?.imageURL} onClick={handleSelectIconToggle} />}
+                        {<img src={itemData?.image?.imageURL} onClick={toggleModal} />}
                     </div>
                     <label>Item Name</label>
                     <div>
@@ -266,14 +270,15 @@ export const EditItem = () => {
                         onChange={(event) => {handleTextChange(event, 'description')}}
                     ></textarea>
                 </div>
-
-                <button type="submit">Save Edits</button>
+                <div className='edit-item-buttons'>
                 <button onClick={() => {
-                    navigate(`/allitems`)
-                }}>Go Back</button>
+                        navigate(`/allitems`)
+                    }}>Go Back</button>
+                    <button type="submit">Save Edits</button>
+                </div>
             </form>
-            {showImageSelector ? <ImageSelector itemData={itemData} setItemData={setItemData} /> : ''}
-{/* 
+            {isModalOpen && <ImageSelectModal onClose={toggleModal} itemData={itemData} setItemData={setItemData}/>} 
+            {/* 
             <div className='image-select-window'>
             </div> */}
         </div>

@@ -80,10 +80,9 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
 
     return (
         <div className='all-items-container'>
-            <div className='item-list-border'>
-            <div className='sort-container'>
+                        <div className='sort-container'>
                 <div className='weapon-sort'>
-                <h2>Weapons</h2>
+                    <h2>Weapons</h2>
                     <ul>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, )}}>All Weapons</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'onehanded')}}>Onehanded</li>
@@ -91,7 +90,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     </ul>
                 </div>
                 <div className='armor-sort'>
-                <h2>Armor</h2>
+                    <h2>Armor</h2>
                     <ul>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event)}}>All Armor</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'plate')}}>Plate</li>
@@ -100,6 +99,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     </ul>
                 </div>
             </div>
+            <div className='item-list-border'>
                 <div className='item-list col-11'>
                     {displayedItems && displayedItems.map(item => {
                         console.log(item)
@@ -119,10 +119,10 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                                         </div>
                                     </div>
                                 </div>
-                                <div className='buttons-container'>
+                                {/* <div className='buttons-container'>
                                     <button className='edit-button' onClick={() => {navigate(`/allitems/edititem/${item.id}`)}}>Edit</button>
                                     <button className='delete-button' onClick={() => {handleDelete(item.id)}}>Delete</button>
-                                </div>
+                                </div> */}
                             </div>
                         )
                     })}

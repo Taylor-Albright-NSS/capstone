@@ -30,9 +30,12 @@ export const ItemDetails = () => {
                 <div className='item-details'>
                     <h2>{item?.name}</h2>
                     <img src={item?.image?.imageURL} />
-                    <p>Str: {item?.str}</p>
-                    <p>Dex: {item?.dex}</p>
-                    <p>Agi: {item?.agi}</p>
+                    <div className='item-details-attributes'>
+                        {item?.str > 0 && <p>{'Str: ' + item.str}</p>}
+                        {item?.dex > 0 && <p>{'Dex: ' + item.dex}</p>}
+                        {item?.agi > 0 && <p>{'Agi: ' + item.agi}</p>}
+                    </div>
+                    <p className='item-description'>{item?.description}</p>
                     <div>
                         <button onClick={() => {navigate(`/allitems/edititem/${itemId}`)}}>Edit</button>
                         <button onClick={handleItemDelete}>Delete</button>

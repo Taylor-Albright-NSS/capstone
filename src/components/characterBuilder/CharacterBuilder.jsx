@@ -286,10 +286,8 @@ const totalStats = calculateTotalStats()
     
             const response = await fetch(`http://localhost:8088/character_items?id=${item.id}`)
             const data = await response.json()
-            console.log(data, ' DATA DATA DATA')
     
             if (data.length > 0) {
-                console.log('PUT PUT PUT PUT')
                 delete item.item;
                 await fetch(`http://localhost:8088/character_items/${item.id}`, {
                     method: "PUT",
@@ -407,9 +405,11 @@ const totalStats = calculateTotalStats()
                     {console.log(equippedItemsCopy)}
                     <img src={equippedItemsCopy[0]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[0].item.botDamage + ' - ' + equippedItemsCopy[0].item.topDamage}</p>
-                    <p>Str: {equippedItemsCopy[0].item.str}</p>
-                    <p>Dex: {equippedItemsCopy[0].item.dex}</p>
-                    <p>Agi: {equippedItemsCopy[0].item.agi}</p>
+                    <div className='equipped-item-attributes'>
+                        <p>{equippedItemsCopy[0].item.str ? 'STR: ' +  equippedItemsCopy[0].item.str : '' }</p>
+                        <p>{equippedItemsCopy[0].item.dex ? 'DEX: ' +  equippedItemsCopy[0].item.dex : '' }</p>
+                        <p>{equippedItemsCopy[0].item.agi ? 'AGI: ' +  equippedItemsCopy[0].item.agi : '' }</p>
+                    </div>
                  </div> : <div className='equipped-item col-3'>Weapon slot 1</div>
                  }
                 {equippedItemsCopy[1]?.item ?
@@ -417,9 +417,11 @@ const totalStats = calculateTotalStats()
                     <h6 style={{color: equippedItemsCopy[1].item.color}}>{equippedItemsCopy[1].item.name}</h6>
                     <img src={equippedItemsCopy[1]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[1].item.botDamage + ' - ' + equippedItemsCopy[1].item.topDamage}</p>
-                    <p>Str: {equippedItemsCopy[1].item.str}</p>
-                    <p>Dex: {equippedItemsCopy[1].item.dex}</p>
-                    <p>Agi: {equippedItemsCopy[1].item.agi}</p>
+                    <div className='equipped-item-attributes'>
+                        <p>{equippedItemsCopy[1].item.str ? 'STR: ' +  equippedItemsCopy[1].item.str : '' }</p>
+                        <p>{equippedItemsCopy[1].item.dex ? 'DEX: ' +  equippedItemsCopy[1].item.dex : '' }</p>
+                        <p>{equippedItemsCopy[1].item.agi ? 'AGI: ' +  equippedItemsCopy[1].item.agi : '' }</p>
+                    </div>
                  </div> : <div className='equipped-item col-3'>Weapon slot 2</div>
                  }
             </div>

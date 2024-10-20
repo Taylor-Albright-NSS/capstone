@@ -39,4 +39,6 @@
 .characters {
     border: 4px ridge silver;
     margin: 30px 20px 20px 20px;
+    min-height: 34px;
+    min-width: 200px;
 }

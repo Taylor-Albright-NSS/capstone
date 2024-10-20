@@ -141,7 +141,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     const weaponInformation = (weapon) => {
         if (!weapon?.item?.name) {
             return (
-                <ul className='item-info'>
+                <ul>
                     <p>WEAPON</p>
                     <li></li>
                     <li>{''}</li>
@@ -151,14 +151,13 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             )
         }
         return (
-                <ul className='weapon-1-info'>
-                    {console.log(equippedItems)}
-                    <p style={{color: weapon.item.color}}>{weapon.item.name}</p>
+                <ul className=''>
+                    <h6 style={{color: weapon.item.color}}>{weapon.item.name}</h6>
                     <img src={weapon?.item?.image?.imageURL} />
-                    <li>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</li>
-                    <li>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</li>
-                    <li>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</li>
-                    <li>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</li>
+                    <p>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</p>
+                    <p>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</p>
+                    <p>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</p>
+                    <p>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</p>
                 </ul>
         )
     }
@@ -179,7 +178,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     const itemInformation = (item, itemString) => {
         if (!item) {
             return (
-                <ul className='item-info'>
+                <ul className='equipped-item'>
                     <p>{itemString}</p>
                     <li></li>
                     <li>{''}</li>
@@ -189,7 +188,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             )
         }
         return (
-                <ul className='item-info'>
+                <ul>
                     <p style={{color: item.item.color}}>{item.item.name}</p>
                     <li>Damage: {item.item.botDamage + ' - ' + item.item.topDamage}</li>
                     <li>{item.item.str ? 'STR: ' + item.item.str : ''}</li>
@@ -235,8 +234,8 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     </ul> */}
                 <div className='character-equipment-container col-12'>
                     <ul className='items'>
-                        <li className='col-3 slot1'>{displayWeapon1()}</li>
-                        <li className='col-3 slot2'>{displayWeapon2()}</li>
+                        <li className='col-3 equipped-item'>{displayWeapon1()}</li>
+                        <li className='col-3 equipped-item'>{displayWeapon2()}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'chest')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'helm')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'shoulders')}</li>

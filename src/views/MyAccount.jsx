@@ -38,7 +38,7 @@ export const MyAccount = ({ currentUser }) => {
     }
     return (
         <div className='account-container'>
-            <h4>Account Information</h4>
+            <h1>{ isAccountBeingEdited ? 'Edit Account Information' : 'Account Information' }</h1>
             {!isAccountBeingEdited ? 
             <div className='account-information'>
                 <dl>

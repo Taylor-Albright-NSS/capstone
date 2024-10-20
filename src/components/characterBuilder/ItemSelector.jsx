@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { getAllItemsWithImages } from "../../services/itemServices"
 import './ItemSelector.css'
+import { useNavigate } from "react-router-dom"
 
 export const ItemSelector = ({
     character, characterCopy, setCharacter, setCharacterCopy,equippedItems, 
@@ -9,7 +10,7 @@ export const ItemSelector = ({
     raceStatsCopy, setRaceStatsCopy
     }) => {
     const [allItems, setAllItems] = useState([])
-
+    const navigate =  useNavigate()
     useEffect(() => {
         getAllItemsWithImages().then(allItemsArray => {
             const itemsWithoutHands = allItemsArray.filter(item => {
@@ -67,15 +68,15 @@ export const ItemSelector = ({
 
     return (
         <div className='item-selector'>
-            <h4>Weapons And Armor</h4>
+            {/* <h4>Weapons And Armor</h4> */}
             <div className="scroll-window">
                 {allItems && allItems.map(item => {
                     if (item.id != 1 && item.id != 2) {
                         return (
-                            <div className='equipment col-3' key={item.id}>
+                            <div className='item-selector-equipment' key={item.id}>
                                 <div className='equipment-properties'>
                                     <h6 style={{color: item.color}}>{item.name}</h6>
-                                    <img src={item.image.imageURL} />
+                                    <img src={item.image.imageURL} onClick={() => {navigate(`/allitems/edititem/${item.id}`)}} />
                                     <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
                                     <p>Str: {item.str ? item.str : ''}</p>
                                     <p>Dex: {item.dex ? item.dex : ''}</p>

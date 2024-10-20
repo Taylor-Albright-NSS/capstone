@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Register.css"
-import { getUserByEmail, createUser } from "../../services/userServices"
+import { getUserByEmailAndPassword, createUser } from "../../services/userServices"
 
 export const Register = () => {
   const [user, setUser] = useState({
@@ -28,12 +28,12 @@ export const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault()
-    getUserByEmail(user.email).then((response) => {
+    getUserByEmailAndPassword(user.userName, user.password).then((response) => {
+      console.log(user.email, user.password)
+      console.log(response)
       if (response.length > 0) {
-        // Duplicate email. No good.
-        window.alert("Account with that email address already exists")
+        window.alert("Username already exists")
       } else {
-        // Good email, create user.
         registerNewUser()
       }
     })

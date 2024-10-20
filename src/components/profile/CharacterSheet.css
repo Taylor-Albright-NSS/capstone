@@ -58,9 +58,6 @@
     border: 4px ridge silver
 }
 
-.items li > ul {
-    height: 120px;
-}
 .weapon-1-info,
 .weapon-2-info {
     border: 2px solid silver;

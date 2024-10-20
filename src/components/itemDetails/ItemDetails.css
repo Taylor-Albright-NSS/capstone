@@ -1,33 +1,72 @@
 .item-details-main {
     display: flex;
     flex-direction: row;
-    height: 600px;
-    border: 2px solid red;
+    height: 680px;
     justify-content: center;
     align-items: center;
+
 }
 
 .item-details {
     display: flex;
     flex-direction: column;
-    border: 2px solid pink;
     align-items: center;
-    height: 400px;
+    justify-content: space-evenly;
+    min-height: 500px;
     width: 400px;
+    background-color: rgba(0, 0, 0, 0.715);
+    backdrop-filter: blur(10px);
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+}
+
+.item-details p {
+    font-size: 20px;
+}
+
+.item-details::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 91%;
+    top: 4%;
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 35%; 
+    border-image-width: 35%;
+    border-image-outset: 94px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
+}
+
+.item-description {
+    width: 65%;
+    min-height: 100px;
+    color: white;
+    justify-content: center;
+    font-style: italic;
+    word-wrap: break-word; /* Ensure long words break to the next line */
+    overflow-wrap: break-word;
 }
 
 .item-details img {
-    border: 2px solid green;
+    border: 4px ridge silver;
+    background-image: url('/assets/backgrounds/item backdrop 2.png');
     width: 200px;
     height: 200px;
 }
 
-/* .custom-border {
-    border: 40px solid transparent;
-    border-image-source: url('/assets/borders/custom\ border.png');
-    border-image-slice: 50 fill; 
-    border-image-width: 40px; 
-    border-image-outset: 0; 
-    border-image-repeat: round; 
-  } */
+.item-details button {
+    width: 100px;
+}
+
+.item-details-attributes {
+}
+
+
+
+
+
+
 
