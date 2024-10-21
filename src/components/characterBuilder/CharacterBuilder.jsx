@@ -401,7 +401,7 @@ const totalStats = calculateTotalStats()
                 {equippedItemsCopy[0]?.item ?
                 <div className='equipped-item col-3'>
                     {console.log(equippedItemsCopy)}
-                    <h6 style={{color: equippedItemsCopy[0].item.color}}>{equippedItemsCopy[0].item.name}</h6>
+                    <h6>{equippedItemsCopy[0].item.name}</h6>
                     {console.log(equippedItemsCopy)}
                     <img src={equippedItemsCopy[0]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[0].item.botDamage + ' - ' + equippedItemsCopy[0].item.topDamage}</p>
@@ -414,7 +414,7 @@ const totalStats = calculateTotalStats()
                  }
                 {equippedItemsCopy[1]?.item ?
                 <div className='equipped-item col-3'>
-                    <h6 style={{color: equippedItemsCopy[1].item.color}}>{equippedItemsCopy[1].item.name}</h6>
+                    <h6>{equippedItemsCopy[1].item.name}</h6>
                     <img src={equippedItemsCopy[1]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[1].item.botDamage + ' - ' + equippedItemsCopy[1].item.topDamage}</p>
                     <div className='equipped-item-attributes'>

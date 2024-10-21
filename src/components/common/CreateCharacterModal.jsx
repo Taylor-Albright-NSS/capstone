@@ -165,34 +165,41 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
   return ReactDOM.createPortal(
     <div className="create-character-modal-overlay" onClick={toggleModal}>
       <div className="create-character-modal-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close-button" onClick={toggleModal}>&times;</span>
                 <fieldset className='create-character-fieldset'>
-                    <legend>Create New Character</legend>
 
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" onChange={handleTextChange} />
+                    <div className="new-character-name">
+                        <legend>Create New Character</legend>
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" onChange={handleTextChange} />
+                    </div>
+                    <div className="new-character-class-and-race">
+                        <label>Class</label>
+                        <select id="class-select" name="class-select" onChange={handleClassSelect}>
+                            <option>Select Class</option>
+                            <option>Berserker</option>
+                            <option>Fighter</option>
+                            <option>Fighter</option>
+                        </select>
+                        <label>Race</label>
+                        <select id="race-select" name="race-select" onChange={handleRaceSelect}>
+                            <option>Select Race</option>
+                            <option>Human</option>
+                            <option>Elf</option>
+                            <option>Half-Elf</option>
+                            <option>Half-Minotaur</option>
+                        </select>
+                    </div>
+                    <div className="new-character-attributes">
+                        <div className='stat-field'><span className='attribute-string'>Str </span><button onClick={() => handleDecrement('str')}>-</button><span className='attribute-number'>{newCharacter.str + classStats.str + raceStats.str}</span><button onClick={() => handleIncrement('str')}>+</button></div>
+                        <div className='stat-field'><span className='attribute-string'>Dex </span><button onClick={() => handleDecrement('dex')}>-</button><span className='attribute-number'>{newCharacter.dex + classStats.dex + raceStats.dex}</span><button onClick={() => handleIncrement('dex')}>+</button></div>
+                        <div className='stat-field'><span className='attribute-string'>Agi </span><button onClick={() => handleDecrement('agi')}>-</button><span className='attribute-number'>{newCharacter.agi + classStats.agi + raceStats.agi}</span><button onClick={() => handleIncrement('agi')}>+</button></div>
+                    </div>
+                    <div className='new-character-buttons-container'>
+                        <button onClick={toggleModal}>Cancel</button>
+                        <button onClick={handleSaveCharacter}>Confirm</button>
+                    </div>
 
-                    <label>Class</label>
-                    <select id="class-select" name="class-select" onChange={handleClassSelect}>
-                        <option>Select Class</option>
-                        <option>Berserker</option>
-                        <option>Fighter</option>
-                        <option>Fighter</option>
-                    </select>
-
-                    <label>Race</label>
-                    <select id="race-select" name="race-select" onChange={handleRaceSelect}>
-                        <option>Select Race</option>
-                        <option>Human</option>
-                        <option>Elf</option>
-                        <option>Half-Elf</option>
-                        <option>Half-Minotaur</option>
-                    </select>
-                    <div className='stat-field'><span className='attribute-string'>Str: </span><button onClick={() => handleDecrement('str')}>-</button><span className='attribute-number'>{newCharacter.str + classStats.str + raceStats.str}</span><button onClick={() => handleIncrement('str')}>+</button></div>
-                    <div className='stat-field'><span className='attribute-string'>Dex: </span><button onClick={() => handleDecrement('dex')}>-</button><span className='attribute-number'>{newCharacter.dex + classStats.dex + raceStats.dex}</span><button onClick={() => handleIncrement('dex')}>+</button></div>
-                    <div className='stat-field'><span className='attribute-string'>Agi: </span><button onClick={() => handleDecrement('agi')}>-</button><span className='attribute-number'>{newCharacter.agi + classStats.agi + raceStats.agi}</span><button onClick={() => handleIncrement('agi')}>+</button></div>
                 </fieldset>
-                <button onClick={handleSaveCharacter}>Save</button>
       </div>
     </div>,
         document.getElementById('modal-root') // The target DOM node for the portal

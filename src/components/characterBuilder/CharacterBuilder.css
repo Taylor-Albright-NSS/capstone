@@ -9,7 +9,7 @@
     flex-direction: column;
     border: 4px ridge silver;
     min-width: 609px;
-    min-height: 700px;
+    min-height: 760px;
     margin: 0 2rem 0 2rem;
     background-color: rgba(0, 0, 0, 0.715);
     backdrop-filter: blur(10px);
@@ -89,9 +89,25 @@
 .total-damages {
     border: 4px ridge silver;
     text-align: center;
-    width: 500px;
+    width: 250px;
     height: 173px;
     margin-left: 3rem;
+    position: relative;
+}
+.total-damages::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    width: 100%;
+    height: 100%;
+    border-image-source: url('/assets/borders/border 7.png');
+    border-image-slice: 40%; 
+    border-image-width: 40%;
+    border-image-outset: 20px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
 }
 
 .temp-warning {
@@ -125,37 +141,49 @@
 .equipped-item {
     display: flex;
     flex-direction: column;
-    border: 4px solid silver;
     /* width: 100px; */
-    height: 150px;
-    min-width: 155px; 
-    justify-content: center;
+    height: 220px;
+    min-width: 220px; 
+    justify-content: flex-start;
     align-items: center;
-    background-image: url('/assets/backgrounds/item container background 1.png')
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    position: relative;
+}
+
+.equipped-item::before {
+    content: "";
+    position: absolute;
+    min-width: 100%;
+    height: 100%;
+    border-image-source: url('/assets/borders/border 6.png');
+    border-image-slice: 20%; 
+    border-image-width: 18%;
+    border-image-outset: 28px; 
+    border-image-repeat: stretch; 
+    border-style: solid;
+    pointer-events: none;
 }
 
 .equipped-item img {
-    border: 2px ridge silver;
+    border: 4px ridge rgb(219, 219, 219);
     background-image: url('assets/backgrounds/item backdrop 2.png');
+    height: 100px;
+    width: 100px;
 }
 
 .equipped-item h6 {
     display: flex;
-    font-size: 12px;
+    font-size: 20px;
     height: 31px;
     text-align: center;
     justify-content: center;
     align-items: center;
 }
 .equipped-item p {
-    font-size: 10px;
+    font-size: 16px;
     text-align: center;
 }
 
-.equipped-item img {
-    height: 50px;
-    width: 50px;
-}
 
 .equipment h6 {
     font-size: 14px;
@@ -168,10 +196,10 @@
 
 .item-container {
     display: flex;
+    justify-content: space-around;
     flex-direction: row;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     align-content: flex-start; /* Align wrapped lines to the top */
-    border: 4px ridge silver;
     width: 100%;
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */

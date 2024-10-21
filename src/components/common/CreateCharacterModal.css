@@ -28,13 +28,45 @@
   }
 
   .create-character-fieldset {
+    border: 8px ridge rgb(71, 65, 61);
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    background-size: cover;
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .create-character-fieldset label {
+  }
+
+  .new-character-name {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .new-character-class-and-race {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .new-character-attributes {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3rem;
+    margin-bottom: 1rem;
   }
 
   .stat-field {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .new-character-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
   }

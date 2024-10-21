@@ -75,7 +75,7 @@ export const ItemSelector = ({
                         return (
                             <div className='item-selector-equipment' key={item.id}>
                                 <div className='equipment-properties'>
-                                    <h6 style={{color: item.color}}>{item.name}</h6>
+                                    <h6>{item.name}</h6>
                                     <img src={item.image.imageURL} onClick={() => {navigate(`/allitems/edititem/${item.id}`)}} />
                                     <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
                                     <p>Str: {item.str ? item.str : ''}</p>

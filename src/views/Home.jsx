@@ -6,8 +6,7 @@ export const Home = () => {
             <div className='welcome'>
             <img src='/assets/icons/Galvadia Banner.png' className='welcome-banner'/>
                 <h1>Welcome To The The Galvadian Armory!</h1>
-                <p>The armory is an interactive website that allows you to create a character sheet for your in-game Galvadia
-                characters.</p>
+                <p>The Armory is an interactive application that lets you create a character sheet to reflect your in-game character, so you can test out various weapons as well as alter your stats to see how those changes affect your damage output.</p>
             </div>
         </div>
     )

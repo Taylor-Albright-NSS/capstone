@@ -130,20 +130,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         return damageObject
     }
 
-    const handleCharacterDelete = async () => {
-        if (selectedCharacterId === 0) {
-            window.alert("You need to select a character before you can delete!")
-            return
-        } else if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
-                await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
-                    method: "DELETE",
-                })
-                await fetch(`http://localhost:8088/character_items/characterId=${selectedCharacterId}`, {
-                    method: "DELETE",
-                })
-                setSelectedCharacterId(0)
-            }
-    }
+
 
     const weaponInformation = (weapon) => {
         if (!weapon?.item?.name) {
@@ -157,15 +144,14 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                 </ul>
             )
         }
-        return (
-                <ul className=''>
-                    <h6 style={{color: weapon.item.color}}>{weapon.item.name}</h6>
-                    <img src={weapon?.item?.image?.imageURL} />
-                    <p>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</p>
-                    <p>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</p>
-                    <p>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</p>
-                    <p>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</p>
-                </ul>
+        return (    <div>
+                        <h6>{weapon.item.name}</h6>
+                        <img src={weapon?.item?.image?.imageURL} />
+                        <p>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</p>
+                        <p>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</p>
+                        <p>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</p>
+                        <p>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</p>
+                    </div>
         )
     }
 
@@ -243,12 +229,12 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     <ul className='items'>
                         <li className='col-3 equipped-item'>{displayWeapon1()}</li>
                         <li className='col-3 equipped-item'>{displayWeapon2()}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'chest')}</li>
+                        {/* <li className='col-3 slot3'>{itemInformation(undefined, 'chest')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'helm')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'shoulders')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'leggings')}</li>
                         <li className='col-3 slot3'>{itemInformation(undefined, 'gloves')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'boots')}</li>
+                        <li className='col-3 slot3'>{itemInformation(undefined, 'boots')}</li> */}
                     </ul>
                 </div>
             </div>
@@ -262,10 +248,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                     <h5>DPS</h5>
                     <span className='damage dps'>{calculateAttackPower()?.botDamage1 ? calculateAttackPower().totalDps : 0}</span>
                 </div>            
-            <div className='buttons-container'>
-                <button className='character-builder-button' onClick={() => {navigate('/characterbuilder')}}>Character Builder</button>
-                <button className='delete-character-button' onClick={() => {handleCharacterDelete()}}>Delete Character</button>
-            </div>
+
         </div>
     )    
 }

@@ -131,23 +131,34 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
         })
     }
 
+    const handleCharacterDelete = async () => {
+        if (selectedCharacterId === 0) {
+            window.alert("You need to select a character before you can delete!")
+            return
+        } else if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
+                await fetch(`http://localhost:8088/characters/${selectedCharacterId}`, {
+                    method: "DELETE",
+                })
+                await fetch(`http://localhost:8088/character_items/characterId=${selectedCharacterId}`, {
+                    method: "DELETE",
+                })
+                setSelectedCharacterId(0)
+            }
+    }
+
     return (
         <div className='character-list'>
             <h2>Characters</h2>
             <button onClick={() => {setIsModalOpen(!isModalOpen)}}>Create New Character</button>
             {isModalOpen && <CreateCharacterModal initializeCharacter={initializeCharacter} setSelectedCharacterId={setSelectedCharacterId} currentUser={currentUser} toggleModal={toggleModal} handleCreateCharacter={handleCreateCharacter} />}
             <div className='characters'>
-                <ul>
                     {characterList.map(character => {
                         return <li key={character.id} onClick={(e) => {
-
                             initializeCharacter(character)
-
-
                         }}>{character.name}</li>
                     })}
-                </ul>
             </div>
+            <button className='delete-character-button' onClick={() => {handleCharacterDelete()}}>Delete Character</button>
         </div>
     )
 }
