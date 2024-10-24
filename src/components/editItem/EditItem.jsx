@@ -226,7 +226,7 @@ export const EditItem = () => {
                                     />
                             </div>
                         </div>
-                        <div className='stats-col-2'>
+                        {/* <div className='stats-col-2'>
                             <div>
                                 <label>Int:</label>
                                 <input
@@ -263,7 +263,7 @@ export const EditItem = () => {
                                     onChange={(event) => {handleChange(event, 'con')}}
                                     />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='description-container'>

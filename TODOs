@@ -3,3 +3,4 @@ When selecting a race, implement getting race and class stats from the database 
 
 Set in the edit item POST or function that calls it to check to see if that item that is
 being changed is equipped, and if so, reset that equipped item in the character builder
+

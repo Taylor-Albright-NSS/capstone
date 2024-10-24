@@ -137,7 +137,7 @@ const totalStats = calculateTotalStats()
             let topMultiplier = 0.15 + characterCopy.oneHanded / 20
             let botMultiplier = 0.15 + characterCopy.oneHanded / 20
             damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(0)))
             damageObject.botDamage1 = slot1 && Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
             damageObject.topDamage1 = slot1 && Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
             damageObject.botDamage2 = slot2 && Math.ceil(damageObject.attackPower * (botMultiplier * slot2?.item?.botDamage))
@@ -154,7 +154,7 @@ const totalStats = calculateTotalStats()
             let botMultiplier = 0.15 + characterCopy.twoHanded / 20
 
             damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(0)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
 
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
@@ -353,19 +353,19 @@ const totalStats = calculateTotalStats()
                     </select>
                     <ul className='attributes'>
                         <li className='attribute-container d-flex'>
-                            <span className='attribute-string'>STR:</span>
+                            <span className='attribute-string'>Str:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'str')}}>-</button>
                             <span className='attribute-number'>{totalStats.str ? totalStats.str : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('str')}}>+</button>
                         </li>
                         <li className='attribute-container d-flex'>
-                            <span className='attribute-string'>DEX:</span>
+                            <span className='attribute-string'>Dex:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'dex')}}>-</button>
                             <span className='attribute-number'>{totalStats.dex ? totalStats.dex : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('dex')}}>+</button>
                         </li>
                         <li className='attribute-container d-flex'>
-                            <span className='attribute-string'>AGI:</span>
+                            <span className='attribute-string'>Agi:</span>
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'agi')}}>-</button>
                             <span className='attribute-number'>{totalStats.agi ? totalStats.agi : 0}</span>
                             <button className='increment-button' onClick={() => {handleIncrement('agi')}}>+</button>
@@ -394,8 +394,7 @@ const totalStats = calculateTotalStats()
                     </div>
                 </div>
             </div>
-            <div>
-            <h4>Equipment</h4>
+            <div className='col-12'>
             <div className='item-container'>
             {console.log(equippedItemsCopy)}
                 {equippedItemsCopy[0]?.item ?
@@ -406,9 +405,9 @@ const totalStats = calculateTotalStats()
                     <img src={equippedItemsCopy[0]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[0].item.botDamage + ' - ' + equippedItemsCopy[0].item.topDamage}</p>
                     <div className='equipped-item-attributes'>
-                        <p>{equippedItemsCopy[0].item.str ? 'STR: ' +  equippedItemsCopy[0].item.str : '' }</p>
-                        <p>{equippedItemsCopy[0].item.dex ? 'DEX: ' +  equippedItemsCopy[0].item.dex : '' }</p>
-                        <p>{equippedItemsCopy[0].item.agi ? 'AGI: ' +  equippedItemsCopy[0].item.agi : '' }</p>
+                        <p>{equippedItemsCopy[0].item.str ? 'Str: ' +  equippedItemsCopy[0].item.str : '' }</p>
+                        <p>{equippedItemsCopy[0].item.dex ? 'Dex: ' +  equippedItemsCopy[0].item.dex : '' }</p>
+                        <p>{equippedItemsCopy[0].item.agi ? 'Agi: ' +  equippedItemsCopy[0].item.agi : '' }</p>
                     </div>
                  </div> : <div className='equipped-item col-3'>Weapon slot 1</div>
                  }
@@ -418,9 +417,9 @@ const totalStats = calculateTotalStats()
                     <img src={equippedItemsCopy[1]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[1].item.botDamage + ' - ' + equippedItemsCopy[1].item.topDamage}</p>
                     <div className='equipped-item-attributes'>
-                        <p>{equippedItemsCopy[1].item.str ? 'STR: ' +  equippedItemsCopy[1].item.str : '' }</p>
-                        <p>{equippedItemsCopy[1].item.dex ? 'DEX: ' +  equippedItemsCopy[1].item.dex : '' }</p>
-                        <p>{equippedItemsCopy[1].item.agi ? 'AGI: ' +  equippedItemsCopy[1].item.agi : '' }</p>
+                        <p>{equippedItemsCopy[1].item.str ? 'Str: ' +  equippedItemsCopy[1].item.str : '' }</p>
+                        <p>{equippedItemsCopy[1].item.dex ? 'Dex: ' +  equippedItemsCopy[1].item.dex : '' }</p>
+                        <p>{equippedItemsCopy[1].item.agi ? 'Agi: ' +  equippedItemsCopy[1].item.agi : '' }</p>
                     </div>
                  </div> : <div className='equipped-item col-3'>Weapon slot 2</div>
                  }

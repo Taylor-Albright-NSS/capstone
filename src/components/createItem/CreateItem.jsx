@@ -11,7 +11,7 @@ export const CreateItem = () => {
         {color: "rgb(0, 255, 0)", name:'', str: 0, dex: 0, agi: 0, int: 0, wis: 0, mys: 0, con: 0,
             topDamage: 0, botDamage: 0, slotId: 'weapon', imageId: 0, image: {
                 id: 0,
-                imageURL: "/assets/no image/no image.png",
+                // imageURL: "/assets/backgrounds/item background 2.png",
              }
         }
     )
@@ -239,7 +239,7 @@ export const CreateItem = () => {
                                         />
                                 </div>
                             </div>
-                            <div className='stats-col-2'>
+                            {/* <div className='stats-col-2'>
                                 <div>
                                     <label>Int:</label>
                                     <input
@@ -276,7 +276,7 @@ export const CreateItem = () => {
                                         onChange={(event) => {handleChange(event, 'con')}}
                                         />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         
                     </div>
@@ -289,10 +289,12 @@ export const CreateItem = () => {
                         ></textarea>
                     </div>
                 </div>
-                <button type="submit">Create Item</button>
-                <button onClick={() => {
-                    navigate(`/allitems/itemdetails/${itemId}`)
-                }}>Go Back</button>
+                <div className='edit-item-buttons'>
+                    <button type="submit">Create Item</button>
+                    <button onClick={() => {
+                        navigate(`/allitems/`)
+                    }}>Go Back</button>
+                </div>
             </form>
 {/* 
             <div className='image-select-window'>

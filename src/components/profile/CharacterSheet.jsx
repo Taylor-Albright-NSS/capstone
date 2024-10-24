@@ -144,13 +144,15 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                 </ul>
             )
         }
-        return (    <div>
+        return (    <div className='test'>
                         <h6>{weapon.item.name}</h6>
                         <img src={weapon?.item?.image?.imageURL} />
                         <p>Damage: {weapon.item.botDamage + ' - ' + weapon.item.topDamage}</p>
-                        <p>{weapon.item.str ? 'STR: ' + weapon.item.str : ''}</p>
-                        <p>{weapon.item.dex ? 'DEX: ' + weapon.item.dex : ''}</p>
-                        <p>{weapon.item.agi ? 'AGI: ' + weapon.item.agi : ''}</p>
+                        <div className='character-sheet-item-attributes'>
+                            <p>{weapon.item.str ? 'Str: ' + weapon.item.str : ''}</p>
+                            <p>{weapon.item.dex ? 'Dex: ' + weapon.item.dex : ''}</p>
+                            <p>{weapon.item.agi ? 'Agi: ' + weapon.item.agi : ''}</p>
+                        </div>
                     </div>
         )
     }
@@ -171,7 +173,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     const itemInformation = (item, itemString) => {
         if (!item) {
             return (
-                <ul className='equipped-item'>
+                <ul>
                     <p>{itemString}</p>
                     <li></li>
                     <li>{''}</li>
@@ -196,45 +198,29 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
 
     return (
         <div className='character-sheet d-flex flex-column col-5'>
-            <h2>{character ? character.name + ': ' + character.race + ' ' + character.class : 'No Character Selected'}</h2>
+            <h2>{character ? character.name + ' - ' + character.race + ' ' + character.class : 'No Character Selected'}</h2>
             <div className='top-container'>
-                    <ul className='character-stats-container col-6 attributes'>
-                        <p>Attributes</p>
-                        <li>STR: {character ? totalStats.str : 0}</li>
-                        <li>DEX: {character ? totalStats.dex : 0}</li>
-                        <li>AGI: {character ? totalStats.agi : 0}</li>
-                        {/* <li>{character ? 'INT: ' + character.baseAgi : ''}</li>
-                        <li>{character ? 'WIS: ' + character.baseAgi : ''}</li>
-                        <li>{character ? 'MYS: ' + character.baseAgi : ''}</li>
-                        <li>{character ? 'CON: ' + character.baseAgi : ''}</li> */}
-                    </ul>
-                    <ul className='character-stats-container col-6 power'>
-                        <p>Offense</p>
-                        <li>Attack Power: {calculateAttackPower()?.attackPower ? calculateAttackPower().attackPower : 0}</li>
-                        <li>{character?.class === 'mage' ? 'Spell Power: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>{character?.class === 'mage' ? 'Mystic Power: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>Speed: {calculateAttackPower()?.speed ? calculateAttackPower().speed : 0}</li>
-                        {/* <li>Accuracy: {calculateAttackPower()?.accuracy ? calculateAttackPower().accuracy : 0}</li> */}
-                        <li>Onehanded Skill: {character?.oneHanded ? character.oneHanded : 0}</li>
-                        <li>Twohanded Skill: {character?.twoHanded ? character.twoHanded : 0}</li>
-                    </ul>
-                    {/* <ul className='defense character-stats-container col-5'>
-                        <p>Defense</p>
-                        <li>{character ? 'Attack Power: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>{character ? 'Slashing Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>{character ? 'Piercing Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                        <li>{character ? 'Blunt Armor: ' + calculateAttackPower().attackPower : ''}</li>
-                    </ul> */}
+                    <div className='character-stats-container'>
+                        <div className="character-sheet-attributes">
+                            <h6>Stats</h6>
+                            <li>STR: {character ? totalStats.str : 0}</li>
+                            <li>DEX: {character ? totalStats.dex : 0}</li>
+                            <li>AGI: {character ? totalStats.agi : 0}</li>
+                            <li>Attack Power: {calculateAttackPower()?.attackPower ? calculateAttackPower().attackPower : 0}</li>
+                            <li>Speed: {calculateAttackPower()?.speed ? calculateAttackPower().speed : 0}</li>
+
+                        </div>
+                        <div className="character-sheet-skills">
+                            <h6>Skills</h6>
+                            <li className={character?.weaponTypeEquipped === 'onehanded' ? 'selected-weapon-skill' : ''}>Onehanded: {character?.oneHanded ? character.oneHanded : 0}</li>
+                            <li className={character?.weaponTypeEquipped === 'twohanded' ? 'selected-weapon-skill' : ''}>Twohanded: {character?.twoHanded ? character.twoHanded : 0}</li>
+                        </div>
+
+                    </div>
                 <div className='character-equipment-container col-12'>
                     <ul className='items'>
                         <li className='col-3 equipped-item'>{displayWeapon1()}</li>
                         <li className='col-3 equipped-item'>{displayWeapon2()}</li>
-                        {/* <li className='col-3 slot3'>{itemInformation(undefined, 'chest')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'helm')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'shoulders')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'leggings')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'gloves')}</li>
-                        <li className='col-3 slot3'>{itemInformation(undefined, 'boots')}</li> */}
                     </ul>
                 </div>
             </div>

@@ -1,12 +1,11 @@
 .character-sheet {
     display: flex;
     width: 300px;
-    height: 760px;
+    height: 774px;
     justify-content: flex-start;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.715);
     backdrop-filter: blur(10px);
-    border: 8px ridge rgb(114, 77, 54);
 
 }
 
@@ -34,20 +33,30 @@
 }
 .character-sheet h2 {
     text-align: center;
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    background-size: cover;
+    width: 100%;
+    border-bottom: 4px ridge rgb(150, 117, 89);
 }
 
 .top-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .character-stats-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 130px;
+    height: 146px;
+    width: 68%;
     flex-wrap: wrap;
+    position: relative;
+    margin-top: 0.3rem;
 }
+
+
 .character-stats-container p {
     color: white
 }
@@ -95,9 +104,8 @@
 .weapon2-ranges,
 .total-damages {
     font-size: 10px;
-    margin: 0;
+    margin-top: 0.6rem;
     text-align: center;
-    margin-top: 1rem;
 }
 
 .weapon-ranges-container {
@@ -109,7 +117,7 @@
 .character-builder-button,
 .delete-character-button {
     width: 200px !important;
-    height: 40px !important
+    height: 30px !important
 }
 
 
@@ -141,4 +149,36 @@ ul img {
     border-image-repeat: stretch; 
     border-style: solid;
     pointer-events: none;
+}
+
+.character-sheet-attributes,
+.character-sheet-skills {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px ridge silver;
+    height: 100%;
+    width: 200px;
+    background-image: url('/assets/backgrounds/button background.png');
+}
+
+.character-sheet-item-attributes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 2px ridge silver;
+    width: 100px;
+    height: 50px;
+    background-image: url('/assets/backgrounds/button background.png');
+}
+
+.character-sheet-item-attributes p {
+    font-size: 10px !important;
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

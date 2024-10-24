@@ -23,7 +23,6 @@ export const ItemSelector = ({
 
 
     const handleEquipItemLeft = (item) => {
-        console.log(item, ' ITEM')
         setEquippedItemsCopy({
             ...equippedItemsCopy, 
             0: {...equippedItemsCopy[0], item: item}
@@ -31,7 +30,6 @@ export const ItemSelector = ({
         setCharacterCopy({...characterCopy, weaponTypeEquipped: "onehanded"})
     }
     const handleEquipItemRight = (item) => {
-        console.log(equippedItemsCopy)
         if (equippedItemsCopy[0]?.item?.type === 'twohanded') {
             setEquippedItemsCopy({
                 ...equippedItemsCopy, 
@@ -68,7 +66,6 @@ export const ItemSelector = ({
 
     return (
         <div className='item-selector'>
-            {/* <h4>Weapons And Armor</h4> */}
             <div className="scroll-window">
                 {allItems && allItems.map(item => {
                     if (item.id != 1 && item.id != 2) {
@@ -78,9 +75,11 @@ export const ItemSelector = ({
                                     <h6>{item.name}</h6>
                                     <img src={item.image.imageURL} onClick={() => {navigate(`/allitems/edititem/${item.id}`)}} />
                                     <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
-                                    <p>Str: {item.str ? item.str : ''}</p>
-                                    <p>Dex: {item.dex ? item.dex : ''}</p>
-                                    <p>Agi: {item.agi ? item.agi : ''}</p>
+                                    <div className='item-selector-item-attributes'>
+                                        <p>{item.str ? 'Str: ' + item.str : ''}</p>
+                                        <p>{item.dex ? 'Dex: ' + item.dex : ''}</p>
+                                        <p>{item.agi ? 'Agi: ' + item.agi : ''}</p>
+                                    </div>
                                 </div>
                                 { item.type === "onehanded" &&
                                     <div className='equip-buttons-container'>

@@ -13,7 +13,7 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
             name: '',
             race: '',
             class: '',
-            weaponTypeEquipped: '',
+            weaponTypeEquipped: 'onehanded',
             oneHanded: 1,
             twoHanded: 1,
             unarmed: 1,
@@ -28,7 +28,8 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
     const [classStats, setClassStats] = useState({str: 0, dex: 0, agi: 0})
     const [raceStats, setRaceStats] = useState({str: 0, dex: 0, agi: 0})
 
-    const handleSaveCharacter = async () => {
+    const handleSaveCharacter = async (event) => {
+        event.preventDefault()
         const charactersRes = await fetch("http://localhost:8088/characters", {
             method: "POST",
             headers: {
@@ -125,11 +126,12 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
     const handleRaceSelect = (e) => {
         let copy = {...newCharacter}
         const characterRace = e?.target.value
+        console.log(characterRace)
         if (characterRace === 'Select Race' || characterRace === undefined) {
             copy.characterRace = 'none'
-            copy.classStatsId = 1
+            copy.raceStatsId = 1
             copy.race = 'none'
-            setClassStats({str: 0, dex: 0, agi: 0, characterRace: 'none'})
+            setRaceStats({str: 0, dex: 0, agi: 0, characterRace: 'none'})
             setNewCharacter(copy)
         }
         if (characterRace === 'Human') {
@@ -165,23 +167,23 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
   return ReactDOM.createPortal(
     <div className="create-character-modal-overlay" onClick={toggleModal}>
       <div className="create-character-modal-content" onClick={(e) => e.stopPropagation()}>
+            <form onSubmit={(event) => handleSaveCharacter(event)}>
                 <fieldset className='create-character-fieldset'>
-
                     <div className="new-character-name">
                         <legend>Create New Character</legend>
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" onChange={handleTextChange} />
+                        <input required type="text" id="name" name="name" onChange={handleTextChange} />
                     </div>
                     <div className="new-character-class-and-race">
                         <label>Class</label>
-                        <select id="class-select" name="class-select" onChange={handleClassSelect}>
+                        <select required id="class-select" name="class-select" onChange={handleClassSelect}>
                             <option>Select Class</option>
                             <option>Berserker</option>
                             <option>Fighter</option>
-                            <option>Fighter</option>
+                            <option>Assassin</option>
                         </select>
                         <label>Race</label>
-                        <select id="race-select" name="race-select" onChange={handleRaceSelect}>
+                        <select required id="race-select" name="race-select" onChange={handleRaceSelect}>
                             <option>Select Race</option>
                             <option>Human</option>
                             <option>Elf</option>
@@ -190,16 +192,16 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
                         </select>
                     </div>
                     <div className="new-character-attributes">
-                        <div className='stat-field'><span className='attribute-string'>Str </span><button onClick={() => handleDecrement('str')}>-</button><span className='attribute-number'>{newCharacter.str + classStats.str + raceStats.str}</span><button onClick={() => handleIncrement('str')}>+</button></div>
-                        <div className='stat-field'><span className='attribute-string'>Dex </span><button onClick={() => handleDecrement('dex')}>-</button><span className='attribute-number'>{newCharacter.dex + classStats.dex + raceStats.dex}</span><button onClick={() => handleIncrement('dex')}>+</button></div>
-                        <div className='stat-field'><span className='attribute-string'>Agi </span><button onClick={() => handleDecrement('agi')}>-</button><span className='attribute-number'>{newCharacter.agi + classStats.agi + raceStats.agi}</span><button onClick={() => handleIncrement('agi')}>+</button></div>
+                        <div className='stat-field'><span className='attribute-string'>Str </span><button type='button' onClick={() => handleDecrement('str')}>-</button><span className='attribute-number'>{newCharacter.str + classStats.str + raceStats.str}</span><button type='button' onClick={() => handleIncrement('str')}>+</button></div>
+                        <div className='stat-field'><span className='attribute-string'>Dex </span><button type='button' onClick={() => handleDecrement('dex')}>-</button><span className='attribute-number'>{newCharacter.dex + classStats.dex + raceStats.dex}</span><button type='button' onClick={() => handleIncrement('dex')}>+</button></div>
+                        <div className='stat-field'><span className='attribute-string'>Agi </span><button type='button' onClick={() => handleDecrement('agi')}>-</button><span className='attribute-number'>{newCharacter.agi + classStats.agi + raceStats.agi}</span><button type='button' onClick={() => handleIncrement('agi')}>+</button></div>
                     </div>
                     <div className='new-character-buttons-container'>
-                        <button onClick={toggleModal}>Cancel</button>
-                        <button onClick={handleSaveCharacter}>Confirm</button>
+                        <button type='button' onClick={toggleModal}>Cancel</button>
+                        <button>Confirm</button>
                     </div>
-
                 </fieldset>
+            </form>
       </div>
     </div>,
         document.getElementById('modal-root') // The target DOM node for the portal

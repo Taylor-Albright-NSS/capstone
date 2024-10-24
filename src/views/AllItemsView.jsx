@@ -80,7 +80,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
 
     return (
         <div className='all-items-container'>
-                        <div className='sort-container'>
+            <div className='sort-container'>
                 <div className='weapon-sort'>
                     <h2>Weapons</h2>
                     <ul>
@@ -89,7 +89,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'twohanded')}}>Twohanded</li>
                     </ul>
                 </div>
-                <div className='armor-sort'>
+                {/* <div className='armor-sort'>
                     <h2>Armor</h2>
                     <ul>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event)}}>All Armor</li>
@@ -97,12 +97,12 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'leather')}}>Leather</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'cloth')}}>Cloth</li>
                     </ul>
-                </div>
+                </div> */}
             </div>
             <div className='item-list-border'>
                 <div className='item-list col-11'>
                     {displayedItems && displayedItems.map(item => {
-                        console.log(item)
+                    if (item.id != 1 && item.id != 2) {
                         return (
                             <div className='all-items-item'>
                                 <div>
@@ -125,6 +125,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                                 </div> */}
                             </div>
                         )
+                    }
                     })}
                 </div>
             </div>

@@ -83,8 +83,9 @@
 .item-list-border::before {
     content: "";
     position: absolute;
+    top: 10px;
     width: 1430px;
-    height: 95%;
+    height: 94%;
     border-image-source: url('/assets/borders/all items border 2.png');
     border-image-slice: 30%; 
     border-image-width: 30%;
@@ -176,10 +177,12 @@ li {
 }
 
 .stats-group-1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     border: 2px solid silver;
     width: 120px;
     height: 62px;
-    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     background-image: url('/assets/backgrounds/button background.png')

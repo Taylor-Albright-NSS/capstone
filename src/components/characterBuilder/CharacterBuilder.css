@@ -7,7 +7,8 @@
 .character-builder {
     display: flex;
     flex-direction: column;
-    border: 4px ridge silver;
+    justify-content: flex-start;
+    align-items: center;
     min-width: 609px;
     min-height: 760px;
     margin: 0 2rem 0 2rem;
@@ -17,10 +18,10 @@
 .character-builder::before {
     content: "";
     position: absolute;
-    top: 50px;
+    top: 41px;
     width: 30%;
     min-width: 600px;
-    height: 86%;
+    height: 90%;
     border-image-source: url('/assets/borders/border 9.png');
     border-image-slice: 40%; 
     border-image-width: 29%;
@@ -33,13 +34,21 @@
 .character-builder h2, h3, h4, h5 {
     text-align: center;
 }
+.character-builder h2 {
+    text-align: center;
+    background-image: url('/assets/backgrounds/item container background 1.png');
+    width: 100%;
+    border-bottom: 4px ridge rgb(150, 117, 89);
+}
 .builders {
     display: flex;
+    margin-top: 0.3rem;
 }
 .left-builder,
 .right-builder {
     border: 4px ridge silver;
     padding: 4px;
+    background-image: url('/assets/backgrounds/button background.png')
 }
 
 .right-builder h4 {
@@ -84,6 +93,7 @@
     flex-wrap: wrap;
     padding: 0;
     text-align: center;
+    margin-top: 1.5rem;
 }
 
 .total-damages {
@@ -91,8 +101,8 @@
     text-align: center;
     width: 250px;
     height: 173px;
-    margin-left: 3rem;
     position: relative;
+    background-image: url('/assets/backgrounds/button background.png');
 }
 .total-damages::before {
     content: "";
@@ -142,8 +152,8 @@
     display: flex;
     flex-direction: column;
     /* width: 100px; */
-    height: 220px;
-    min-width: 220px; 
+    height: 210px;
+    min-width: 210px; 
     justify-content: flex-start;
     align-items: center;
     background-image: url('/assets/backgrounds/item container background 1.png');
@@ -173,7 +183,7 @@
 
 .equipped-item h6 {
     display: flex;
-    font-size: 20px;
+    font-size: 16px;
     height: 31px;
     text-align: center;
     justify-content: center;
@@ -196,15 +206,10 @@
 
 .item-container {
     display: flex;
+    flex-wrap: wrap;
+    height: 274px;
     justify-content: space-around;
-    flex-direction: row;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    align-content: flex-start; /* Align wrapped lines to the top */
-    width: 100%;
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    word-wrap: break-word;
-    white-space: normal;
+    align-items: center;
 }
 
 .selected-weapon-skill {
@@ -228,7 +233,7 @@
 .save-character-button {
     display: flex;
     justify-content: center;
-    margin-top: 4px;
+    margin-top: 14px;
 }
 
 @media (max-width: 768px) {
@@ -297,5 +302,16 @@
 }
 
 .equipped-item-attributes {
-    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 2px ridge silver;
+    width: 100px;
+    height: 50px;
+    background-image: url('/assets/backgrounds/button background.png');
+}
+
+.equipped-item-attributes p {
+    font-size: 10px;
+    margin-left: 0.5rem;
 }

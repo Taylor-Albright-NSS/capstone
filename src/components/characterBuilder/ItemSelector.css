@@ -3,9 +3,10 @@
     flex-direction: column;
     border: 4px outset silver;
     width: 812px;
-    height: 700px;
+    height: 710px;
     background-color: rgba(0, 0, 0, 0.715);
     backdrop-filter: blur(10px);
+    margin-top: 1rem;
 }
 
 
@@ -14,9 +15,9 @@
     content: "";
     position: absolute;
     top: 10px;
-    left: -21px;
+    left: -16px;
     min-width: 105%;
-    height: 100%;
+    height: 97%;
     border-image-source: url('/assets/borders/border 8.png');
     border-image-slice: 20%; 
     border-image-width: 18%;
@@ -179,4 +180,19 @@
     background-image: url('/assets/backgrounds/item backdrop 2.png');
     background-size: cover;
 
+}
+
+.item-selector-item-attributes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px ridge silver;
+    width: 100px;
+    height: 50px;
+    background-image: url('/assets/backgrounds/button background.png')
+}
+.item-selector-item-attributes p {
+    font-size: 10px;
+    margin-left: 0.5rem;
 }
