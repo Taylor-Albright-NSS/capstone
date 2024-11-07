@@ -125,6 +125,7 @@ export const CreateItem = () => {
                                         <option value="">Type</option>
                                         <option value="onehanded">One-Handed</option>
                                         <option value="twohanded">Two-Handed</option>
+                                        <option value="daggers">Daggers</option>
                                         {/* <option value="daggers">Daggers</option>
                                         <option value="bows">Bows</option>
                                         <option value="unarmed">Unarmed</option> */}
@@ -143,6 +144,7 @@ export const CreateItem = () => {
                                         <option value="sword">Sword</option>
                                         <option value="mace">Mace</option>
                                         <option value="axe">Axe</option>
+                                        <option value="dagger">Dagger</option>
                                         {/* <option value="dagger">Dagger</option>
                                         <option value="bow">Bow</option>
                                         <option value="fist">Fist</option> */}
@@ -285,7 +287,7 @@ export const CreateItem = () => {
                         <textarea
                             name="description"
                             value={itemData.description}
-                            onChange={(event) => {handleChange(event, 'description')}}
+                            onChange={(event) => {handleTextChange(event, 'description')}}
                         ></textarea>
                     </div>
                 </div>

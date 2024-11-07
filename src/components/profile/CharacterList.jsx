@@ -57,6 +57,7 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             weaponTypeEquipped: '',
             oneHanded: 1,
             twoHanded: 1,
+            daggers: 1,
             unarmed: 1,
             str: 0,
             dex: 0,

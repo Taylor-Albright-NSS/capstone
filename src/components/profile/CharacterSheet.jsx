@@ -97,7 +97,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             let botMultiplier = 0.15 + character.oneHanded / 20
 
             damageObject.attackPower = Math.ceil((totalStats.str + totalStats.dex + (totalStats.agi * 0.5)) * 0.5)
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.oneHanded / 5) * 100) / 100).toFixed(0)))
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
             damageObject.botDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * weapons[1].item.botDamage))
@@ -124,6 +124,23 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0)).toFixed(0))
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0)).toFixed(0))
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(0))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
+        }
+        if (character.weaponTypeEquipped === 'daggers') {
+            let topMultiplier = 0.15 + character.daggers / 20
+            let botMultiplier = 0.15 + character.daggers / 20
+
+            damageObject.attackPower = Math.ceil((totalStats.dex + totalStats.agi + (totalStats.str * 0.5)) * 0.5)
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((character.daggers / 5) * 100) / 100).toFixed(0)))
+            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * weapons[0]?.item.botDamage))
+            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * weapons[0]?.item.topDamage))
+            damageObject.botDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (botMultiplier * weapons[1].item.botDamage))
+            damageObject.topDamage2 = weapons[1] && Math.ceil(damageObject.attackPower * (topMultiplier * weapons[1].item.topDamage))
+
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0) + (damageObject.botDamage2 || 0)).toFixed(2))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
         }
         console.log(damageObject, ' DAMAGE OBJECT')
@@ -214,6 +231,7 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
                             <h6>Skills</h6>
                             <li className={character?.weaponTypeEquipped === 'onehanded' ? 'selected-weapon-skill' : ''}>Onehanded: {character?.oneHanded ? character.oneHanded : 0}</li>
                             <li className={character?.weaponTypeEquipped === 'twohanded' ? 'selected-weapon-skill' : ''}>Twohanded: {character?.twoHanded ? character.twoHanded : 0}</li>
+                            <li className={character?.weaponTypeEquipped === 'daggers' ? 'selected-weapon-skill' : ''}>Daggers: {character?.daggers ? character.daggers : 0}</li>
                         </div>
 
                     </div>

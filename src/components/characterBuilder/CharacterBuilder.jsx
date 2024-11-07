@@ -61,10 +61,7 @@ const totalStatsFromGear = () => {
         let checkedEquipment = equippedItemsCopy[itemSlot]
         console.log(checkedEquipment.item)
         for (const stat in checkedEquipment.item) {
-            if (stat === 'str') {
-                console.log(checkedEquipment.item[stat])
-                statsObject.str += checkedEquipment.item[stat]
-            }
+            if (stat === 'str') {statsObject.str += checkedEquipment.item[stat]}
             if (stat === 'dex') {statsObject.dex += checkedEquipment.item[stat]}
             if (stat === 'agi') {statsObject.agi += checkedEquipment.item[stat]}
         }
@@ -109,7 +106,7 @@ const totalStats = calculateTotalStats()
     }
     const totalStatsFromClassAndRaceAndGear = () => {
         let statsObject = {
-            str: classStatsCopy.str + raceStatsCopy.str + totalStatsFromGear().str ,
+            str: classStatsCopy.str + raceStatsCopy.str + totalStatsFromGear().str,
             dex: classStatsCopy.dex + raceStatsCopy.dex + totalStatsFromGear().dex,
             agi: classStatsCopy.agi + raceStatsCopy.agi + totalStatsFromGear().agi
         }
@@ -137,7 +134,7 @@ const totalStats = calculateTotalStats()
             let topMultiplier = 0.15 + characterCopy.oneHanded / 20
             let botMultiplier = 0.15 + characterCopy.oneHanded / 20
             damageObject.attackPower = Math.ceil((str + dex + (agi * 0.5)) * 0.5)
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(0)))
+            damageObject.speed = Math.max(2, parseFloat((6.2 - Math.floor((characterCopy.oneHanded / 5) * 100) / 100).toFixed(1)))
             damageObject.botDamage1 = slot1 && Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
             damageObject.topDamage1 = slot1 && Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
             damageObject.botDamage2 = slot2 && Math.ceil(damageObject.attackPower * (botMultiplier * slot2?.item?.botDamage))
@@ -154,7 +151,7 @@ const totalStats = calculateTotalStats()
             let botMultiplier = 0.15 + characterCopy.twoHanded / 20
 
             damageObject.attackPower = Math.ceil((str * 2) + ((dex + agi) * 0.5))
-            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
+            damageObject.speed = Math.max(2, parseFloat((6.2 - Math.floor((characterCopy.twoHanded / 5) * 100) / 100).toFixed(1)))
 
             damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
             damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
@@ -162,6 +159,25 @@ const totalStats = calculateTotalStats()
             damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0)).toFixed(0))
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0)).toFixed(0))
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(0))
+            damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
+            console.log(damageObject)
+
+        }
+        if (characterCopy.weaponTypeEquipped === 'daggers') {
+            let topMultiplier = 0.15 + characterCopy.daggers / 20
+            let botMultiplier = 0.15 + characterCopy.daggers / 20
+
+            damageObject.attackPower = Math.ceil((agi + dex + (str * 0.5)) * 0.5)
+            damageObject.speed = Math.max(2, parseFloat((5.2 - Math.floor((characterCopy.daggers / 5) * 100) / 100).toFixed(1)))
+
+            damageObject.botDamage1 = Math.ceil(damageObject.attackPower * (botMultiplier * slot1?.item?.botDamage))
+            damageObject.topDamage1 = Math.ceil(damageObject.attackPower * (topMultiplier * slot1?.item?.topDamage))
+            damageObject.botDamage2 = slot2 && Math.ceil(damageObject.attackPower * (botMultiplier * slot2?.item?.botDamage))
+            damageObject.topDamage2 = slot2 && Math.ceil(damageObject.attackPower * (topMultiplier * slot2?.item?.topDamage))
+
+            damageObject.totalDamageBot = parseFloat(((damageObject.botDamage1 || 0) + (damageObject.botDamage2 || 0)).toFixed(2))
+            damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
+            damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
             console.log(damageObject)
 
@@ -388,6 +404,12 @@ const totalStats = calculateTotalStats()
                             <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'twoHanded')}}>-</button>
                             <p>{characterCopy.twoHanded}</p>
                             <button className='increment-button' onClick={() => {handleIncrement('twoHanded')}}>+</button>
+                        </div>
+                        <div className='weapon-skill-row'>
+                            <p className={characterCopy.weaponTypeEquipped === 'daggers' ? 'selected-weapon-skill' : ''}>Daggers</p>
+                            <button className='decrement-button' onClick={(e) => {handleDecrement(e, 'daggers')}}>-</button>
+                            <p>{characterCopy.daggers}</p>
+                            <button className='increment-button' onClick={() => {handleIncrement('daggers')}}>+</button>
                         </div>
 
 

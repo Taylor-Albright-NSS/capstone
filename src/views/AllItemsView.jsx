@@ -15,6 +15,8 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
     const navigate = useNavigate()
     useEffect(() => {
         getAllItemsWithImages().then(itemsArray => {
+            itemsArray.sort((a, b) => a.type.localeCompare(b.type));
+
             setAllItems(itemsArray)
             setDisplayedItems(itemsArray)
         })
@@ -87,6 +89,7 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, )}}>All Weapons</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'onehanded')}}>Onehanded</li>
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'twohanded')}}>Twohanded</li>
+                    <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'daggers')}}>Daggers</li>
                     </ul>
                 </div>
                 {/* <div className='armor-sort'>

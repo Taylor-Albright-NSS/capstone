@@ -16,6 +16,7 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
             weaponTypeEquipped: 'onehanded',
             oneHanded: 1,
             twoHanded: 1,
+            daggers: 1,
             unarmed: 1,
             str: 0,
             dex: 0,

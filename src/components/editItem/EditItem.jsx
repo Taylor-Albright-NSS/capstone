@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
 import './EditItem.css'
@@ -14,6 +14,7 @@ export const EditItem = () => {
     const toggleModal = () => setIsModalOpen(!isModalOpen)
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         console.log(itemId, ' ITEM ID')
@@ -37,7 +38,12 @@ export const EditItem = () => {
             },
             body: JSON.stringify(itemData),
         }).then(res => res.json())
-        navigate('/allitems', { state: { fromEdit: true } });
+        if (location.state?.returnTo) {
+            navigate(location.state.returnTo)
+            location.state.returnTo = null
+        } else {
+            navigate('/allitems', { state: { fromEdit: true } });
+        }
     }
     const handleChange = (event, propToChange) => {
         console.log(event.target.value)
@@ -116,11 +122,11 @@ export const EditItem = () => {
                                 onChange={(event) => {handleDropdownChange(event, 'type')}}
                             >
                                 <option value="">Type</option>
-                                <option value="onehanded">One-Handed</option>
-                                <option value="twohanded">Two-Handed</option>
+                                <option value="onehanded">Onehanded</option>
+                                <option value="twohanded">Twohanded</option>
                                 <option value="daggers">Daggers</option>
-                                <option value="bows">Bows</option>
-                                <option value="unarmed">Unarmed</option>
+                                {/* <option value="bow">Bow</option>
+                                <option value="unarmed">Unarmed</option> */}
                             </select>
                         </div>
 
@@ -136,8 +142,8 @@ export const EditItem = () => {
                                 <option value="mace">Mace</option>
                                 <option value="axe">Axe</option>
                                 <option value="dagger">Dagger</option>
-                                <option value="bow">Bow</option>
-                                <option value="fist">Fist</option>
+                                {/* <option value="bow">Bow</option>
+                                <option value="fist">Fist</option> */}
                             </select>
                         </div>
                         </div>
@@ -276,7 +282,12 @@ export const EditItem = () => {
                 </div>
                 <div className='edit-item-buttons'>
                 <button onClick={() => {
-                        navigate(`/allitems`)
+                        if (location.state.returnTo) {
+                            navigate(location.state.returnTo)
+                            location.state.returnTo = null
+                        } else {
+                            navigate(`/allitems`)
+                        }
                     }}>Go Back</button>
                     <button type="submit">Save Edits</button>
                 </div>

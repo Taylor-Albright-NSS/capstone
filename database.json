@@ -1,0 +1,846 @@
+{
+  "users": [
+    {
+      "name": "a",
+      "userName": "a",
+      "email": "a@gmail.com",
+      "password": "a",
+      "id": 1
+    }
+  ],
+  "characters": [
+    {
+      "userId": 1,
+      "classStatsId": 1,
+      "raceStatsId": 1,
+      "name": "Assassin",
+      "race": "",
+      "class": "",
+      "weaponTypeEquipped": "onehanded",
+      "oneHanded": 1,
+      "twoHanded": 1,
+      "daggers": 1,
+      "unarmed": 1,
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "attackPower": 0,
+      "weaponSlot1": null,
+      "weaponSlot2": null,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "classStatsId": 1,
+      "raceStatsId": 1,
+      "name": "Assassin 2",
+      "race": "",
+      "class": "",
+      "weaponTypeEquipped": "onehanded",
+      "oneHanded": 1,
+      "twoHanded": 1,
+      "daggers": 1,
+      "unarmed": 1,
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "attackPower": 0,
+      "weaponSlot1": null,
+      "weaponSlot2": null,
+      "id": 2
+    }
+  ],
+  "items": [
+    {
+      "color": "rgb(0, 255, 0)",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 0,
+      "botDamage": 0,
+      "category": "weapon",
+      "imageId": 1,
+      "name": "Empty Hand (L)",
+      "type": "unarmed",
+      "subType": "fist",
+      "slotId": "weapon",
+      "description": "Your left fist. Typically used for holding things, and sometimes punching things.",
+      "blunt": true,
+      "id": 1
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 0,
+      "botDamage": 0,
+      "category": "weapon",
+      "imageId": 2,
+      "name": "Empty Hand (R)",
+      "type": "unarmed",
+      "subType": "fist",
+      "slotId": "weapon",
+      "blunt": true,
+      "description": "Your Right fist. Typically used for holding things, and sometimes punching things.",
+      "id": 2
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Dagger 1",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 3,
+      "botDamage": 2,
+      "slotId": "weapon",
+      "imageId": 61,
+      "category": "weapon",
+      "type": "daggers",
+      "subType": "dagger",
+      "piercing": true,
+      "id": 4,
+      "description": ""
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Dagger 2",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 4,
+      "botDamage": 3,
+      "slotId": "weapon",
+      "imageId": 7,
+      "category": "weapon",
+      "type": "daggers",
+      "subType": "dagger",
+      "piercing": true,
+      "id": 5
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Onehanded 1",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 5,
+      "botDamage": 3,
+      "slotId": "weapon",
+      "imageId": 1000,
+      "category": "weapon",
+      "type": "onehanded",
+      "subType": "sword",
+      "slashing": true,
+      "id": 6
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Dagger 3",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 5,
+      "botDamage": 4,
+      "slotId": "weapon",
+      "imageId": 63,
+      "piercing": true,
+      "category": "weapon",
+      "type": "daggers",
+      "subType": "dagger",
+      "id": 7
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Dagger 4",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 6,
+      "botDamage": 5,
+      "slotId": "weapon",
+      "imageId": 64,
+      "category": "weapon",
+      "type": "daggers",
+      "subType": "dagger",
+      "slashing": false,
+      "piercing": true,
+      "id": 8
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Onehanded 2",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 6,
+      "botDamage": 4,
+      "slotId": "weapon",
+      "imageId": 1001,
+      "slashing": true,
+      "category": "weapon",
+      "type": "onehanded",
+      "subType": "sword",
+      "id": 10
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Onehanded 3",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 7,
+      "botDamage": 5,
+      "slotId": "weapon",
+      "imageId": 3,
+      "category": "weapon",
+      "type": "onehanded",
+      "subType": "sword",
+      "slashing": true,
+      "id": 11
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Onehanded 4",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 9,
+      "botDamage": 6,
+      "slotId": "weapon",
+      "imageId": 7,
+      "category": "weapon",
+      "type": "onehanded",
+      "subType": "sword",
+      "slashing": true,
+      "id": 12
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Twohanded 1",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 7,
+      "botDamage": 4,
+      "slotId": "weapon",
+      "imageId": 5,
+      "category": "weapon",
+      "type": "twohanded",
+      "subType": "sword",
+      "slashing": true,
+      "id": 13
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Twohanded 2",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 9,
+      "botDamage": 6,
+      "slotId": "weapon",
+      "imageId": 18,
+      "slashing": true,
+      "category": "weapon",
+      "type": "twohanded",
+      "subType": "sword",
+      "id": 14
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Twohanded 3",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 11,
+      "botDamage": 8,
+      "slotId": "weapon",
+      "imageId": 17,
+      "slashing": true,
+      "category": "weapon",
+      "type": "twohanded",
+      "subType": "sword",
+      "id": 15
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "name": "Twohanded 4",
+      "str": 0,
+      "dex": 0,
+      "agi": 0,
+      "int": 0,
+      "wis": 0,
+      "mys": 0,
+      "con": 0,
+      "topDamage": 14,
+      "botDamage": 10,
+      "slotId": "weapon",
+      "imageId": 11,
+      "category": "weapon",
+      "type": "twohanded",
+      "subType": "sword",
+      "slashing": true,
+      "id": 16
+    }
+  ],
+  "character_items": [
+    {
+      "characterId": 1,
+      "itemId": 1,
+      "slotId": "weapon",
+      "id": 1
+    },
+    {
+      "characterId": 1,
+      "itemId": 2,
+      "slotId": "weapon",
+      "id": 2
+    },
+    {
+      "characterId": 2,
+      "itemId": 1,
+      "slotId": "weapon",
+      "id": 3
+    },
+    {
+      "characterId": 2,
+      "itemId": 2,
+      "slotId": "weapon",
+      "id": 4
+    }
+  ],
+  "images": [
+    {
+      "id": 0,
+      "imageURL": "/assets/no image/no image.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 1000,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 1.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 1001,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 2.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 3,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 3.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 4,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 4.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 5,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 5.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 6,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 6.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 7,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 7.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 8,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 8.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 9,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 9.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 10,
+      "imageURL": "/assets/weapons/onehanded swords/onehanded sword 10.png",
+      "type": "onehanded",
+      "subType": "sword"
+    },
+    {
+      "id": 11,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 1.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 12,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 2.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 13,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 3.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 14,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 4.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 15,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 5.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 16,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 6.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 17,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 7.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 18,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 8.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 19,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 9.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 20,
+      "imageURL": "/assets/weapons/twohanded swords/twohanded sword 10.png",
+      "type": "twohanded",
+      "subType": "sword"
+    },
+    {
+      "id": 21,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 1.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 22,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 2.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 23,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 3.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 24,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 4.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 25,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 5.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 26,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 6.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 27,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 7.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 28,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 8.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 29,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 9.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 30,
+      "imageURL": "/assets/weapons/onehanded maces/onehanded mace 10.png",
+      "type": "onehanded",
+      "subType": "mace"
+    },
+    {
+      "id": 31,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 1.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 32,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 2.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 33,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 3.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 34,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 4.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 35,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 5.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 36,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 6.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 37,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 7.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 38,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 8.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 39,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 9.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 40,
+      "imageURL": "/assets/weapons/twohanded maces/twohanded mace 10.png",
+      "type": "twohanded",
+      "subType": "mace"
+    },
+    {
+      "id": 41,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 1.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 42,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 2.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 43,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 3.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 44,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 4.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 45,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 5.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 46,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 6.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 47,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 7.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 48,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 8.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 49,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 9.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 50,
+      "imageURL": "/assets/weapons/onehanded axes/onehanded axe 10.png",
+      "type": "onehanded",
+      "subType": "axe"
+    },
+    {
+      "id": 51,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 1.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 52,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 2.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 53,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 3.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 54,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 4.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 55,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 5.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 56,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 6.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 57,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 7.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 58,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 8.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 59,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 9.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 60,
+      "imageURL": "/assets/weapons/twohanded axes/twohanded axe 10.png",
+      "type": "twohanded",
+      "subType": "axe"
+    },
+    {
+      "id": 61,
+      "imageURL": "/assets/weapons/daggers/dagger 1.png",
+      "type": "daggers",
+      "subType": "dagger"
+    },
+    {
+      "id": 62,
+      "imageURL": "/assets/weapons/daggers/dagger 2.png",
+      "type": "daggers",
+      "subType": "dagger"
+    },
+    {
+      "id": 63,
+      "imageURL": "/assets/weapons/daggers/dagger 3.png",
+      "type": "daggers",
+      "subType": "dagger"
+    },
+    {
+      "id": 64,
+      "imageURL": "/assets/weapons/daggers/dagger 4.png",
+      "type": "daggers",
+      "subType": "dagger"
+    },
+    {
+      "id": 1,
+      "imageURL": "/assets/weapons/unarmed/unarmed 1.png",
+      "type": "onehanded",
+      "subType": "fist"
+    },
+    {
+      "id": 2,
+      "imageURL": "/assets/weapons/unarmed/unarmed 2.png",
+      "type": "onehanded",
+      "subType": "fist"
+    }
+  ],
+  "classStats": [
+    {
+      "id": 1,
+      "characterClass": "none",
+      "str": 0,
+      "dex": 0,
+      "agi": 0
+    },
+    {
+      "id": 2,
+      "characterClass": "berserker",
+      "str": 10,
+      "dex": 0,
+      "agi": 0
+    },
+    {
+      "id": 3,
+      "characterClass": "fighter",
+      "str": 5,
+      "dex": 5,
+      "agi": 0
+    },
+    {
+      "id": 4,
+      "characterClass": "assassin",
+      "str": 0,
+      "dex": 5,
+      "agi": 5
+    }
+  ],
+  "raceStats": [
+    {
+      "id": 1,
+      "raceName": "none",
+      "str": 0,
+      "dex": 0,
+      "agi": 0
+    },
+    {
+      "id": 2,
+      "raceName": "human",
+      "str": 2,
+      "dex": 2,
+      "agi": 2
+    },
+    {
+      "id": 3,
+      "raceName": "elf",
+      "str": 0,
+      "dex": 3,
+      "agi": 3
+    },
+    {
+      "id": 4,
+      "raceName": "half-elf",
+      "str": 1,
+      "dex": 2,
+      "agi": 3
+    },
+    {
+      "id": 5,
+      "raceName": "half-minotaur",
+      "str": 6,
+      "dex": 0,
+      "agi": 0
+    }
+  ],
+  "slot": [
+    {
+      "id": 1,
+      "name": "weapon"
+    },
+    {
+      "id": 2,
+      "name": "twohanded weapon"
+    }
+  ]
+}

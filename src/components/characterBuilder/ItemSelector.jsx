@@ -16,20 +16,22 @@ export const ItemSelector = ({
             const itemsWithoutHands = allItemsArray.filter(item => {
                 return item.id != 1 && item.id !=2
             })
-            setAllItems(allItemsArray)
-            console.log(allItemsArray)
+            itemsWithoutHands.sort((a, b) => a.type.localeCompare(b.type));
+            itemsWithoutHands.unshift(allItemsArray[0])
+            itemsWithoutHands.unshift(allItemsArray[1])
+            setAllItems(itemsWithoutHands)
         })
     }, [])
 
 
-    const handleEquipItemLeft = (item) => {
+    const handleEquipItemLeft = (item, weaponSkill) => {
         setEquippedItemsCopy({
             ...equippedItemsCopy, 
             0: {...equippedItemsCopy[0], item: item}
         })
-        setCharacterCopy({...characterCopy, weaponTypeEquipped: "onehanded"})
+        setCharacterCopy({...characterCopy, weaponTypeEquipped: weaponSkill})
     }
-    const handleEquipItemRight = (item) => {
+    const handleEquipItemRight = (item, weaponSkill) => {
         if (equippedItemsCopy[0]?.item?.type === 'twohanded') {
             setEquippedItemsCopy({
                 ...equippedItemsCopy, 
@@ -39,7 +41,7 @@ export const ItemSelector = ({
         } else {
             setEquippedItemsCopy({...equippedItemsCopy, 1: {...equippedItemsCopy[1], item: item}})
         }
-        setCharacterCopy({...characterCopy, weaponTypeEquipped: "onehanded"})
+        setCharacterCopy({...characterCopy, weaponTypeEquipped: weaponSkill})
     }
 
     const handleEquipTwohanded = (item) => {
@@ -54,8 +56,10 @@ export const ItemSelector = ({
     const handleRemoveItem = (item, weaponSlot) => {
         let fist
         if (weaponSlot === 0) {
+            console.log(allItems[0], ' ALL ITEMS 0')
             fist = allItems[0]
         } else {
+            console.log(allItems[1], ' ALL ITEMS 1')
             fist = allItems[1]
         }
         setEquippedItemsCopy({
@@ -70,10 +74,10 @@ export const ItemSelector = ({
                 {allItems && allItems.map(item => {
                     if (item.id != 1 && item.id != 2) {
                         return (
-                            <div className='item-selector-equipment' key={item.id}>
+                            <div className={`item-selector-equipment item-selector-${item.type}`} key={item.id}>
                                 <div className='equipment-properties'>
                                     <h6>{item.name}</h6>
-                                    <img src={item.image.imageURL} onClick={() => {navigate(`/allitems/edititem/${item.id}`)}} />
+                                    <img src={item.image.imageURL} onClick={() => {navigate(`/allitems/edititem/${item.id}`, { state: { returnTo: '/characterbuilder' } })}} />
                                     <p>Damage: {item.botDamage + ' - ' + item.topDamage}</p>
                                     <div className='item-selector-item-attributes'>
                                         <p>{item.str ? 'Str: ' + item.str : ''}</p>
@@ -84,11 +88,23 @@ export const ItemSelector = ({
                                 { item.type === "onehanded" &&
                                     <div className='equip-buttons-container'>
                                         <div className='equip-and-remove-left'>
-                                            <button onClick={(e) => {handleEquipItemLeft(item)}}>Equip Left</button>
+                                            <button onClick={(e) => {handleEquipItemLeft(item, 'onehanded')}}>Equip Left</button>
                                             <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove Left</button>
                                         </div>
                                         <div className='equip-and-remove-right'>
-                                            <button onClick={(e) => {handleEquipItemRight(item)}}>Equip Right</button>
+                                            <button onClick={(e) => {handleEquipItemRight(item, 'onehanded')}}>Equip Right</button>
+                                            <button onClick={(e) => {handleRemoveItem(item, 1)}}>Remove Right</button>
+                                        </div>
+                                    </div>
+                                }
+                                { item.type === "daggers" &&
+                                    <div className='equip-buttons-container'>
+                                        <div className='equip-and-remove-left'>
+                                            <button onClick={(e) => {handleEquipItemLeft(item, 'daggers')}}>Equip Left</button>
+                                            <button onClick={(e) => {handleRemoveItem(item, 0)}}>Remove Left</button>
+                                        </div>
+                                        <div className='equip-and-remove-right'>
+                                            <button onClick={(e) => {handleEquipItemRight(item, 'daggers')}}>Equip Right</button>
                                             <button onClick={(e) => {handleRemoveItem(item, 1)}}>Remove Right</button>
                                         </div>
                                     </div>
