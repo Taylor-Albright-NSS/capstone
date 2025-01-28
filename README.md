@@ -4,3 +4,13 @@ A support application used to create, store, and test weapons for my game, Galva
 
 ## Table of Contents
 - [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+
+## Installation
+
+To run this project locally:
+
+
+
