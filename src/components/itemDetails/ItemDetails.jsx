@@ -83,6 +83,10 @@ export const ItemDetails = () => {
                 <div className='item-details'>
                     <h2>{item?.name}</h2>
                     <img src={`${item?.image?.imageURL}`} />
+                    <div>
+                        {item?.botDamage > 0 && <p>{`Damage: ${item.botDamage} - ${item.topDamage}`}</p>}
+                    </div>
+
                     <div className='item-details-attributes'>
                         {item?.str > 0 && <p>{'Str: ' + item.str}</p>}
                         {item?.dex > 0 && <p>{'Dex: ' + item.dex}</p>}
@@ -93,7 +97,7 @@ export const ItemDetails = () => {
                         <button onClick={() => {navigate(`/allitems/edititem/${itemId}`)}}>Edit</button>
                         <button onClick={handleItemDelete}>Delete</button>
                         <button onClick={() => {navigate('/allitems')}}>Back</button>
-                        <button onClick={() => {copyToClipboard()}}>Copy Character Info</button>
+                        <button onClick={() => {copyToClipboard()}}>Copy Item Info</button>
                     </div>
                 </div>
             </div>

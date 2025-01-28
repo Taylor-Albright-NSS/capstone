@@ -87,12 +87,12 @@ export const AllItemsView = ({ equippedItemsCopy, setEquippedItemsCopy }) => {
                     {displayedItems && displayedItems.map(item => {
                     if (item.id != 1 && item.id != 2) {
                         return (
-                            <div className='all-items-item'>
+                            <div key={item.id} style={{cursor: "pointer"}} className='all-items-item' onClick={() => {navigate(`/allitems/itemdetails/${item.id}`)}}>
                                 <div>
                                     <div className='item-top'>
-                                        <h6>{item.name}</h6>
-                                        <img src={item?.image?.imageURL} onClick={() => {navigate(`/allitems/itemdetails/${item.id}`)}}/>
-                                        <h6>Damage: {item.botDamage + ' - ' + item.topDamage}</h6>
+                                        <h6 style={{cursor: "pointer"}}>{item.name}</h6>
+                                        <img src={item?.image?.imageURL}/>
+                                        <h6 style={{cursor: "pointer"}}>Damage: {item.botDamage + ' - ' + item.topDamage}</h6>
                                     </div>
                                     <div className='item-bot'>
                                         <div className='stats-group-1'>

@@ -88,7 +88,7 @@ export const EditItem = () => {
                         <input
                             type="text"
                             name="name"
-                            value={itemData.name}
+                            value={itemData.name || ''}
                             onChange={(event) => {handleTextChange(event, 'name')}}
                             required
                         />
@@ -100,7 +100,7 @@ export const EditItem = () => {
                             <label>Category:</label>
                             <select
                                 name="category"
-                                value={itemData.category}
+                                value={itemData.category || ''}
                                 onChange={(event) => {handleDropdownChange(event, 'category')}}
                             >
                                 <option value="">Category</option>
@@ -113,7 +113,7 @@ export const EditItem = () => {
                             <label>Type:</label>
                             <select
                                 name="type"
-                                value={itemData.type}
+                                value={itemData.type || ''}
                                 onChange={(event) => {handleDropdownChange(event, 'type')}}
                             >
                                 <option value="">Type</option>
@@ -127,7 +127,7 @@ export const EditItem = () => {
                             <label>Subtype:</label>
                             <select
                                 name="subType"
-                                value={itemData.subType}
+                                value={itemData.subType || ''}
                                 onChange={(event) => {handleDropdownChange(event, 'subType')}}
                             >
                                 <option value="">Subtype</option>
@@ -145,7 +145,7 @@ export const EditItem = () => {
                                 <input
                                     type="checkbox"
                                     name="slashing"
-                                    checked={itemData.slashing}
+                                    checked={itemData.slashing || false}
                                     onChange={(event) => {handleChange(event, 'slashing')}}
                                 />
                             </div>
@@ -155,7 +155,7 @@ export const EditItem = () => {
                                 <input
                                     type="checkbox"
                                     name="piercing"
-                                    checked={itemData.piercing}
+                                    checked={itemData.piercing || false}
                                     onChange={(event) => {handleChange(event, 'piercing')}}
                                 />
                             </div>
@@ -165,7 +165,7 @@ export const EditItem = () => {
                                 <input
                                     type="checkbox"
                                     name="blunt"
-                                    checked={itemData.blunt}
+                                    checked={itemData.blunt || false}
                                     onChange={(event) => {handleChange(event, 'blunt')}}
                                     />
                             </div>
@@ -174,7 +174,7 @@ export const EditItem = () => {
                                 <input
                                     type="number"
                                     name="topDamage"
-                                    value={itemData.topDamage}
+                                    value={itemData.topDamage || 0}
                                     onChange={(event) => {handleChange(event, 'topDamage')}}
                                     required
                                 />
@@ -184,7 +184,7 @@ export const EditItem = () => {
                                 <input
                                     type="number"
                                     name="botDamage"
-                                    value={itemData.botDamage}
+                                    value={itemData.botDamage || 0}
                                     onChange={(event) => {handleChange(event, 'botDamage')}}
                                     required
                                     />
@@ -200,7 +200,7 @@ export const EditItem = () => {
                                 <input
                                     type="number"
                                     name="mod-str"
-                                    value={itemData.str}
+                                    value={itemData.str || 0}
                                     onChange={(event) => {handleChange(event, 'str')}}
                                     />
                             </div>
@@ -209,7 +209,7 @@ export const EditItem = () => {
                                 <input
                                     type="number"
                                     name="mod-dex"
-                                    value={itemData.dex}
+                                    value={itemData.dex || 0}
                                     onChange={(event) => {handleChange(event, 'dex')}}
                                     />
                             </div>
@@ -218,7 +218,7 @@ export const EditItem = () => {
                                 <input
                                     type="number"
                                     name="mod-agi"
-                                    value={itemData.agi}
+                                    value={itemData.agi || 0}
                                     onChange={(event) => {handleChange(event, 'agi')}}
                                     />
                             </div>
@@ -229,7 +229,7 @@ export const EditItem = () => {
                     <label>Description</label>
                     <textarea
                         name="description"
-                        value={itemData.description}
+                        value={itemData.description || ''}
                         onChange={(event) => {handleTextChange(event, 'description')}}
                     ></textarea>
                 </div>

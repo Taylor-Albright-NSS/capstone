@@ -93,8 +93,8 @@
       "color": "rgb(0, 255, 0)",
       "name": "Dagger 1",
       "str": 0,
-      "dex": 0,
-      "agi": 0,
+      "dex": 1,
+      "agi": 1,
       "int": 0,
       "wis": 0,
       "mys": 0,
@@ -108,7 +108,7 @@
       "subType": "dagger",
       "piercing": true,
       "id": 4,
-      "description": ""
+      "description": "A small dagger"
     },
     {
       "color": "rgb(0, 255, 0)",
