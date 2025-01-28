@@ -20,7 +20,12 @@ To run this project locally:
 7. Good to go!
 
 ## Features / How To Use
-# All Items
+
+### Main Views:
+
+1. **All Items**
+   - You can view all created items on this page
+   - Clicking on an item will take you to its details view
 
 
 
