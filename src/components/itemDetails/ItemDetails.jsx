@@ -86,6 +86,7 @@ export const ItemDetails = () => {
                     <div>
                         {item?.botDamage > 0 && <p>{`Damage: ${item.botDamage} - ${item.topDamage}`}</p>}
                     </div>
+
                     <div className='item-details-attributes'>
                         {item?.str > 0 && <p>{'Str: ' + item.str}</p>}
                         {item?.dex > 0 && <p>{'Dex: ' + item.dex}</p>}
