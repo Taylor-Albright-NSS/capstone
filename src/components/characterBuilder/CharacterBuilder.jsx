@@ -352,7 +352,7 @@ const totalStats = calculateTotalStats()
                             <button className='increment-button' onClick={() => {handleIncrement('agi')}}>+</button>
                         </li>
                     </ul>
-                    <p className=''>Attackpower: {calculateDamageObject().attackPower}</p>
+                    <p className=''>Attack power: {calculateDamageObject().attackPower}</p>
                     <p className=''>Swing speed: {calculateDamageObject().speed}</p>
                 </div>
                 <div className='right-builder col-6'>
