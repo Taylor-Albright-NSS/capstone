@@ -19,7 +19,6 @@ export const EditItem = () => {
     useEffect(() => {
         console.log(itemId, ' ITEM ID')
         getSingleItem(itemId).then(singleItem => {
-            console.log(singleItem[0])
             setItemData(singleItem[0])
         })
     }, [])
@@ -85,7 +84,7 @@ export const EditItem = () => {
             <h2>Edit Item</h2>
             <div className='first-container'>
                     <div className='select-image-container'>
-                        {<img src={itemData?.image?.imageURL} onClick={toggleModal} />}
+                        {<img src={`/${itemData?.image?.imageURL}`} onClick={toggleModal} />}
                     </div>
                     <label>Item Name</label>
                     <div>
@@ -110,7 +109,6 @@ export const EditItem = () => {
                                 <option value="">Category</option>
                                 <option value="weapon">Weapon</option>
                                 <option value="armor">Armor</option>
-                                {/* Add more categories if needed */}
                             </select>
                         </div>
 
@@ -125,8 +123,6 @@ export const EditItem = () => {
                                 <option value="onehanded">Onehanded</option>
                                 <option value="twohanded">Twohanded</option>
                                 <option value="daggers">Daggers</option>
-                                {/* <option value="bow">Bow</option>
-                                <option value="unarmed">Unarmed</option> */}
                             </select>
                         </div>
 
@@ -142,8 +138,6 @@ export const EditItem = () => {
                                 <option value="mace">Mace</option>
                                 <option value="axe">Axe</option>
                                 <option value="dagger">Dagger</option>
-                                {/* <option value="bow">Bow</option>
-                                <option value="fist">Fist</option> */}
                             </select>
                         </div>
                         </div>
@@ -232,44 +226,6 @@ export const EditItem = () => {
                                     />
                             </div>
                         </div>
-                        {/* <div className='stats-col-2'>
-                            <div>
-                                <label>Int:</label>
-                                <input
-                                    type="number"
-                                    name="mod-int"
-                                    value={itemData.int}
-                                    onChange={(event) => {handleChange(event, 'int')}}
-                                    />
-                            </div>
-                            <div>
-                                <label>Wis:</label>
-                                <input
-                                    type="number"
-                                    name="mod-wis"
-                                    value={itemData.wis}
-                                    onChange={(event) => {handleChange(event, 'wis')}}
-                                    />
-                            </div>
-                            <div>
-                                <label>Mys:</label>
-                                <input
-                                    type="number"
-                                    name="mod-mys"
-                                    value={itemData.mys}
-                                    onChange={(event) => {handleChange(event, 'mys')}}
-                                    />
-                            </div>
-                            <div>
-                                <label>Con:</label>
-                                <input
-                                    type="number"
-                                    name="mod-con"
-                                    value={itemData.con}
-                                    onChange={(event) => {handleChange(event, 'con')}}
-                                    />
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 <div className='description-container'>

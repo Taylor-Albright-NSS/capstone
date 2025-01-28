@@ -23,48 +23,8 @@ export const ItemDetails = () => {
             navigate('/allitems')
         })
     }
-    // function flangedMace(monsterLevel) { //tier 4
-    //     let flangedMace = {
-    //         id: () => {
-    //             for (let i = 0; i < 50; i++) {
-    //                 if (!pushItem[i]) {
-    //                     return i
-    //                 }
-    //             }
-    //         },
-    //         roomId: currentArea.id,
-    //         name: 'Flanged Mace',
-    //         picture: 'images/weapons/one handed maces/flanged mace/flanged mace.png',
-    //         color: 'green',
-    //         keywords: ['flanged', 'mace', 'flanged mace'],
-    //         botDamage: randomNumberRange(7, 7),
-    //         topDamage: randomNumberRange(15, 15),
-    //         mods: {
-    //             bluntPen: 0,
-    //             weight: 5,
-    //         },
-    //         type: {
-    //             skillUsed: 'One Handed',
-    //             damageType: `Blunt`,
-    //             weapon: true,
-    //             oneHanded: true,
-    //             mace: true,
-    //         },
-    //         enchantment: [],
-    //         skillUsed: 'oneHanded',
-    //         price: 600,
-    //         sellValue: 80,
-    //         description: `A well crafted flanged mace.`,
-    //         desc: function () {
-    //             itemDescription(this)
-    //         },
-    //         swing: (enemy, weapon) => oneHandedSwing1(enemy, weapon),
-    //         miss: (enemy, weapon) => oneHandedSwing1(enemy, weapon),	
-    //     }
-    //     return flangedMace
-    // }
+    //This is for copying the object as a string to fit the code structure of Galvadia
     function copyToClipboard() {
-        // Define the string you want to copy
         const characterInfo = `function ${item.name}() {
         let ${item.name} = {
                 id:0,
@@ -123,7 +83,8 @@ export const ItemDetails = () => {
             <div className='item-details-main'>
                 <div className='item-details'>
                     <h2>{item?.name}</h2>
-                    <img src={item?.image?.imageURL} />
+                    {console.log(item, " ITEM")}
+                    <img src={`/${item?.image?.imageURL}`} />
                     <div className='item-details-attributes'>
                         {item?.str > 0 && <p>{'Str: ' + item.str}</p>}
                         {item?.dex > 0 && <p>{'Dex: ' + item.dex}</p>}
