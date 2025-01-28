@@ -1,8 +1,16 @@
-# React + Vite
+# Capstone: Galvadia Character Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A support application used to create, store, and test weapons for my game, Galvadia. It's primary use is to help me keep track of every weapon and to adjust weapon damage in-game by testing them in the damage simulator, though, a regular user could find this application useful if they have a character that they want to test weapons out with.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+
+To run this project locally:
+
+
+
