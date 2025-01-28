@@ -11,7 +11,6 @@ export const ItemDetails = () => {
 
     useEffect(() => {
         getSingleItem(itemId).then(singleItem => {
-            console.log(singleItem[0])
             setItem(singleItem[0])
         })
     }, [itemId])
@@ -83,8 +82,7 @@ export const ItemDetails = () => {
             <div className='item-details-main'>
                 <div className='item-details'>
                     <h2>{item?.name}</h2>
-                    {console.log(item, " ITEM")}
-                    <img src={`/${item?.image?.imageURL}`} />
+                    <img src={`${item?.image?.imageURL}`} />
                     <div className='item-details-attributes'>
                         {item?.str > 0 && <p>{'Str: ' + item.str}</p>}
                         {item?.dex > 0 && <p>{'Dex: ' + item.dex}</p>}

@@ -45,14 +45,12 @@
     height: 50%;
     width: 220px;
     margin-top: 2.4rem;
-    /* border: 6px ridge rgb(170, 170, 170); */
     text-align: center;
 }
 
 .armor-sort {
     height: 50%;
     width: 220px;
-    /* border: 6px ridge rgb(170, 170, 170); */
     text-align: center;
 
 }
@@ -75,7 +73,6 @@
     display: flex;
     position: relative;
     width: 90%;
-    /* margin-left: 7rem; */
     background-color: rgba(0, 0, 0, 0.715);
     backdrop-filter: blur(10px);
 }
@@ -105,9 +102,7 @@
     height: 640px;
     max-width: 1400px;
     margin-left: 3.3rem;
-    
-    /* box-sizing: border-box; */
-}
+    }
 
 
 
@@ -137,7 +132,6 @@ li {
     text-align: center;
 }
 .all-items-item div {
-    /* background: black; */
 }
 
 .all-items-item p {
@@ -209,7 +203,6 @@ li {
 }
 
 .attribute-number {
-    /* color: rgb(0, 255, 0); */
     width: 22px;
 }
 
@@ -254,11 +247,11 @@ li {
     }
 
     .item-list-border {
-        max-width: 100%;  /* Make sure it fits the screen */
+        max-width: 100%;
         margin-left: 1rem;
         margin-top: 1rem;
-        border-image-width: 0%; /* Reduce border width */
-        border-image-outset: 20px; /* Adjust for smaller screens */
+        border-image-width: 0%; 
+        border-image-outset: 20px; 
     }
 
     .item-list-border::before {

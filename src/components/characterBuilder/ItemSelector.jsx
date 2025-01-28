@@ -4,10 +4,7 @@ import './ItemSelector.css'
 import { useNavigate } from "react-router-dom"
 
 export const ItemSelector = ({
-    character, characterCopy, setCharacter, setCharacterCopy,equippedItems, 
-    setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStats,
-    setClassStats, raceStats, setRaceStats, classStatsCopy, setClassStatsCopy,
-    raceStatsCopy, setRaceStatsCopy
+        characterCopy, setCharacterCopy, equippedItemsCopy, setEquippedItemsCopy
     }) => {
     const [allItems, setAllItems] = useState([])
     const navigate =  useNavigate()
@@ -56,10 +53,8 @@ export const ItemSelector = ({
     const handleRemoveItem = (item, weaponSlot) => {
         let fist
         if (weaponSlot === 0) {
-            console.log(allItems[0], ' ALL ITEMS 0')
             fist = allItems[0]
         } else {
-            console.log(allItems[1], ' ALL ITEMS 1')
             fist = allItems[1]
         }
         setEquippedItemsCopy({

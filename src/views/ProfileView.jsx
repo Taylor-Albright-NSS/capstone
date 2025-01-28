@@ -1,6 +1,5 @@
 import { CharacterList } from "../components/profile/CharacterList"
 import { CharacterSheet } from "../components/profile/CharacterSheet"
-import { useEffect, useState } from "react"
 import './ProfileView.css'
 
 export const ProfileView = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
@@ -8,8 +7,6 @@ export const ProfileView = ({ currentUser, selectedCharacterId, setSelectedChara
     equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
     setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
  }) => {
-    // const [selectedCharacterId, setSelectedCharacterId] = useState(0)
-
 
     return (
         <div className='profile-view'>

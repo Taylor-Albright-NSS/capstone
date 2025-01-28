@@ -8,8 +8,6 @@ export const MyAccount = ({ currentUser }) => {
     const [isAccountBeingEdited, setIsAccountBeingEdited] = useState(false)
     useEffect(() => {
         getUserById(currentUser).then(user => {
-            console.log(currentUser)
-            console.log(user)
             setUser(user[0])
             setUserEdit(user[0])
         })

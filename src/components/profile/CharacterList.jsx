@@ -1,19 +1,16 @@
 import './CharacterList.css'
 import { getAllUserCharacters, getCharacterById } from '../../services/characterServices'
-import { getAllEquippedItems, getAllEquippedItems2, getAllEquippedItems3 } from '../../services/itemServices'
+import { getAllEquippedItems3 } from '../../services/itemServices'
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
-import { getSingleItem } from '../../services/itemServices'
 import { useState, useEffect } from 'react'
 import { getAllDatabaseCharacters } from '../../services/characterServices'
 import { CreateCharacterModal } from '../common/CreateCharacterModal'
 
-export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
-    setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
-    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
-    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
+export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCharacterId,
+    character, setCharacterCopy, setEquippedItemsCopy,
+    setClassStatsCopy, setRaceStatsCopy
  }) => {
     const [characterList, setCharacterList] = useState([])
-    const [testGear, setTestGear] = useState({})
     const [newCharacterId, setNewCharacterId] = useState(0)
     const [allDatabaseCharacters, setAllDatabaseCharacters] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -41,7 +38,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
 
 
     const handleCreateCharacter = async () => {
-        console.log(characterList)
         if (characterList.length >= 10) {
             window.alert("You cannot create any more characters!")
             return
@@ -111,13 +107,11 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             setRaceStatsCopy({...stats[0].raceStats})
         })
         getAllEquippedItems3(character.id).then(equipmentArray => {
-            console.log(equipmentArray)
             setEquippedItemsCopy(equipmentArray)
         })
     }
 
     const initializeCharacter = async (character) => {
-        console.log(character)
         setSelectedCharacterId(character.id)
         getCharacterById(character.id).then(userCharacter => {
             setCharacterCopy({...userCharacter[0]})
@@ -127,7 +121,6 @@ export const CharacterList = ({ currentUser, selectedCharacterId, setSelectedCha
             setRaceStatsCopy({...stats[0].raceStats})
         })
         getAllEquippedItems3(character.id).then(equipmentArray => {
-            console.log(equipmentArray)
             setEquippedItemsCopy(equipmentArray)
         })
     }

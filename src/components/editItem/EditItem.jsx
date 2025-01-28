@@ -17,14 +17,12 @@ export const EditItem = () => {
     const location = useLocation()
 
     useEffect(() => {
-        console.log(itemId, ' ITEM ID')
         getSingleItem(itemId).then(singleItem => {
             setItemData(singleItem[0])
         })
     }, [])
 
     useEffect(() => {
-        console.log(itemData, ' ITEM DATA FROM EDIT ITEM COMPONENT')
     }, [itemData])
 
     const handleSubmit = (event) => {
@@ -45,7 +43,6 @@ export const EditItem = () => {
         }
     }
     const handleChange = (event, propToChange) => {
-        console.log(event.target.value)
         let copy = {...itemData}
         let newValue = event.target.value
         if (event.target.type === 'checkbox') {
@@ -84,7 +81,7 @@ export const EditItem = () => {
             <h2>Edit Item</h2>
             <div className='first-container'>
                     <div className='select-image-container'>
-                        {<img src={`/${itemData?.image?.imageURL}`} onClick={toggleModal} />}
+                        {<img src={`${itemData?.image?.imageURL}`} onClick={toggleModal} />}
                     </div>
                     <label>Item Name</label>
                     <div>

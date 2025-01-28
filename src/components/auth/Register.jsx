@@ -29,8 +29,6 @@ export const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault()
     getUserByEmailAndPassword(user.userName, user.password).then((response) => {
-      console.log(user.email, user.password)
-      console.log(response)
       if (response.length > 0) {
         window.alert("Username already exists")
       } else {

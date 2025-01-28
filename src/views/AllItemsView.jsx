@@ -1,14 +1,11 @@
 import './AllItemsView.css'
 import { useState, useEffect } from 'react'
 import { getAllItemsWithImages } from '../services/itemServices'
-import { getAllItems } from '../services/itemServices'
 import { useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
-import { getAllEquippedItems2 } from '../services/itemServices'
 
 
-export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquippedItemsCopy }) => {
+export const AllItemsView = ({ equippedItemsCopy, setEquippedItemsCopy }) => {
     const [allItems, setAllItems] = useState([])
     const [displayedItems, setDisplayedItems]  = useState([])
     const location = useLocation();
@@ -37,8 +34,6 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
             element.classList.remove('selected')
         })
         event.target.classList.add('selected')
-        console.log(allItems)
-        console.log(displayedItems)
         if (!weaponType) {
             setDisplayedItems(allItems)
         } else {
@@ -61,12 +56,6 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
 
         }
         for (const item in equippedItemsCopy) {
-            console.log(equippedItemsCopy)
-            console.log(item)
-            console.log(equippedItemsCopy[item].item)
-            console.log(equippedItemsCopy[item].item.id)
-            console.log(itemId)
-            console.log(allItems)
             if (equippedItemsCopy[item].item.id === itemId) {
                 delete equippedItemsCopy[item].item
                 setEquippedItemsCopy(
@@ -92,15 +81,6 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                     <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'daggers')}}>Daggers</li>
                     </ul>
                 </div>
-                {/* <div className='armor-sort'>
-                    <h2>Armor</h2>
-                    <ul>
-                    <li className='sort-on-click' onClick={(event) => {sortWeapons(event)}}>All Armor</li>
-                    <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'plate')}}>Plate</li>
-                    <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'leather')}}>Leather</li>
-                    <li className='sort-on-click' onClick={(event) => {sortWeapons(event, 'cloth')}}>Cloth</li>
-                    </ul>
-                </div> */}
             </div>
             <div className='item-list-border'>
                 <div className='item-list col-11'>
@@ -122,10 +102,6 @@ export const AllItemsView = ({ selectedCharacterId, equippedItemsCopy, setEquipp
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className='buttons-container'>
-                                    <button className='edit-button' onClick={() => {navigate(`/allitems/edititem/${item.id}`)}}>Edit</button>
-                                    <button className='delete-button' onClick={() => {handleDelete(item.id)}}>Delete</button>
-                                </div> */}
                             </div>
                         )
                     }

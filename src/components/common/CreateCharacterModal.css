@@ -9,7 +9,6 @@
     align-items: center;
   }
   
-  /* Modal content box */
   .create-character-modal-content {
     background-color: rgb(0, 0, 0);
     border-radius: 8px;
@@ -18,7 +17,6 @@
     align-items: center;
   }
   
-  /* Close button */
   .close-button {
     position: absolute;
     top: 10px;

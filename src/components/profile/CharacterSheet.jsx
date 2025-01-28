@@ -1,17 +1,14 @@
 import './CharacterSheet.css'
-import { getCharacterById, getEquippedWeapons, getAllUserCharacters } from "../../services/characterServices"
-import { useState, useEffect } from "react"
+import { getCharacterById } from "../../services/characterServices"
+import { useEffect } from "react"
 import { getAllEquippedItems, getSingleItem } from '../../services/itemServices'
 import { getCharacterClassAndRaceStats } from '../../services/statsServices'
-import { Navigate, useNavigate } from 'react-router-dom'
 
-export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCharacterId, classStats,
-    setClassStats, raceStats, setRaceStats, character, setCharacter, characterCopy, setCharacterCopy,
-    equippedItems, setEquippedItems, equippedItemsCopy, setEquippedItemsCopy, classStatsCopy,
-    setClassStatsCopy, raceStatsCopy, setRaceStatsCopy
+export const CharacterSheet = ({ selectedCharacterId, classStats,
+    setClassStats, raceStats, setRaceStats, character, setCharacter,
+    equippedItems, setEquippedItems, 
+    
  }) => {
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         getCharacterById(selectedCharacterId).then(userCharacter => {
@@ -22,13 +19,11 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     useEffect(() => {
         const fetchEquippedItems = async () => {
             const equipmentArray = await getAllEquippedItems(selectedCharacterId);
-            console.log(equipmentArray)
             const updatedEquipmentArray = await Promise.all(equipmentArray.map(async (item) => {
                 const singleItemArray = await getSingleItem(item.itemId);
                 item.item = singleItemArray[0];
                 return item
             }));
-            console.log(updatedEquipmentArray)
             setEquippedItems(updatedEquipmentArray)
         };
     
@@ -52,7 +47,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             agi: 0
         }
         weapons.forEach(item => {
-            console.log(item, ' ITEM')
             if (item.item.str != null) {statsObject.str += item.item.str}
             if (item.item.dex != null) {statsObject.dex += item.item.dex}
             if (item.item.agi != null) {statsObject.agi += item.item.agi}
@@ -79,7 +73,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         stats.forEach(stat => {
             totalStatsObject[stat] = equipmentStats[stat] + cStats[stat] + rStats[stat] + incrementedStats[stat]
         })
-        console.log(totalStatsObject)
         return totalStatsObject
     }
     const totalStats = calculateTotalStats()
@@ -90,8 +83,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
         }
         let damageObject = {}
         let weapons = equippedItems.filter(item => item?.item?.slotId === 'weapon')
-        console.log(equippedItems)
-        console.log(weapons)
         if (character.weaponTypeEquipped === 'onehanded') {
             let topMultiplier = 0.15 + character.oneHanded / 20
             let botMultiplier = 0.15 + character.oneHanded / 20
@@ -143,7 +134,6 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
         }
-        console.log(damageObject, ' DAMAGE OBJECT')
         return damageObject
     }
 
@@ -175,11 +165,9 @@ export const CharacterSheet = ({ currentUser, selectedCharacterId, setSelectedCh
     }
 
     const displayWeapon1 = () => {
-        // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
             return weaponInformation(equippedItems[0])
     }
     const displayWeapon2 = () => {
-        // let weapons = equippedItems.filter(item => item.item.slotId === 'weapon')
         if (equippedItems[1]) {
             return weaponInformation(equippedItems[1])
         } else {
