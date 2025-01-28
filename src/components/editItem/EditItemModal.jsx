@@ -1,5 +1,5 @@
-import './EditItemModal.css'; // Optional: CSS for styling the modal
-import { ImageSelector } from '../common/ImageSelector';
+import './EditItemModal.css'
+import { ImageSelector } from '../common/ImageSelector'
 export const EditItemModal = ({ onClose, itemData, setItemData }) => {
   return (
     <div className="edit-item-modal-overlay" onClick={onClose}>

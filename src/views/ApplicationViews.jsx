@@ -29,7 +29,6 @@ export const ApplicationViews = () => {
         const parsedCurrentUser = JSON.parse(currentUserObj)
         const currentUserId = parseInt(parsedCurrentUser.id)
         setCurrentUser(currentUserId)
-        console.log(selectedCharacterId, ' selected character ID should be 0')
         }, [])
 
     return (
@@ -95,10 +94,6 @@ export const ApplicationViews = () => {
                 <Route path="myaccount/" element={<MyAccount currentUser={currentUser}/>} />
                 <Route path="/" element={<Home />} />
 0
-                {/* <Route path="/retailers">
-                    <Route index element={<RetailersList/>} />
-                    <Route path=":retailerId" element={<RetailerDetails currentUser={currentUser} setShoppingCart={setShoppingCart} shoppingCart={shoppingCart}/>}/>
-                </Route> */}
             </Route>
         </Routes>
     )  

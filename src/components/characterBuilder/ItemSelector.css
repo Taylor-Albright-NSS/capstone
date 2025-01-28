@@ -34,12 +34,12 @@
 
 .scroll-window {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    align-content: flex-start; /* Align wrapped lines to the top */
-    height: 100%; /* Set a fixed height for the container */
+    flex-wrap: wrap; 
+    align-content: flex-start;
+    height: 100%; 
     width: 100%;
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto; 
+    overflow-x: hidden; 
     word-wrap: break-word;
     white-space: normal;
     padding: 2rem;
@@ -132,7 +132,6 @@
     font-size: 8px;
     margin-bottom: 0.3rem;
     align-items: center;
-    /* transform: translateY(-80px); */
 }
 
 .equip-twohanded-buttons {
@@ -152,15 +151,6 @@
     margin-bottom: 0.3rem;
 }
   
-
-  /* @media (max-width: 1317px) {
-     .equipment {
-        width: 33% !important;
-     }
-  } */
-
-
-
 @media (max-width: 1116px) {
     .item-selector-equipment {
         width: 50% !important;

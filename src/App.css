@@ -1,6 +1,5 @@
 #root {
   margin: 0 auto;
-  /* border: 4px ridge rgb(232, 182, 31); */
   background-color: rgb(29, 29, 29);
   background: url('assets/backgrounds/Galvadia Background Upscale.png');
   background-repeat: no-repeat;
@@ -26,7 +25,6 @@
 
 @keyframes logo-spin {
   from {
-    /* transform: rotate(0deg); */
   }
   to {
     transform: rotate(-6000deg);

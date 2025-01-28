@@ -13,6 +13,13 @@
       "email": "test@gmail.com",
       "password": "password",
       "id": 2
+    },
+    {
+      "name": "a",
+      "userName": "a",
+      "email": "a@gmail.com",
+      "password": "password",
+      "id": 3
     }
   ],
   "characters": [

@@ -135,7 +135,7 @@
     font-family: sans-serif;
     z-index: 1000;
     opacity: 1;
-    transition: opacity .5s ease; /* Fade out over 0.5 seconds */
+    transition: opacity .5s ease; 
 }
 .fade-out {
     opacity: 0;
@@ -144,14 +144,12 @@
 .equipment {
     display: flex;
     flex-direction: column;
-    /* width: 100px; */
     height: 150px;
 }
 
 .equipped-item {
     display: flex;
     flex-direction: column;
-    /* width: 100px; */
     height: 210px;
     min-width: 210px; 
     justify-content: flex-start;
@@ -246,7 +244,6 @@
 
     .builders {
         display: flex;
-        /* flex-direction: row; */
         width: 100%;
     }
     .d-flex {
@@ -277,10 +274,6 @@
     .weapon-skill-row p {
         font-size: 10px;
     }
-    /* .equipment {
-        min-width: 160px;
-        min-height: 230px;
-    } */
      .scroll-window .equipment {
         min-width: 50%;
      }

@@ -9,7 +9,6 @@
     z-index: 1000;
   }
   
-  /* Modal content box */
   .edit-item-modal-content {
     background-color: white;
     border-radius: 8px;
@@ -20,7 +19,6 @@
     align-items: center;
   }
   
-  /* Close button */
   .edit-item-close-button {
     position: absolute;
     top: 10px;

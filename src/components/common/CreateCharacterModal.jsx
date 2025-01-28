@@ -1,10 +1,9 @@
 import './CreateCharacterModal.css'; // Optional: CSS for styling the modal
 import { useState } from 'react';
-import { getAllDatabaseCharacters } from '../../services/characterServices';
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacterId, currentUser, toggleModal, handleCreateCharacter, itemData, setItemData }) => {
+export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacterId, currentUser, toggleModal }) => {
     const [newCharacter, setNewCharacter] = useState(
         {
             userId: currentUser,
@@ -93,7 +92,6 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
     const handleClassSelect = (e) => {
         let copy = {...newCharacter}
         const characterClass = e?.target.value
-        console.log(characterClass, ' CHARACTER CLASS')
         if (characterClass === 'Select Class' || characterClass === undefined) {
             copy.characterClass = 'none'
             copy.classStatsId = 1
@@ -127,7 +125,6 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
     const handleRaceSelect = (e) => {
         let copy = {...newCharacter}
         const characterRace = e?.target.value
-        console.log(characterRace)
         if (characterRace === 'Select Race' || characterRace === undefined) {
             copy.characterRace = 'none'
             copy.raceStatsId = 1
@@ -205,6 +202,6 @@ export const CreateCharacterModal = ({ initializeCharacter, setSelectedCharacter
             </form>
       </div>
     </div>,
-        document.getElementById('modal-root') // The target DOM node for the portal
+        document.getElementById('modal-root')
   );
 }

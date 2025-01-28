@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react"
-import { getCharacterById } from "../../services/characterServices"
-import { getEquippedWeapons } from "../../services/characterServices"
-import { getAllEquippedItems } from "../../services/itemServices"
-import { CharacterSheet } from "../profile/CharacterSheet"
 import { getCharacterClassAndRaceStats } from "../../services/statsServices"
 import { getSingleItem } from "../../services/itemServices"
-import { getAllEquippedItems3 } from "../../services/itemServices"
 import './CharacterBuilder.css'
 
 export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelectedCharacterId, character, 
@@ -39,12 +34,6 @@ export const CharacterBuilder = ({ currentUser, selectedCharacterId, setSelected
         }
     }, [classStats, raceStats, equippedItemsCopy])
 
-    // useEffect(() => {
-    //     getAllEquippedItems3(selectedCharacterId).then(equipmentArray => {
-    //         setEquippedItemsCopy(equipmentArray)
-    //     })
-    // }, [])
-
     useEffect(() => {
         getCharacterClassAndRaceStats(selectedCharacterId).then(stats => {
         })    
@@ -59,14 +48,12 @@ const totalStatsFromGear = () => {
     }
     for (const itemSlot in equippedItemsCopy) {
         let checkedEquipment = equippedItemsCopy[itemSlot]
-        console.log(checkedEquipment.item)
         for (const stat in checkedEquipment.item) {
             if (stat === 'str') {statsObject.str += checkedEquipment.item[stat]}
             if (stat === 'dex') {statsObject.dex += checkedEquipment.item[stat]}
             if (stat === 'agi') {statsObject.agi += checkedEquipment.item[stat]}
         }
     }
-    console.log(statsObject)
     return statsObject
 }
 
@@ -88,7 +75,6 @@ const calculateTotalStats = () => {
     stats.forEach(stat => {
         totalStatsObject[stat] = equipmentStats[stat] + cStats[stat] + rStats[stat] + incrementedStats[stat]
     })
-    console.log(totalStatsObject)
     return totalStatsObject
 }
 const totalStats = calculateTotalStats()
@@ -101,7 +87,6 @@ const totalStats = calculateTotalStats()
             dex: classStatsCopy.dex + raceStatsCopy.dex ,
             agi: classStatsCopy.agi + raceStatsCopy.agi 
         }
-        console.log(statsObject)
         return statsObject
     }
     const totalStatsFromClassAndRaceAndGear = () => {
@@ -110,13 +95,11 @@ const totalStats = calculateTotalStats()
             dex: classStatsCopy.dex + raceStatsCopy.dex + totalStatsFromGear().dex,
             agi: classStatsCopy.agi + raceStatsCopy.agi + totalStatsFromGear().agi
         }
-        console.log(statsObject)
         return statsObject
     }
 
     const calculateDamageObject = () => {
         const totalStats = calculateTotalStats()
-        console.log(totalStats)
         if (!characterCopy) {
             return
         }
@@ -127,8 +110,6 @@ const totalStats = calculateTotalStats()
 
         let slot1 = equippedItemsCopy[0]
         let slot2 = equippedItemsCopy[1]
-        console.log(slot1)
-        console.log(slot2)
 
         if (characterCopy.weaponTypeEquipped === 'onehanded') {
             let topMultiplier = 0.15 + characterCopy.oneHanded / 20
@@ -144,7 +125,6 @@ const totalStats = calculateTotalStats()
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
-            console.log(damageObject)
         }
         if (characterCopy.weaponTypeEquipped === 'twohanded') {
             let topMultiplier = 0.15 + characterCopy.twoHanded / 20
@@ -160,7 +140,6 @@ const totalStats = calculateTotalStats()
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0)).toFixed(0))
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(0))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
-            console.log(damageObject)
 
         }
         if (characterCopy.weaponTypeEquipped === 'daggers') {
@@ -179,16 +158,12 @@ const totalStats = calculateTotalStats()
             damageObject.totalDamageTop = parseFloat(((damageObject.topDamage1 || 0) + (damageObject.topDamage2 || 0)).toFixed(2))
             damageObject.totalAverageDamage = parseFloat(((damageObject.totalDamageBot + damageObject.totalDamageTop) / 2).toFixed(2))
             damageObject.totalDps = parseFloat((damageObject.totalAverageDamage / damageObject.speed).toFixed(1))
-            console.log(damageObject)
-
         }
-        console.log(damageObject)
         return damageObject
     }
 
     const totalDamages = () => {
         let damageObject = calculateDamageObject()
-        console.log(damageObject)
         return (
             <div className='total-damages'>
                 <h5>Damage Range</h5>
@@ -212,7 +187,7 @@ const totalStats = calculateTotalStats()
         document.body.appendChild(warningMessage);
         setTimeout(() => {
             warningMessage.classList.add('fade-out');
-        }, 1500); // Wait 1.5 seconds before starting fade out
+        }, 1500); 
         setTimeout(() => {
             setShowMessage(false)
             document.body.removeChild(warningMessage);
@@ -240,27 +215,22 @@ const totalStats = calculateTotalStats()
     }
 
     const handleClassSelect = (e) => {
-        console.log(character)
         const characterClass = e?.target.value ? e.target.value : character.class
         if (characterClass === 'none' || characterClass === undefined) {
             setClassStatsCopy({str: 0, dex: 0, agi: 0, characterClass: 'none'})
             setCharacterCopy({...characterCopy, classStatsId: 1, class: 'none'})
-            // setCharacterCopy({...characterCopy, class: 'none', classStatsId: 0})
         }
         if (characterClass === 'berserker') {
             setClassStatsCopy({str: 10, dex: 0, agi: 0, characterClass: 'berserker'})
             setCharacterCopy({...characterCopy, classStatsId: 2, class: 'berserker'})
-            // setCharacterCopy({...characterCopy, class: 'berserker', classStatsId: 1})
         }
         if (characterClass === 'fighter') {
             setClassStatsCopy({str: 5, dex: 5, agi: 0, characterClass: 'fighter'})
             setCharacterCopy({...characterCopy, classStatsId: 3, class: 'fighter'})
-            // setCharacterCopy({...characterCopy, class: 'fighter', classStatsId: 2})
         }
         if (characterClass === 'assassin') {
             setClassStatsCopy({str: 0, dex: 5, agi: 5, characterClass: 'assassin'})
             setCharacterCopy({...characterCopy, classStatsId: 4, class: 'assassin'})
-            // setCharacterCopy({...characterCopy, class: 'assassin', classStatsId: 3})
         }
     }
 
@@ -289,13 +259,11 @@ const totalStats = calculateTotalStats()
     }
 
     const handleSaveCharacter = async () => {
-        // Create a new array to hold the updated items
         const updatedItems = {...equippedItemsCopy};
         let saveCheck = confirm('Are you sure you wish to save these changes?')
         if (!saveCheck) {return}
         for (const index in equippedItemsCopy) {
             const item = { ...equippedItemsCopy[index] };
-            console.log(item);
             item.characterId = selectedCharacterId;
             item.itemId = item.item.id;
             item.slotId = item.item.slotId;
@@ -313,7 +281,6 @@ const totalStats = calculateTotalStats()
                     body: JSON.stringify(item),
                 })
             } else {
-                console.log('POST POST POST POST');
                 const newItemResponse = await fetch(`http://localhost:8088/character_items/`, {
                     method: "POST",
                     headers: {
@@ -338,9 +305,7 @@ const totalStats = calculateTotalStats()
     const getImage = (index) => {
         let item = equippedItemsCopy[index]
         getSingleItem(item.id).then(newItem => {
-            console.log(newItem, ' NEW ITEM')   
             let imageUrl = newItem[0].image.imageURL
-            console.log(imageUrl, ' IMAGE URL')
             return imageUrl
         })
     }
@@ -418,12 +383,9 @@ const totalStats = calculateTotalStats()
             </div>
             <div className='col-12'>
             <div className='item-container'>
-            {console.log(equippedItemsCopy)}
                 {equippedItemsCopy[0]?.item ?
                 <div className='equipped-item col-3'>
-                    {console.log(equippedItemsCopy)}
                     <h6>{equippedItemsCopy[0].item.name}</h6>
-                    {console.log(equippedItemsCopy)}
                     <img src={equippedItemsCopy[0]?.item?.image?.imageURL} />
                     <p>Damage: {equippedItemsCopy[0].item.botDamage + ' - ' + equippedItemsCopy[0].item.topDamage}</p>
                     <div className='equipped-item-attributes'>

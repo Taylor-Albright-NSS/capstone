@@ -26,14 +26,14 @@
 }
 
 .character-list ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-    text-align: center; /* Center the list items */
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+    text-align: center; 
 }
 
 .character-list li {
-    text-align: center; /* Center the text within each list item */
+    text-align: center; 
     cursor: pointer;
 }
 

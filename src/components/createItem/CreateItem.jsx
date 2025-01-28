@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { getSingleItem } from "../../services/itemServices"
 import { ImageSelector } from "../common/ImageSelector"
-// import { ImageSelectModal } from '../common/ImageSelectModal'
 import './CreateItem.css'
 
 export const CreateItem = () => {
@@ -11,7 +9,6 @@ export const CreateItem = () => {
         {color: "rgb(0, 255, 0)", name:'', str: 0, dex: 0, agi: 0, int: 0, wis: 0, mys: 0, con: 0,
             topDamage: 0, botDamage: 0, slotId: 'weapon', imageId: 0, image: {
                 id: 0,
-                // imageURL: "/assets/backgrounds/item background 2.png",
              }
         }
     )
@@ -20,7 +17,6 @@ export const CreateItem = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const openModal = () => setIsModalOpen(!isModalOpen)
-    const closeModal = () => setIsModalOpen(false)
 
     const navigate = useNavigate()
 
@@ -44,7 +40,6 @@ export const CreateItem = () => {
     }
 
     const handleChange = (event, propToChange) => {
-        console.log(event.target.value)
         let copy = {...itemData}
         let newValue = event.target.value
         if (event.target.type === 'checkbox') {
@@ -69,11 +64,6 @@ export const CreateItem = () => {
         copy[propToChange] = event.target.value
         setItemData(copy)
     }
-
-    const handleSelectIconToggle = () => {
-        setShowImageSelector(!showImageSelector)
-    }
-
 
     return (
         <div className='edit-item-main'>
@@ -109,8 +99,7 @@ export const CreateItem = () => {
                                     >
                                         <option value="">Category</option>
                                         <option value="weapon">Weapon</option>
-                                        {/* <option value="armor">Armor</option> */}
-                                        {/* Add more categories if needed */}
+
                                     </select>
                                 </div>
 
@@ -126,9 +115,7 @@ export const CreateItem = () => {
                                         <option value="onehanded">One-Handed</option>
                                         <option value="twohanded">Two-Handed</option>
                                         <option value="daggers">Daggers</option>
-                                        {/* <option value="daggers">Daggers</option>
-                                        <option value="bows">Bows</option>
-                                        <option value="unarmed">Unarmed</option> */}
+
                                     </select>
                                 </div>
 
@@ -145,9 +132,7 @@ export const CreateItem = () => {
                                         <option value="mace">Mace</option>
                                         <option value="axe">Axe</option>
                                         <option value="dagger">Dagger</option>
-                                        {/* <option value="dagger">Dagger</option>
-                                        <option value="bow">Bow</option>
-                                        <option value="fist">Fist</option> */}
+
                                     </select>
                                 </div>
                                 </div>
@@ -241,44 +226,6 @@ export const CreateItem = () => {
                                         />
                                 </div>
                             </div>
-                            {/* <div className='stats-col-2'>
-                                <div>
-                                    <label>Int:</label>
-                                    <input
-                                        type="number"
-                                        name="mod-int"
-                                        value={itemData.int}
-                                        onChange={(event) => {handleChange(event, 'int')}}
-                                        />
-                                </div>
-                                <div>
-                                    <label>Wis:</label>
-                                    <input
-                                        type="number"
-                                        name="mod-wis"
-                                        value={itemData.wis}
-                                        onChange={(event) => {handleChange(event, 'wis')}}
-                                        />
-                                </div>
-                                <div>
-                                    <label>Mys:</label>
-                                    <input
-                                        type="number"
-                                        name="mod-mys"
-                                        value={itemData.mys}
-                                        onChange={(event) => {handleChange(event, 'mys')}}
-                                        />
-                                </div>
-                                <div>
-                                    <label>Con:</label>
-                                    <input
-                                        type="number"
-                                        name="mod-con"
-                                        value={itemData.con}
-                                        onChange={(event) => {handleChange(event, 'con')}}
-                                        />
-                                </div>
-                            </div> */}
                         </div>
                         
                     </div>
@@ -298,9 +245,6 @@ export const CreateItem = () => {
                     }}>Go Back</button>
                 </div>
             </form>
-{/* 
-            <div className='image-select-window'>
-            </div> */}
         </div>
     );
 }

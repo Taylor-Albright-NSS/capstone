@@ -3,12 +3,10 @@ import { getAllImages } from "../../services/imageServices"
 import './ImageSelector.css'
 
 export const ImageSelector = ({ itemData, setItemData }) => {
-    console.log(itemData)
     const [images, setImages] = useState()
     useEffect(() => {
         getAllImages().then(allImages => {
             setImages(allImages)
-            console.log(allImages)
         })
     }, [])
 
@@ -17,7 +15,6 @@ export const ImageSelector = ({ itemData, setItemData }) => {
         selectedImages.forEach(imageElement => {
             imageElement.classList.remove('selected')
         })
-        console.log(event)
         event.target.classList.add('selected')
         setItemData({...itemData,
             imageId: image.id,
@@ -36,7 +33,7 @@ export const ImageSelector = ({ itemData, setItemData }) => {
                     onClick={(event) => {handleImageSelect(event, image)}} 
                     key={image.key} 
                     className='image' 
-                    src={`/${image.imageURL}`} />
+                    src={`${image.imageURL}`} />
                 )
             }) : ''}
         </div>
