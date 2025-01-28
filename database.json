@@ -6,16 +6,23 @@
       "email": "a@gmail.com",
       "password": "a",
       "id": 1
+    },
+    {
+      "name": "test",
+      "userName": "test",
+      "email": "test@gmail.com",
+      "password": "password",
+      "id": 2
     }
   ],
   "characters": [
     {
       "userId": 1,
-      "classStatsId": 1,
-      "raceStatsId": 1,
-      "name": "Assassin",
-      "race": "",
-      "class": "",
+      "classStatsId": 2,
+      "raceStatsId": 2,
+      "name": "Velthash",
+      "race": "human",
+      "class": "berserker",
       "weaponTypeEquipped": "onehanded",
       "oneHanded": 1,
       "twoHanded": 1,
@@ -27,27 +34,9 @@
       "attackPower": 0,
       "weaponSlot1": null,
       "weaponSlot2": null,
+      "characterClass": "berserker",
+      "characterRace": "human",
       "id": 1
-    },
-    {
-      "userId": 1,
-      "classStatsId": 1,
-      "raceStatsId": 1,
-      "name": "Assassin 2",
-      "race": "",
-      "class": "",
-      "weaponTypeEquipped": "onehanded",
-      "oneHanded": 1,
-      "twoHanded": 1,
-      "daggers": 1,
-      "unarmed": 1,
-      "str": 0,
-      "dex": 0,
-      "agi": 0,
-      "attackPower": 0,
-      "weaponSlot1": null,
-      "weaponSlot2": null,
-      "id": 2
     }
   ],
   "items": [
@@ -348,18 +337,6 @@
       "itemId": 2,
       "slotId": "weapon",
       "id": 2
-    },
-    {
-      "characterId": 2,
-      "itemId": 1,
-      "slotId": "weapon",
-      "id": 3
-    },
-    {
-      "characterId": 2,
-      "itemId": 2,
-      "slotId": "weapon",
-      "id": 4
     }
   ],
   "images": [
