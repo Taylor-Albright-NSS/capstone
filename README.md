@@ -35,7 +35,9 @@ To run this project locally:
    - **Attack Power**: The main number used in calculating damage value. Str, Dex, and Agi all factor into the damage value, but differ depending on your weapon skill being used (highlighted in green).
    - **Swing Speed**: This reflects your actual swing time in-game. It doesn't play a factor in your raw damage value, but it does affect your DPS.
    - **Weapon Skill**: Your weapon skill is automatically chosen based on the weapon type you have equipped (it's impossible to use a mix of weapon skills and weapon types, i.e., wielding a dagger will ALWAYS utilize your Daggers skill, wielding a onehanded weapon will ALWAYS utilize your onehanded weapon skill, etc).
-
+   - **Save**: You can save your character's weapon configuration and stat adjustments. When you go back to the profile view, you will see the adjusted changes.
+4. **Profile**
+   - This is where you can create a character to reflect your in-game character in order to get an accurate representation of your damage output when testing weapons in the Character Builder view. You will also see a clean view of your selected character's stats, and you can also create new characters and delete existing ones.
 
 
 
