@@ -25,7 +25,7 @@ To run this project locally:
 
 1. **All Items**
 
-   <img src="assets/images/home_view.png" alt="all items view" width="400" />
+   <img src="assets/screenshots/home_view.png" alt="all items view" width="400" />
 
    - You can view all created items on this page
    - Clicking on an item will take you to its details view
