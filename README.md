@@ -7,7 +7,7 @@ Galvadia Character Builder is a support application used to create, store, and t
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [Technologies Used](#technologies-used)
+- [Technologies](#technologies)
 
 ## Installation
 
@@ -20,7 +20,7 @@ To run this project locally:
 6. Ctrl + click (for Windows) or copy the localhost server link from the terminal and paste into your browser (default url is http://localhost:5173/)
 7. Good to go!
 
-## Features / How To Use
+## Features
 
 ### Main Views:
 
@@ -71,6 +71,6 @@ To run this project locally:
    - This is where you can create a character to reflect your in-game character in order to get an accurate representation of your damage output when testing weapons in the Character Builder view. You will also see a clean view of your selected character's stats, and you can also create new characters and delete existing ones.
 
 
-
+## Technologies
 
 
