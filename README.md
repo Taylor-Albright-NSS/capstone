@@ -15,9 +15,9 @@ To run this project locally:
 1. Clone the repository
 2. Cd into the capstone directory
 3. Run `npm install` to install dependencies
-4. To start the json-server, enter the command `json-server --watch -p 8088 database.json`. Be sure you are in the directory with the database.json file when running this command.
+4. To start the json-server, enter the command `json-server --watch -p 8088 database.json`. Be sure you are in the directory with the database.json file when running this command
 5. To start the Vite development server, cd into the src folder and enter the command `npm run dev`
-6. Ctrl + click (for Windows) or copy the localhost server link from the terminal and paste into your browser (default url is http://localhost:5173/).
+6. Ctrl + click (for Windows) or copy the localhost server link from the terminal and paste into your browser (default url is http://localhost:5173/)
 7. Good to go!
 
 ## Features / How To Use
@@ -31,7 +31,14 @@ To run this project locally:
 
    - You can view all created items on this page
    - Clicking on an item will take you to its details view
-   - An item's details view will allow you to edit or delete the item
+
+2. **Item Details**
+
+
+<img src="assets/screenshots/item_details_view.png" alt="item details view" width="400" />
+
+   - An item's details view will give you a closer view of the item
+   - This view will also allow you to edit or delete the item
      
 3. **Create Item**
 
@@ -51,7 +58,12 @@ To run this project locally:
    - **Swing Speed**: This reflects your actual swing time in-game. It doesn't play a factor in your raw damage value, but it does affect your DPS.
    - **Weapon Skill**: Your weapon skill is automatically chosen based on the weapon type you have equipped (it's impossible to use a mix of weapon skills and weapon types, i.e., wielding a dagger will ALWAYS utilize your Daggers skill, wielding a onehanded weapon will ALWAYS utilize your onehanded weapon skill, etc).
    - **Save**: You can save your character's weapon configuration and stat adjustments. When you go back to the profile view, you will see the adjusted changes.
+     
 5. **Profile**
+
+
+<img src="assets/screenshots/profile_view.png" alt="profile view" width="400" />
+
    - This is where you can create a character to reflect your in-game character in order to get an accurate representation of your damage output when testing weapons in the Character Builder view. You will also see a clean view of your selected character's stats, and you can also create new characters and delete existing ones.
 
 
