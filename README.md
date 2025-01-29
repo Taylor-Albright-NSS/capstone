@@ -36,7 +36,7 @@ To run this project locally:
 3. **Create Item**
 
 
-<img src="assets/screenshots/create_item_view.png" alt="create item view" width="400" />
+<img src="assets/screenshots/edit_item_view.png" alt="create/edit item view" width="400" />
 
    - You can create an item on this page by assigning it whatever values you'd like. To select a picture, click the image box at the top to open the image selector
      
