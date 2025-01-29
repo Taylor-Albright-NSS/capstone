@@ -31,7 +31,7 @@ export const ImageSelector = ({ itemData, setItemData }) => {
                 return (
                     <img 
                     onClick={(event) => {handleImageSelect(event, image)}} 
-                    key={image.key} 
+                    key={image.id} 
                     className='image' 
                     src={`${image.imageURL}`} />
                 )

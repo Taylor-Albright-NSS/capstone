@@ -1,7 +1,7 @@
 .images-main {
     display: flex;
     flex-direction: row;
-    width: 421px;
+    width: 422px;
     height: 700px;
     border: 2px solid grey;
     flex-wrap: wrap;
