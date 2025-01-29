@@ -5,7 +5,6 @@ Galvadia Character Builder is a support application used to create, store, and t
 
 ## Table of Contents
 - [Installation](#installation)
-- [Usage](#usage)
 - [Features](#features)
 - [Technologies](#technologies)
 
@@ -73,4 +72,10 @@ To run this project locally:
 
 ## Technologies
 
+### Languages
+1. JavaScript
+2. CSS (custom CSS only)
+
+### Frameworks
+1. React
 
