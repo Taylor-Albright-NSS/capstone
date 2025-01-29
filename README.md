@@ -24,7 +24,7 @@ To run this project locally:
 
 ### Main Views:
 
-1. **All Items**
+1. #### All Items
 
 
 <img src="assets/screenshots/all_items_view.png" alt="all items view" width="400" />
